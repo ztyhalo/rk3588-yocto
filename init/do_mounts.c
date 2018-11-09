@@ -423,12 +423,13 @@ out:
 	return ret;
 }
 
-void __init mount_block_root(char *name, int flags)
+void __init mount_block_root(char *name, int mountflags)
 {
 	struct page *page = alloc_page(GFP_KERNEL);
 	char *fs_names = page_address(page);
 	char *p;
 	char b[BDEVNAME_SIZE];
+	int flags = mountflags;
 
 	scnprintf(b, BDEVNAME_SIZE, "unknown-block(%u,%u)",
 		  MAJOR(ROOT_DEV), MINOR(ROOT_DEV));
@@ -461,6 +462,15 @@ retry:
 	}
 	if (!(flags & SB_RDONLY)) {
 		flags |= SB_RDONLY;
+		goto retry;
+	}
+
+	/* Retry all filesystems when failed to mount with specified ones */
+	if (root_fs_names) {
+		printk("Retrying all filesystems\n");
+		root_fs_names = NULL;
+		get_fs_names(fs_names);
+		flags = mountflags;
 		goto retry;
 	}
 
