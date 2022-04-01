@@ -2237,7 +2237,7 @@ rockchip_atomic_helper_update_plane(struct drm_plane *plane,
 	plane_state->src_w = src_w;
 	plane_state->src_h = src_h;
 
-	if (plane == crtc->cursor || vop_plane_state->async_commit)
+	if (1 || plane == crtc->cursor || vop_plane_state->async_commit)
 		state->legacy_cursor_update = true;
 
 	ret = drm_atomic_commit(state);
