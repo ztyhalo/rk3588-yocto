@@ -9765,6 +9765,7 @@ static int vop2_create_crtc(struct vop2 *vop2)
 	bool find_primary_plane = false;
 	bool bootloader_initialized = false;
 	struct rockchip_drm_private *private = drm_dev->dev_private;
+	bool use_cluster = false;
 
 	/* all planes can attach to any crtc */
 	possible_crtcs = (1 << vop2_data->nr_vps) - 1;
@@ -9980,8 +9981,12 @@ static int vop2_create_crtc(struct vop2 *vop2)
 	 * create overlay planes of the leftover overlay win
 	 * Create drm_planes for overlay windows with possible_crtcs restricted
 	 */
+add_overlay:
 	for (j = 0; j < vop2->registered_num_wins; j++) {
 		win = &vop2->win[j];
+
+		if (use_cluster != vop2_cluster_window(win))
+			continue;
 
 		if (win->type != DRM_PLANE_TYPE_OVERLAY)
 			continue;
@@ -10009,6 +10014,11 @@ static int vop2_create_crtc(struct vop2 *vop2)
 		ret = vop2_plane_init(vop2, win, possible_crtcs);
 		if (ret)
 			DRM_WARN("failed to init overlay plane %s\n", win->name);
+	}
+
+	if (!use_cluster) {
+		use_cluster = true;
+		goto add_overlay;
 	}
 
 	return registered_num_crtcs;
