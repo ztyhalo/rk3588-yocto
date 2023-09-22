@@ -6,11 +6,11 @@
 
 /dts-v1/;
 
-#include "rk3588-hn-evb7-lp4.dtsi"
+#include "rk3588-evb7-lp4.dtsi"
 //#include "rk3588-evb7-imx415.dtsi"
 #include "rk3588-linux.dtsi"
 
-#include "rk3588_hn_config.dtsi"
+#include "topeet_rk3588_config.dtsi"
 
 / {
 	model = "Rockchip RK3588 EVB7 LP4 V10 Board";
