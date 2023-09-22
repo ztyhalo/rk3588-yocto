@@ -89,7 +89,7 @@
 		simple-audio-card,name = "rockchip,hdmiin";
 		simple-audio-card,bitclock-master = <&dailink0_master>;
 		simple-audio-card,frame-master = <&dailink0_master>;
-		status = "okay";
+		status = "disabled";
 		simple-audio-card,cpu {
 			sound-dai = <&i2s7_8ch>;
 		};
@@ -587,7 +587,7 @@
                 };
         };
 
-	pcf8563@51{
+	pcf8563: pcf8563@51{
         compatible = "nxp,pcf8563";
         reg = <0x51>;
 		#clock-cells = <0>;
