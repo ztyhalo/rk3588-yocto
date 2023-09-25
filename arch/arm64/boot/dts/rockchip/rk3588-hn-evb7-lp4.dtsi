@@ -196,6 +196,7 @@
 		vin-supply = <&vcc12v_dcin>;
 	};
 
+#if 0
 	vcc5v0_host: vcc5v0-host {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc5v0_host";
@@ -209,6 +210,8 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&vcc5v0_host_en>;
 	};
+#endif
+
 /*
 	vcc_mipicsi0: vcc-mipicsi0-regulator {
 		compatible = "regulator-fixed";
@@ -237,6 +240,8 @@
 		enable-active-high;
 	};
 */
+
+#if 0
 	vcc_3v3_sd_s0: vcc-3v3-sd-s0-regulator {
 		compatible = "regulator-fixed";
 		gpio = <&gpio0 RK_PB7 GPIO_ACTIVE_HIGH>;
@@ -245,6 +250,7 @@
 		regulator-name = "vcc_3v3_sd_s0";
 		enable-active-high;
 	};
+#endif
 
 	vbus5v0_typec: vbus5v0-typec {
                 compatible = "regulator-fixed";
@@ -287,11 +293,11 @@
 
 &backlight {
 	pwms = <&pwm1 0 25000 0>;
-	status = "okay";
+	status = "disabled";
 };
 //蜂鸣器
 &pwm15 {
-    status = "okay";
+    status = "disabled";
     pinctrl-0 = <&pwm15m2_pins>;
 };
 &combphy0_ps {
@@ -658,7 +664,7 @@
 &mdio1 {
 	rgmii_phy1: phy@0 {
 		compatible = "brcm,bcm89883";
-		reg = <0>;
+		reg = <0x0>;
 	};
 };
 
@@ -836,12 +842,12 @@
 };
 
 &pwm1 {
-	status = "okay";
+	status = "disabled";
 };
 
 &pwm3 {
 	pinctrl-0 = <&pwm3m1_pins>;
-	status = "okay";
+	status = "disabled";
 };
 
 
@@ -868,9 +874,10 @@
 
 &sdmmc {
 	status = "okay";
-	vmmc-supply = <&vcc_3v3_sd_s0>;
+	//vmmc-supply = <&vcc_3v3_sd_s0>;
 };
 
+#if 0
 &u2phy0_otg {
 	status = "okay";
 	phy-supply = <&vcc5v0_host>;
@@ -888,6 +895,7 @@
 &u2phy3_host {
 	phy-supply = <&vcc5v0_host>;
 };
+#endif
 
 &usbdp_phy0 {
 	status = "okay";
