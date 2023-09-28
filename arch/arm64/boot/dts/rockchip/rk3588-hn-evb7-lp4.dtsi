@@ -675,14 +675,14 @@
 
 &pcie30phy {
 	rockchip,pcie30-phymode = <PHY_MODE_PCIE_NANBNB>;
-	status = "okay";
+	status = "disabled";
 };
 
 &pcie3x4 {
 	num-lanes = <2>;
 //	reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
 	vpcie3v3-supply = <&vcc3v3_pcie30>;
-	status = "okay";
+	status = "disabled";
 };
 
 &pinctrl {
@@ -912,25 +912,25 @@
 };
 
 &usbdp_phy0_dp {
-	status = "okay";
+	status = "disabled";
 };
 
 &usbdp_phy0_u3 {
-	status = "okay";
+	status = "disabled";
 };
 
 &usbdp_phy1 {
 	rockchip,dp-lane-mux = <2 3>;
-	status = "okay";
+	status = "disabled";
 };
 
 &usbdp_phy1_dp {
-	status = "okay";
+	status = "disabled";
 };
 
 &usbdp_phy1_u3 {
 	maximum-speed = "high-speed";
-	status = "okay";
+	status = "disabled";
 };
 
 &usbdrd_dwc3_0 {
@@ -950,7 +950,7 @@
 &usbdrd_dwc3_1 {
 	dr_mode = "host";
 //	maximum-speed = "high-speed";
-	status = "okay";
+	status = "disabled";
 };
 
 //5G 
@@ -958,7 +958,7 @@
 	status = "disabled";
 };
 &usbhost3_0 {
-	status = "okay";
+	status = "disabled";
 };
 
 
