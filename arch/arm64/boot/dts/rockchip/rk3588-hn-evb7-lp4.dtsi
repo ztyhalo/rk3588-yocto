@@ -241,7 +241,7 @@
 	};
 */
 
-#if 0
+#if 1
 	vcc_3v3_sd_s0: vcc-3v3-sd-s0-regulator {
 		compatible = "regulator-fixed";
 		gpio = <&gpio0 RK_PB7 GPIO_ACTIVE_HIGH>;
@@ -775,7 +775,7 @@
                 };
 
                 typec5v_pwren: typec5v-pwren {
-                        rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_up>;
+                        rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
                 };
         };
     //0918
