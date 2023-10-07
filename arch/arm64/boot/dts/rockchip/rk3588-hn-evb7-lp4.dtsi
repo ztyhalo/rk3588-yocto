@@ -775,7 +775,7 @@
                 };
 
                 typec5v_pwren: typec5v-pwren {
-                        rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
+                        rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_up>;
                 };
         };
     //0918
@@ -912,11 +912,11 @@
 };
 
 &usbdp_phy0_dp {
-	status = "disabled";
+	status = "okay";
 };
 
 &usbdp_phy0_u3 {
-	status = "disabled";
+	status = "okay";
 };
 
 &usbdp_phy1 {
