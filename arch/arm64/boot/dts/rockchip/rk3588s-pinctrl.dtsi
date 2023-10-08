@@ -2472,7 +2472,7 @@
 		sdmmc_det: sdmmc-det {
 			rockchip,pins =
 				/* sdmmc_det */
-				<0 RK_PA4 1 &pcfg_pull_up>;
+				<0 RK_PA4 1 &pcfg_pull_down>;
 		};
 
 		/omit-if-no-ref/
