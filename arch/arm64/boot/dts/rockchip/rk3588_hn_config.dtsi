@@ -31,8 +31,8 @@
 	clock_in_out = "output";
 
     /*0918*/
-	snps,reset-gpio = <&gpio3 RK_PB7 GPIO_ACTIVE_HIGH>;
-	snps,reset-active-high;
+	snps,reset-gpio = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
+	snps,reset-active-low;
     snps,reset-delays-us = <0 20000 100000>;
 
 	pinctrl-names = "default";
