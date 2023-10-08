@@ -70,7 +70,6 @@
 			press-threshold-microvolt = <2000>;
 		};
 	};
-#if 0
 
 	fan: pwm-fan {
 		compatible = "pwm-fan";
@@ -196,7 +195,6 @@
 		startup-delay-us = <5000>;
 		vin-supply = <&vcc12v_dcin>;
 	};
-#endif
 
 #if 0
 	vcc5v0_host: vcc5v0-host {
