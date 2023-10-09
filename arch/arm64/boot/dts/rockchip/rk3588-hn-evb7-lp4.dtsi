@@ -866,6 +866,8 @@
 
 &sdmmc {
 	status = "okay";
+    cd-gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_LOW>;
+    non-removable;
 	//vmmc-supply = <&vcc_3v3_sd_s0>;
 };
 
