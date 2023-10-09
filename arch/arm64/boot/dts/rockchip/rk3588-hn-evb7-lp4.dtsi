@@ -138,6 +138,7 @@
 		vin-supply = <&avcc_1v8_s0>;
 	};
 
+    #if 0
 	sdio_pwrseq: sdio-pwrseq {
 		compatible = "mmc-pwrseq-simple";
 	    //clocks = <&hym8563>;
@@ -154,6 +155,7 @@
 		post-power-on-delay-ms = <200>;
 		reset-gpios = <&gpio0 RK_PC4 GPIO_ACTIVE_LOW>;
 	};
+    #endif
 
 	rk_headset: rk-headset {
 		status = "disabled";
@@ -847,6 +849,7 @@
 	status = "disabled";
 };
 
+#if 0
 &sdio {
 	max-frequency = <150000000>;
 	no-sd;
@@ -863,6 +866,7 @@
 	sd-uhs-sdr104;
 	status = "disabled";
 };
+#endif
 
 &sdmmc {
 	status = "okay";

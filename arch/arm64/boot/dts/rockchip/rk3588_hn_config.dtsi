@@ -36,13 +36,12 @@
     snps,reset-delays-us = <0 20000 100000>;
 
 	pinctrl-names = "default";
+    
 	pinctrl-0 = <&gmac1_miim
 		     &gmac1_tx_bus2
 		     &gmac1_rx_bus2
 		     &gmac1_rgmii_clk
-		     &gmac1_rgmii_bus
-		     &eth1_pins
-		     &gmac1_clkinout>;
+		     &gmac1_rgmii_bus>;
 
 	tx_delay = <0x43>;
 	/* rx_delay = <0x3f>; */
