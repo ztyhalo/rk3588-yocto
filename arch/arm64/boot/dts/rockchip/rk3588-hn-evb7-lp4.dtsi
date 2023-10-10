@@ -303,11 +303,11 @@
     pinctrl-0 = <&pwm15m2_pins>;
 };
 &combphy0_ps {
-	status = "okay";
+	status = "disabled";
 };
 
 &combphy1_ps {
-	status = "okay";
+	status = "disabled";
 };
 
 
@@ -316,11 +316,11 @@
 //	pinctrl-names = "default";
 //	pinctrl-0 = <&vga_hpdin_l>;
 //	hpd-gpios = <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
-	status = "okay";
+	status = "disabled";
 };
 
 &dp0_in_vp2 {
-	status = "okay";
+	status = "disabled";
 };
 
 &dp1 {
@@ -346,11 +346,11 @@
 };
 
 &hdptxphy_hdmi0 {
-	status = "okay";
+	status = "disabled";
 };
 
 &hdptxphy_hdmi1 {
-	status = "okay";
+	status = "disabled";
 };
 
 &i2c0 {
@@ -875,13 +875,13 @@
 	//vmmc-supply = <&vcc_3v3_sd_s0>;
 };
 
-#if 0
 &u2phy0_otg {
 	status = "okay";
-	phy-supply = <&vcc5v0_host>;
+	//phy-supply = <&vcc5v0_host>;
 	rockchip,typec-vbus-det;
 };
 
+#if 0
 &u2phy1_otg {
 	phy-supply = <&vcc5v0_host>;
 };
