@@ -71,6 +71,7 @@
 		};
 	};
 
+#if 0
 	fan: pwm-fan {
 		compatible = "pwm-fan";
 		#cooling-cells = <2>;
@@ -97,7 +98,7 @@
 			sound-dai = <&hdmiin_dc>;
 		};
 	};
-
+#endif
 	pcie20_avdd0v85: pcie20-avdd0v85 {
 		compatible = "regulator-fixed";
 		regulator-name = "pcie20_avdd0v85";
@@ -777,7 +778,7 @@
                 };
 
                 typec5v_pwren: typec5v-pwren {
-                        rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
+                        rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_up>;
                 };
         };
     //0918
@@ -896,7 +897,7 @@
 #endif
 
 &usbdp_phy0 {
-	status = "okay";
+	status = "disabled";
 	orientation-switch;
         svid = <0xff01>;
         sbu1-dc-gpios = <&gpio4 RK_PA6 GPIO_ACTIVE_HIGH>;
@@ -918,7 +919,7 @@
 };
 
 &usbdp_phy0_dp {
-	status = "okay";
+	status = "disabled";
 };
 
 &usbdp_phy0_u3 {
