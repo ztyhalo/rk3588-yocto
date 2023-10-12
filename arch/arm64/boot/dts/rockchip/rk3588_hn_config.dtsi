@@ -5,7 +5,7 @@
 	clock_in_out = "output";
 
     /*0918*/
-   	snps,reset-gpio = <&gpio2 RK_PC4 GPIO_ACTIVE_LOW>;
+   	//snps,reset-gpio = <&gpio2 RK_PC4 GPIO_ACTIVE_LOW>;
 	snps,reset-active-low;
 	/* Reset time is 20ms, 100ms for rtl8211f */
 	snps,reset-delays-us = <0 20000 100000>;
@@ -29,7 +29,7 @@
 	clock_in_out = "output";
 
     /*0918*/
-	snps,reset-gpio = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
+	//snps,reset-gpio = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
 	snps,reset-active-low;
     snps,reset-delays-us = <0 20000 100000>;
 
