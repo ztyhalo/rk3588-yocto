@@ -132,6 +132,12 @@ config BCM84881_PHY
 	help
 	  Support the Broadcom BCM84881 PHY.
 
+config BCM89883_PHY
+	tristate "Broadcom BCM89883 PHY"
+	depends on PHYLIB
+	help
+	  Support the Broadcom BCM89883 PHY.
+
 config BCM87XX_PHY
 	tristate "Broadcom BCM8706 and BCM8727 PHYs"
 	help

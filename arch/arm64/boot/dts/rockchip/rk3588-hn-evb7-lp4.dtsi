@@ -658,7 +658,7 @@
 /*0918*/
 &mdio1 {
 	rgmii_phy1: phy@0 {
-		compatible = "ethernet-phy-idae02.503a", "ethernet-phy-ieee802.3-c22";
+		compatible = "ethernet-phy-idae02.503a", "ethernet-phy-ieee802.3-c45";
 		reg = <0x0>;
 	};
 };
