@@ -2,10 +2,6 @@
 #include <linux/module.h>
 #include <linux/phy.h>
 
-enum {
-	MDIO_AN_C22 = 0xffe0,
-};
-
 static int bcm89883_wait_init(struct phy_device *phydev)
 {
 	int val;
@@ -17,7 +13,7 @@ static int bcm89883_wait_init(struct phy_device *phydev)
 
 static int bcm89883_config_init(struct phy_device *phydev)
 {
-    printk(KERN_INFO "phydev->interface: %d, Line: %d, Fun: %d\n",
+    printk(KERN_INFO "phydev->interface: %d, Line: %d, Fun: %s\n",
                      phydev->interface, __LINE__, __func__);
 	switch (phydev->interface) {
 	case PHY_INTERFACE_MODE_RGMII_RXID:
@@ -27,15 +23,34 @@ static int bcm89883_config_init(struct phy_device *phydev)
 	default:
 		return -ENODEV;
 	}
+
+    /*add some debug info on 20231016*/
+    phy_read_mmd(phydev, 0x01, 0x0002);
+    printk(KERN_INFO "phyid1: %d, Line: %d, Fun: %s\n",
+                     phydev->phy_id, __LINE__, __func__);
+
+    phy_read_mmd(phydev, 0x01, 0x0003);
+    printk(KERN_INFO "phyid2: %d, Line: %d, Fun: %s\n",
+                     phydev->phy_id, __LINE__, __func__);
+
+    /*set RGMII mode on 20231016*/
+    int ret = phy_write_mmd(phydev, 0x01, 0xa015, 0x0000);
+    printk(KERN_INFO "ret: %d, Line: %d, Fun: %s\n",
+                     ret, __LINE__, __func__);
+    if(ret)
+    {
+        return ret;
+    }
+    
 	return 0;
 }
 
-static int bcm89883_probe(struct phy_device *phydev)
+static int bcm89883_phy_probe(struct phy_device *phydev)
 {
 	/* This driver requires PMAPMD and AN blocks */
 	const u32 mmd_mask = MDIO_DEVS_PMAPMD | MDIO_DEVS_AN;
 
-    printk(KERN_INFO "phydev->is_c45: %d, Line: %d, Fun: %d\n",
+    printk(KERN_INFO "phydev->is_c45: %d, Line: %d, Fun: %s\n",
                      phydev->is_c45, __LINE__, __func__);
 
 	if (!phydev->is_c45 ||
@@ -50,7 +65,7 @@ static int bcm89883_get_features(struct phy_device *phydev)
 	int ret;
 
 	ret = genphy_c45_pma_read_abilities(phydev);
-    printk(KERN_INFO "ret: %d, Line: %d, Fun: %d\n",
+    printk(KERN_INFO "ret: %d, Line: %d, Fun: %s\n",
                      ret, __LINE__, __func__);
 	if (ret)
 		return ret;
@@ -67,7 +82,12 @@ static int bcm89883_config_aneg(struct phy_device *phydev)
 	/* Wait for the PHY to finish initialising, otherwise our
 	 * advertisement may be overwritten.
 	 */
+    printk(KERN_INFO "changed: %d, Line: %d, Fun: %s\n",
+                     changed, __LINE__, __func__);
+
 	ret = bcm89883_wait_init(phydev);
+    printk(KERN_INFO "ret: %d, Line: %d, Fun: %s\n",
+                     ret, __LINE__, __func__);
 	if (ret)
 		return ret;
 
@@ -75,7 +95,7 @@ static int bcm89883_config_aneg(struct phy_device *phydev)
 	phydev->mdix_ctrl = ETH_TP_MDI_AUTO;
 
 	ret = genphy_c45_an_config_aneg(phydev);
-    printk(KERN_INFO "ret: %d, Line: %d, Fun: %d\n",
+    printk(KERN_INFO "ret: %d, Line: %d, Fun: %s\n",
                      ret, __LINE__, __func__);
 	if (ret < 0)
 		return ret;
@@ -83,8 +103,7 @@ static int bcm89883_config_aneg(struct phy_device *phydev)
 		changed = true;
 
 	adv = linkmode_adv_to_mii_ctrl1000_t(phydev->advertising);
-	ret = phy_modify_mmd_changed(phydev, MDIO_MMD_AN,
-				     MDIO_AN_C22 + MII_CTRL1000,
+	ret = phy_modify_mmd_changed(phydev, MDIO_MMD_AN, 0x1200,
 				     ADVERTISE_1000FULL | ADVERTISE_1000HALF,
 				     adv);
 	if (ret < 0)
@@ -97,21 +116,14 @@ static int bcm89883_config_aneg(struct phy_device *phydev)
 
 static int bcm89883_aneg_done(struct phy_device *phydev)
 {
-	int bmsr, val;
+	int ret;
 
-	val = phy_read_mmd(phydev, MDIO_MMD_AN, MDIO_STAT1);
+	ret = phy_read_mmd(phydev, MDIO_MMD_AN, 0x0201);
+	if (ret < 0)
+		return ret;
+    
+    return phydev->autoneg_complete;
 
-    printk(KERN_INFO "val: %d, Line: %d, Fun: %d\n",
-                     val, __LINE__, __func__);
-	if (val < 0)
-		return val;
-
-	bmsr = phy_read_mmd(phydev, MDIO_MMD_AN, MDIO_AN_C22 + MII_BMSR);
-	if (bmsr < 0)
-		return val;
-
-	return !!(val & MDIO_AN_STAT1_COMPLETE) &&
-	       !!(bmsr & BMSR_ANEGCOMPLETE);
 }
 
 static int bcm89883_read_status(struct phy_device *phydev)
@@ -119,29 +131,13 @@ static int bcm89883_read_status(struct phy_device *phydev)
 	unsigned int mode;
 	int bmsr, val;
 
-	val = phy_read_mmd(phydev, MDIO_MMD_AN, MDIO_CTRL1);
-    printk(KERN_INFO "val: %d, Line: %d, Fun: %d\n",
-                     val, __LINE__, __func__);
+	val = phy_read_mmd(phydev, MDIO_MMD_AN, 0x0200);
+	if (val < 0)
+		return val;
+	val = phy_read_mmd(phydev, MDIO_MMD_AN, 0x0201);
 	if (val < 0)
 		return val;
 
-	if (val & MDIO_AN_CTRL1_RESTART) {
-		phydev->link = 0;
-		return 0;
-	}
-
-	val = phy_read_mmd(phydev, MDIO_MMD_AN, MDIO_STAT1);
-	if (val < 0)
-		return val;
-
-	bmsr = phy_read_mmd(phydev, MDIO_MMD_AN, MDIO_AN_C22 + MII_BMSR);
-	if (bmsr < 0)
-		return val;
-
-	phydev->autoneg_complete = !!(val & MDIO_AN_STAT1_COMPLETE) &&
-				   !!(bmsr & BMSR_ANEGCOMPLETE);
-	phydev->link = !!(val & MDIO_STAT1_LSTATUS) &&
-		       !!(bmsr & BMSR_LSTATUS);
 	if (phydev->autoneg == AUTONEG_ENABLE && !phydev->autoneg_complete)
 		phydev->link = false;
 
@@ -160,8 +156,7 @@ static int bcm89883_read_status(struct phy_device *phydev)
 		if (val < 0)
 			return val;
 
-		val = phy_read_mmd(phydev, MDIO_MMD_AN,
-				   MDIO_AN_C22 + MII_STAT1000);
+		val = phy_read_mmd(phydev, MDIO_MMD_AN, 0x0203);
 		if (val < 0)
 			return val;
 
