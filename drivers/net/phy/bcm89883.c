@@ -56,7 +56,7 @@ static int bcm89883_match_phy_device(struct phy_device *phydev)
 			if(phydev->c45_ids.device_ids[i] == PHY_ID_BCM89883)
 			{
 				printk("zty bcm89883 match 0x%x!\n", phydev->phy_id);
-				//dump_stack();
+
 				phydev->phy_id = PHY_ID_BCM89883;
 				phydev->autoneg = AUTONEG_DISABLE;
 				phydev->link = 0;
@@ -100,14 +100,14 @@ static int bcm89883_config_init(struct phy_device *phydev)
 
 	// phydev->advertising = SUPPORTED_10000baseT_Full;
 
-	printk("zty phy mdio dev addr 0x%x!\n", phydev->mdio.addr);
+	// printk("zty phy mdio dev addr 0x%x!\n", phydev->mdio.addr);
 
 	val = phy_read_mmd(phydev, MDIO_MMD_AN, 0x0200);
-	printk("zty neg val 0x%x!\n", val);
+	// printk("zty neg val 0x%x!\n", val);
 
 	if(val & (1 << 12))
 	{
-		printk("zty rxd3 hight autoneg!\n");
+		// printk("zty rxd3 hight autoneg!\n");
 		phydev->autoneg = AUTONEG_ENABLE;
 		features |= SUPPORTED_Autoneg;
 		autoneg = 1;
@@ -115,7 +115,7 @@ static int bcm89883_config_init(struct phy_device *phydev)
 	}
 	else
 	{
-		printk("zty rxd3 is low no autoneg!\n");
+		// printk("zty rxd3 is low no autoneg!\n");
 		phydev->autoneg = AUTONEG_DISABLE;
 		autoneg = 0;
 		phydev->speed = 100;
@@ -147,7 +147,7 @@ static int bcm89883_config_init(struct phy_device *phydev)
 		{
 			phydev->speed = 100;
 			features |= SUPPORTED_100baseT_Full;
-			printk("zty phy speed %d!\n",speed);
+			// printk("zty phy speed %d!\n",speed);
 			linkmode_mod_bit(ETHTOOL_LINK_MODE_100baseT1_Full_BIT,
 			 phydev->supported, 1);
 
@@ -173,7 +173,7 @@ static int bcm89883_config_init(struct phy_device *phydev)
 
 	val = phy_read_mmd(phydev, 0x1, 0xa015);
 
-   printk("zty read rgmii mode 0x%x!\n", val);
+//    printk("zty read rgmii mode 0x%x!\n", val);
 
    	tc10_ctrl = zty_c45_read(phydev, 0x1e, 0x00f0);
 	if(tc10_ctrl < 0)
@@ -479,7 +479,7 @@ static int bcm89883_config_init(struct phy_device *phydev)
 		//zty_c45_write(phydev, 0x01, 0x932a, 0x0002);
 		printk("zty disable superisolate!\n");
 	}
-	printk("zty phy interface %d!\n", phydev->interface);
+	// printk("zty phy interface %d!\n", phydev->interface);
     
 	return 0;
 }

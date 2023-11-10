@@ -138,8 +138,7 @@ static int phylink_is_empty_linkmode(const unsigned long *linkmode)
 	phylink_set(tmp, Autoneg);
 	phylink_set(tmp, Pause);
 	phylink_set(tmp, Asym_Pause);
-		printk("zty linkmode %*pb tmp  %*pb \n",__ETHTOOL_LINK_MODE_MASK_NBITS, linkmode,
-			     __ETHTOOL_LINK_MODE_MASK_NBITS, tmp);
+
 	return linkmode_subset(linkmode, tmp);
 }
 
@@ -158,9 +157,7 @@ static int phylink_validate(struct phylink *pl, unsigned long *supported,
 			    struct phylink_link_state *state)
 {
 	pl->mac_ops->validate(pl->config, supported, state);
-	// printk("zty pl->mac_ops->validate %pF!\n", pl->mac_ops->validate);
-		printk("zty supported  %*pb \n",
-			     __ETHTOOL_LINK_MODE_MASK_NBITS, supported);
+
 	return phylink_is_empty_linkmode(supported) ? -EINVAL : 0;
 }
 
@@ -995,8 +992,6 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
 	else
 		config.interface = interface;
 	
-	printk("zty phylink start!\n");
-	dump_stack();
 
 	ret = phylink_validate(pl, supported, &config);
 	 if (ret) {
@@ -1136,15 +1131,12 @@ int phylink_of_phy_connect(struct phylink *pl, struct device_node *dn,
 	of_node_put(phy_node);
 	if (!phy_dev)
 		return -ENODEV;
-	// printk("zty phy link supported with support %*pb \n",
-	// 		__ETHTOOL_LINK_MODE_MASK_NBITS, phy_dev->supported);
+
 	ret = phy_attach_direct(pl->netdev, phy_dev, flags,
 				pl->link_interface);
 	if (ret)
 		return ret;
-	// printk("zty pl interface 0x%x config interface 0x%x!\n", pl->link_interface, pl->link_config.interface);
-		// printk("zty phy link bring supported with support %*pb \n",
-		// 	__ETHTOOL_LINK_MODE_MASK_NBITS, phy_dev->supported);
+
 	ret = phylink_bringup_phy(pl, phy_dev, pl->link_config.interface);
 	if (ret)
 		phy_detach(phy_dev);

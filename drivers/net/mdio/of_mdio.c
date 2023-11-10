@@ -119,7 +119,7 @@ static int of_mdiobus_register_phy(struct mii_bus *mdio,
 
 	is_c45 = of_device_is_compatible(child,
 					 "ethernet-phy-ieee802.3-c45");
-	printk("zty is_c45 %d!\n", is_c45);
+
 	if (!is_c45 && !of_get_phy_id(child, &phy_id))
 		phy = phy_device_create(mdio, addr, phy_id, 0, NULL);
 	else
@@ -253,7 +253,6 @@ int of_mdiobus_register(struct mii_bus *mdio, struct device_node *np)
 
 	if (!np)
 	{
-		printk("zty np is null!\n");
 		return mdiobus_register(mdio);
 	}
 
@@ -274,7 +273,6 @@ int of_mdiobus_register(struct mii_bus *mdio, struct device_node *np)
 	mdio->reset_post_delay_us = 0;
 	of_property_read_u32(np, "reset-post-delay-us", &mdio->reset_post_delay_us);
 
-	printk("zty np is register!\n");
 	/* Register the MDIO bus */
 	rc = mdiobus_register(mdio);
 	if (rc)
@@ -287,15 +285,13 @@ int of_mdiobus_register(struct mii_bus *mdio, struct device_node *np)
 			scanphys = true;
 			continue;
 		}
-		printk("zty find addr is %x!\n", addr);
+
 		if (of_mdiobus_child_is_phy(child))
 		{
-			printk("zty is phy!\n");
 			rc = of_mdiobus_register_phy(mdio, child, addr);
 		}
 		else
 		{
-			printk("zty is not phy!\n");
 			rc = of_mdiobus_register_device(mdio, child, addr);
 		}
 
