@@ -96,6 +96,10 @@ static int rtl821x_probe(struct phy_device *phydev)
 	struct rtl821x_priv *priv;
 	int ret;
 
+	printk("zty rtl821x_probe start!\n");
+	// dump_stack();
+	printk("zty probe supported with support %*pb \n",
+			     __ETHTOOL_LINK_MODE_MASK_NBITS, phydev->supported);
 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
 	if (!priv)
 		return -ENOMEM;
@@ -117,6 +121,9 @@ static int rtl821x_probe(struct phy_device *phydev)
 		priv->phycr2 &= ~RTL8211F_CLKOUT_EN;
 
 	phydev->priv = priv;
+
+		printk("zty probe end supported with support %*pb \n",
+			     __ETHTOOL_LINK_MODE_MASK_NBITS, phydev->supported);
 
 	return 0;
 }
@@ -336,6 +343,9 @@ static int rtl8211f_config_init(struct phy_device *phydev)
 	u16 val_txdly, val_rxdly;
 	int ret;
 
+	printk("zty rtl8211f_config_init start!\n");
+		printk("zty config init supported with support %*pb \n",
+			     __ETHTOOL_LINK_MODE_MASK_NBITS, phydev->supported);
 	ret = phy_modify_paged_changed(phydev, 0xa43, RTL8211F_PHYCR1,
 				       RTL8211F_ALDPS_PLL_OFF | RTL8211F_ALDPS_ENABLE | RTL8211F_ALDPS_XTAL_OFF,
 				       priv->phycr1);
@@ -537,11 +547,16 @@ static int rtlgen_get_speed(struct phy_device *phydev)
 
 	return 0;
 }
-
+static int readMark = 0;
 static int rtlgen_read_status(struct phy_device *phydev)
 {
 	int ret;
-
+	if(readMark == 0)
+	{
+		printk("zty read status start!\n");
+		dump_stack();
+		readMark = 1;
+	}
 	ret = genphy_read_status(phydev);
 	if (ret < 0)
 		return ret;

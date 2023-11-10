@@ -785,6 +785,7 @@ static int get_phy_c45_ids(struct mii_bus *bus, int addr,
 		if (phy_reg < 0)
 			return -EIO;
 		c45_ids->device_ids[i] |= phy_reg;
+		printk("zty i %d phy id 0x%x!\n",i, c45_ids->device_ids[i]);
 	}
 
 	c45_ids->devices_in_package = devs_in_pkg;
@@ -926,10 +927,11 @@ int phy_device_register(struct phy_device *phydev)
 	/* Run all of the fixups for this PHY */
 	err = phy_scan_fixups(phydev);
 	if (err) {
+		printk("zty phy scan error!\n");
 		phydev_err(phydev, "failed to initialize\n");
 		goto out;
 	}
-
+	printk("zty add phy device!\n");
 	err = device_add(&phydev->mdio.dev);
 	if (err) {
 		phydev_err(phydev, "failed to add\n");
@@ -3039,9 +3041,16 @@ static int phy_probe(struct device *dev)
 	else if (phydrv->get_features)
 		err = phydrv->get_features(phydev);
 	else if (phydev->is_c45)
+	{
 		err = genphy_c45_pma_read_abilities(phydev);
+		// printk("zty c45 read err 0x%x!\n", err);
+	}
 	else
+	{
 		err = genphy_read_abilities(phydev);
+		// printk("zty  read err 0x%x!\n", err);
+		// dump_stack();
+	}
 
 	if (err)
 		goto out;

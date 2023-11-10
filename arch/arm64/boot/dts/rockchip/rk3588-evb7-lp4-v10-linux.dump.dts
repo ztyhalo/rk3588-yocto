@@ -4509,7 +4509,7 @@
 		snps,mtl-rx-config = <0xf0>;
 		snps,mtl-tx-config = <0xf1>;
 		status = "okay";
-		phy-mode = "rgmii-rxid";
+		phy-mode = "rgmii";
 		clock_in_out = "output";
 		snps,reset-active-low;
 		snps,reset-delays-us = <0x00 0x4e20 0x186a0>;
