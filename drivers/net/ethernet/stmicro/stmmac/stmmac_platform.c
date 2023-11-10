@@ -429,7 +429,6 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
 	plat->phy_node = of_parse_phandle(np, "phy-handle", 0);
 
 	/* PHYLINK automatically parses the phy-handle property */
-	printk("zty phylink node name %s full name %s!\n", np->name, np->full_name);
 	plat->phylink_node = np;
 
 	/* Get max speed of operation from device tree */
