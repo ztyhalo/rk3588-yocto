@@ -2275,7 +2275,8 @@ static void hcd_resume_work(struct work_struct *work)
 void usb_hcd_resume_root_hub (struct usb_hcd *hcd)
 {
 	unsigned long flags;
-
+	printk("zty usb hcd resume root hub!\n");
+	// dump_stack();
 	spin_lock_irqsave (&hcd_root_hub_lock, flags);
 	if (hcd->rh_registered) {
 		pm_wakeup_event(&hcd->self.root_hub->dev, 0);
@@ -2661,6 +2662,9 @@ int usb_add_hcd(struct usb_hcd *hcd,
 {
 	int retval;
 	struct usb_device *rhdev;
+
+	printk("usb add hcd device!\n");
+	// dump_stack();
 
 	if (!hcd->skip_phy_initialization && usb_hcd_is_primary_hcd(hcd)) {
 		hcd->phy_roothub = usb_phy_roothub_alloc(hcd->self.sysdev);

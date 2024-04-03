@@ -137,7 +137,7 @@
 		regulator-max-microvolt = <1800000>;
 		vin-supply = <&avcc_1v8_s0>;
 	};
-
+#if 0
 	sdio_pwrseq: sdio-pwrseq {
 		compatible = "mmc-pwrseq-simple";
 		clocks = <&hym8563>;
@@ -153,7 +153,7 @@
 		post-power-on-delay-ms = <200>;
 		reset-gpios = <&gpio0 RK_PC4 GPIO_ACTIVE_LOW>;
 	};
-
+#endif
 	rk_headset: rk-headset {
 		status = "disabled";
 		compatible = "rockchip_headset";
@@ -256,7 +256,7 @@
                 pinctrl-names = "default";
                 pinctrl-0 = <&typec5v_pwren>;
         };
-
+#if 0
 	wireless_bluetooth: wireless-bluetooth {
 		compatible = "bluetooth-platdata";
 		clocks = <&hym8563>;
@@ -280,6 +280,7 @@
 	//	WIFI,poweren_gpio = <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>;
 		status = "okay";
 	};
+	#endif
 };
 
 &backlight {
@@ -776,7 +777,7 @@
 &sata0 {
 	status = "okay";
 };
-
+#if 0
 &sdio {
 	max-frequency = <150000000>;
 	no-sd;
@@ -793,7 +794,7 @@
 	sd-uhs-sdr104;
 	status = "disabled";
 };
-
+#endif
 &sdmmc {
 	status = "okay";
 	vmmc-supply = <&vcc_3v3_sd_s0>;

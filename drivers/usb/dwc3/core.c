@@ -196,6 +196,8 @@ static void __dwc3_set_mode(struct work_struct *work)
 
 	switch (dwc->desired_dr_role) {
 	case DWC3_GCTL_PRTCAP_HOST:
+		printk("zty dwc3_host init!\n");
+		// dump_stack();
 		ret = dwc3_host_init(dwc);
 		if (ret) {
 			dev_err(dwc->dev, "failed to initialize host\n");
@@ -264,7 +266,8 @@ void dwc3_set_mode(struct dwc3 *dwc, u32 mode)
 
 	if (dwc->dr_mode != USB_DR_MODE_OTG)
 		return;
-
+	printk("zty dwc3 set mode!\n");
+	// dump_stack();
 	spin_lock_irqsave(&dwc->lock, flags);
 	dwc->desired_dr_role = mode;
 	spin_unlock_irqrestore(&dwc->lock, flags);
@@ -1232,7 +1235,8 @@ static int dwc3_core_init_mode(struct dwc3 *dwc)
 {
 	struct device *dev = dwc->dev;
 	int ret;
-
+	printk("zty dwc3_core_init_mode init!\n");
+	// dump_stack();
 	switch (dwc->dr_mode) {
 	case USB_DR_MODE_PERIPHERAL:
 		dwc3_set_prtcap(dwc, DWC3_GCTL_PRTCAP_DEVICE);

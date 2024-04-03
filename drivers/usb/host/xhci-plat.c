@@ -237,6 +237,7 @@ static int xhci_plat_probe(struct platform_device *pdev)
 	if (usb_disabled())
 		return -ENODEV;
 
+	printk("zty xhci_plat_probe start!\n");
 	driver = &xhci_plat_hc_driver;
 
 	irq = platform_get_irq(pdev, 0);
@@ -421,7 +422,7 @@ static int xhci_plat_probe(struct platform_device *pdev)
 	 * runtime pm using power/control in sysfs.
 	 */
 	pm_runtime_forbid(&pdev->dev);
-
+	printk("zty xhci_plat_probe end!\n");
 	return 0;
 
 

@@ -594,6 +594,8 @@ int extcon_set_state_sync(struct extcon_dev *edev, unsigned int id, bool state)
 	int ret, index;
 	unsigned long flags;
 
+	printk("zty edev name %s!\n", edev->name);
+	// dump_stack();
 	index = find_cable_index_by_id(edev, id);
 	if (index < 0)
 		return index;

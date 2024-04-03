@@ -52,7 +52,7 @@ static void dwc3_otg_clear_events(struct dwc3 *dwc)
 static irqreturn_t dwc3_otg_thread_irq(int irq, void *_dwc)
 {
 	struct dwc3 *dwc = _dwc;
-
+	printk("zty dwc3 otg irq!\n");
 	spin_lock(&dwc->lock);
 	if (dwc->otg_restart_host) {
 		dwc3_otg_host_init(dwc);
@@ -71,7 +71,7 @@ static irqreturn_t dwc3_otg_irq(int irq, void *_dwc)
 	u32 reg;
 	struct dwc3 *dwc = _dwc;
 	irqreturn_t ret = IRQ_NONE;
-
+	printk("zty dwc2 otg irq!\n");
 	reg = dwc3_readl(dwc->regs, DWC3_OEVT);
 	if (reg) {
 		/* ignore non OTG events, we can't disable them in OEVTEN */
@@ -594,7 +594,7 @@ static int dwc3_setup_role_switch(struct dwc3 *dwc)
 int dwc3_drd_init(struct dwc3 *dwc)
 {
 	int ret, irq;
-
+	printk("zty dwc3 drd init!\n");
 	dwc->edev = dwc3_get_extcon(dwc);
 	if (IS_ERR(dwc->edev))
 		return PTR_ERR(dwc->edev);

@@ -656,6 +656,8 @@ static void kick_hub_wq(struct usb_hub *hub)
 	if (hub->disconnected || work_pending(&hub->events))
 		return;
 
+	printk("zty kick_hub_wq!\n");
+	// dump_stack();
 	/*
 	 * Suppress autosuspend until the event is proceed.
 	 *
@@ -2511,6 +2513,8 @@ int usb_new_device(struct usb_device *udev)
 {
 	int err;
 
+	printk("zty usb new device!\n");
+	// dump_stack();
 	if (udev->parent) {
 		/* Initialize non-root-hub device wakeup to disabled;
 		 * device (un)configuration controls wakeup capable
@@ -2771,13 +2775,24 @@ static bool hub_port_warm_reset_required(struct usb_hub *hub, int port1,
 {
 	u16 link_state;
 
+	struct usb_port *port_dev = hub->ports[port1 - 1];
+
 	if (!hub_is_superspeed(hub->hdev))
+	{
+		 dev_info(&port_dev->dev, "zty hub is no superspeed!\n");
+		//  dump_stack();
 		return false;
+	}
 
 	if (test_bit(port1, hub->warm_reset_bits))
+	{
+		dev_info(&port_dev->dev, "zty test bit ok!\n");
 		return true;
+	}
 
 	link_state = portstatus & USB_PORT_STAT_LINK_STATE;
+
+	dev_info(&port_dev->dev, "zty link state is %d!\n", link_state);
 	return link_state == USB_SS_PORT_LS_SS_INACTIVE
 		|| link_state == USB_SS_PORT_LS_COMP_MOD;
 }
@@ -2888,8 +2903,10 @@ static int hub_port_reset(struct usb_hub *hub, int port1,
 	u16 portchange, portstatus;
 	struct usb_port *port_dev = hub->ports[port1 - 1];
 	int reset_recovery_time;
-
+	 dev_info(&port_dev->dev, "zty hub_port reset %d, port1 %d warm %d!\n", hub_is_superspeed(hub->hdev), port1, warm);
+	// dump_stack();
 	if (!hub_is_superspeed(hub->hdev)) {
+		printk("zty no superseppd warm is %x!\n", warm);
 		if (warm) {
 			dev_err(hub->intfdev, "only USB3 hub support "
 						"warm reset\n");
@@ -2904,6 +2921,7 @@ static int hub_port_reset(struct usb_hub *hub, int port1,
 		 * If the caller hasn't explicitly requested a warm reset,
 		 * double check and see if one is needed.
 		 */
+		printk("zty else varm %d!\n", warm);
 		if (hub_port_status(hub, port1, &portstatus, &portchange) == 0)
 			if (hub_port_warm_reset_required(hub, port1,
 							portstatus))
@@ -2930,14 +2948,17 @@ static int hub_port_reset(struct usb_hub *hub, int port1,
 						"port_wait_reset: err = %d\n",
 						status);
 		}
-
+		dev_info(&port_dev->dev, "zty usb port status %d!\n", status);
 		/* Check for disconnect or reset */
 		if (status == 0 || status == -ENOTCONN || status == -ENODEV) {
 			usb_clear_port_feature(hub->hdev, port1,
 					USB_PORT_FEAT_C_RESET);
 
 			if (!hub_is_superspeed(hub->hdev))
+			{
+				dev_info(&port_dev->dev, "zty hub no superspeed!\n");
 				goto done;
+			}
 
 			usb_clear_port_feature(hub->hdev, port1,
 					USB_PORT_FEAT_C_BH_PORT_RESET);
@@ -2954,11 +2975,17 @@ static int hub_port_reset(struct usb_hub *hub, int port1,
 			 */
 			if (hub_port_status(hub, port1,
 					&portstatus, &portchange) < 0)
-				goto done;
+				{
+					dev_info(&port_dev->dev, "zty hub port status!\n");
+					goto done;
+				}
 
 			if (!hub_port_warm_reset_required(hub, port1,
 					portstatus))
+					{
+						dev_info(&port_dev->dev, "zty hub port warm seset!\n");
 				goto done;
+					}
 
 			/*
 			 * If the port is in SS.Inactive or Compliance Mode, the
@@ -2967,11 +2994,13 @@ static int hub_port_reset(struct usb_hub *hub, int port1,
 			if (!warm) {
 				dev_dbg(&port_dev->dev,
 						"hot reset failed, warm reset\n");
+						dev_info(&port_dev->dev, 
+						"zty hot reset failed, warm reset\n");
 				warm = true;
 			}
 		}
 
-		dev_dbg(&port_dev->dev,
+		dev_err(&port_dev->dev,
 				"not enabled, trying %sreset again...\n",
 				warm ? "warm " : "");
 		delay = HUB_LONG_RESET_TIME;
@@ -2980,6 +3009,7 @@ static int hub_port_reset(struct usb_hub *hub, int port1,
 	dev_err(&port_dev->dev, "Cannot enable. Maybe the USB cable is bad?\n");
 
 done:
+    dev_info(&port_dev->dev, "zty end reset status %d\n", status);  
 	if (status == 0) {
 		if (port_dev->quirks & USB_PORT_QUIRK_FAST_ENUM)
 			usleep_range(10000, 12000);
@@ -5590,6 +5620,12 @@ static void hub_event(struct work_struct *work)
 	kcov_remote_start_usb((u64)hdev->bus->busnum);
 
 	dev_dbg(hub_dev, "state %d ports %d chg %04x evt %04x\n",
+			hdev->state, hdev->maxchild,
+			/* NOTE: expects max 15 ports... */
+			(u16) hub->change_bits[0],
+			(u16) hub->event_bits[0]);
+
+	dev_info(hub_dev, "state %d ports %d chg %04x evt %04x\n",
 			hdev->state, hdev->maxchild,
 			/* NOTE: expects max 15 ports... */
 			(u16) hub->change_bits[0],
