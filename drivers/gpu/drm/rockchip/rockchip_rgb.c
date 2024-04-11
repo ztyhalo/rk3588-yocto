@@ -762,9 +762,9 @@ static int rockchip_rgb_bind(struct device *dev, struct device *master,
 
 		rgb->panel->backlight = rockchip_mcu_panel_find_backlight(np_mcu_panel);
 		if (!rgb->panel->backlight) {
-			DRM_DEV_ERROR(dev, "failed to find backlight device");
-			of_node_put(np_mcu_panel);
-			return -EINVAL;
+			DRM_DEV_ERROR(dev, "hndz rgb failed to find backlight device");
+			// of_node_put(np_mcu_panel);
+			// return -EINVAL;
 		}
 
 		of_node_put(np_mcu_panel);

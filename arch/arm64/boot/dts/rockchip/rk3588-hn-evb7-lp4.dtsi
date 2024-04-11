@@ -298,7 +298,7 @@
 
 &backlight {
 	pwms = <&pwm1 0 25000 0>;
-	status = "okay";
+	status = "disable";
 };
 //蜂鸣器
 &pwm15 {
