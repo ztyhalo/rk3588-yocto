@@ -1,0 +1,1455 @@
+[    3.049520] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08ec.hclk_vo1
+[    3.061488] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08b0.aclk_vdpu_low_pre
+[    3.073982] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08dc.hclk_vo0
+[    3.085513] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a8.hclk_usb
+[    3.096906] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c087c.hclk_nvm
+[    3.108131] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a8.aclk_usb
+[    3.119276] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c0868.hclk_isp1_pre
+[    3.130832] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c0868.aclk_isp1_pre
+[    3.142303] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a0.aclk_rkvdec0_pre
+[    3.154073] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a0.hclk_rkvdec0_pre
+[    3.165693] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a4.aclk_rkvdec1_pre
+[    3.177345] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a4.hclk_rkvdec1_pre
+[    3.188961] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08b0.aclk_jpeg_decoder_pre
+[    3.201020] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08c0.aclk_rkvenc1_pre
+[    3.212478] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08c0.hclk_rkvenc1_pre
+[    3.223979] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08dc.aclk_hdcp0_pre
+[    3.235193] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08ec.aclk_hdcp1_pre
+[    3.246469] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c0910.pclk_av1_pre
+[    3.257437] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c0910.aclk_av1_pre
+[    3.268384] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c092c.hclk_sdio_pre
+[    3.279477] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08dc.pclk_vo0_grf
+[    3.290432] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08ec.pclk_vo1_grf
+[    3.302019] hndz bus: 'platform': really_probe: probing driver sram with device 10f000.sram
+[    3.313111] hndz bus: 'platform': really_probe: probing driver rockchip-pm-domain with device fd8d8000.power-management:power-controller
+[    3.338095] hndz bus: 'platform': really_probe: probing driver sram with device ff001000.sram
+[    3.348079] hndz bus: 'platform': really_probe: probing driver rockchip-pinctrl with device pinctrl
+[    3.359197] hndz bus: 'platform': really_probe: probing driver rockchip-gpio with device fd8a0000.gpio
+    5.924504] hndz bus: 'platform': really_probe: probing driver rockchip_canfd with device fea50000.can
+[    5.924524] CPU: 2 PID: 194 Comm: kworker/u16:2 Not tainted 5.10.110 #98
+[    5.924534] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    5.924554] Workqueue: events_unbound deferred_probe_work_func
+[    5.924568] Call trace:
+[    5.924581]  dump_backtrace+0x0/0x1b4
+[    5.924591]  show_stack+0x24/0x30
+[    5.924604]  dump_stack_lvl+0xc8/0xf8
+[    5.924617]  dump_stack+0x18/0x34
+[    5.924630]  really_probe+0x1dc/0x4b8
+[    5.924643]  driver_probe_device+0x138/0x148
+[    5.924655]  __device_attach_driver+0xd8/0x114
+[    5.924666]  bus_for_each_drv+0xa4/0xcc
+[    5.924677]  __device_attach+0xdc/0x170
+[    5.924689]  device_initial_probe+0x20/0x2c
+[    5.924700]  bus_probe_device+0x3c/0xa0
+[    5.924712]  deferred_probe_work_func+0xe0/0xf4
+[    5.924725]  process_one_work+0x1e0/0x298
+[    5.924738]  process_scheduled_works+0x4c/0x50
+[    5.924751]  worker_thread+0x1f8/0x27c
+[    5.924763]  kthread+0xf8/0x108
+[    5.924776]  ret_from_fork+0x10/0x30
+[    5.924947] rockchip-pinctrl pinctrl: pin gpio0-16 already requested by fd8b0010.pwm; cannot claim for fea50000.can
+[    5.924977] rockchip-pinctrl pinctrl: pin-16 (fea50000.can) status -22
+[    5.924999] rockchip-pinctrl pinctrl: could not request pin 16 (gpio0-16) from group can0m0-pins  on device rockchip-pinctrl
+[    5.925018] rockchip_canfd fea50000.can: Error applying setting, reverse things back
+[    5.925056] rockchip_canfd: probe of fea50000.can failed with error -22
+
+
+
+	/* If using pinctrl, bind pins now before probing */
+		printk("hndz bus: '%s': %s: probing driver %s with device %s\n",
+		 drv->bus->name, __func__, drv->name, dev_name(dev));
+	if(strcmp(dev_name(dev), "fea50000.can") == 0)
+		dump_stack();
+	ret = pinctrl_bind_pins(dev);
+
+arch_timer: cp15 timer(s) running at 24.00MHz (phys).
+
+
+
+  4.483825] hndz tty dev name ttymxc7!
+[    4.483832] CPU: 4 PID: 1 Comm: swapper/0 Not tainted 5.10.110 #103
+[    4.483836] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    4.483841] Call trace:
+[    4.483851]  dump_backtrace+0x0/0x1b4
+[    4.483857]  show_stack+0x24/0x30
+[    4.483864]  dump_stack_lvl+0xc8/0xf8
+[    4.483869]  dump_stack+0x18/0x34
+[    4.483878]  tty_register_device_attr+0x17c/0x23c
+[    4.483884]  tty_port_register_device_attr+0x54/0x6c
+[    4.483891]  uart_add_one_port+0x3ac/0x444
+[    4.483898]  serial8250_register_8250_port+0x31c/0x410
+[    4.483904]  dw8250_probe+0x560/0x61c
+[    4.483911]  platform_drv_probe+0x60/0xb0
+[    4.483916]  really_probe+0x2dc/0x46c
+[    4.483922]  driver_probe_device+0x138/0x148
+[    4.483927]  device_driver_attach+0x50/0x7c
+[    4.483932]  __driver_attach+0x150/0x154
+[    4.483937]  bus_for_each_dev+0x7c/0xc8
+[    4.483942]  driver_attach+0x30/0x3c
+[    4.483947]  bus_add_driver+0x1b4/0x1fc
+[    4.483953]  driver_register+0xc0/0xf8
+[    4.483959]  __platform_driver_register+0x58/0x64
+[    4.483966]  dw8250_platform_driver_init+0x28/0x34
+[    4.483972]  do_one_initcall+0xa0/0x1e8
+[    4.483978]  kernel_init_freeable+0x2a4/0x2ac
+[    4.483985]  kernel_init+0x20/0x11c
+[    4.483991]  ret_from_fork+0x10/0x30
+
+rk3588
+rockchip-pinctrl pinctrl: pin gpio0-16 already requested by fd8b0010.pwm; cannot claim for fea50000.can
+[    5.924977] rockchip-pinctrl pinctrl: pin-16 (fea50000.can) status -22
+[    5.924999] rockchip-pinctrl pinctrl: could not request pin 16 (gpio0-16) from group can0m0-pins  on device rockchip-pinctrl
+[    5.925018] rockchip_canfd fea50000.can: Error applying setting, reverse things back
+[    5.925056] rockchip_canfd: probe of fea50000.can failed with error -22
+
+amixer cset numid=32,iface=MIXER,name='Left PGA Mux' 1
+
+echo "8" > /proc/sys/kernel/printk
+arecord -d 10 /tmp/linshi.wav
+aplay /opt/voice/platform/pidai_baohu.wav
+
+dd if=/opt/boot.img of=/dev/mmcblk0p3 bs=512
+
+
+systemctl disable xrdp
+systemctl stop xrdp
+apt purge xrdp
+apt purge xserver-xorg-core
+apt install xrdp
+apt install xserver-xorg-core
+grep 'ssl-cert' /etc/group
+adduser xrdp ssl-cert
+grep 'ssl-cert' /etc/group
+
+
+
+音频
+amixer controls
+amixer contents
+Headphone
+
+amixer cget name='Speaker Switch'
+amixer cset name='Speaker Switch' 1 打开
+
+amixer cget name='Headphone Switch'
+amixer cset name='Headphone Switch' 1 打开
+
+amixer cget name='Left PGA Mux'  
+  ; Item #0 'Line 1L'
+  ; Item #1 'Line 2L'
+  ; Item #2 'DifferentialL'
+amixer cset name='Left PGA Mux' 2 差分模式
+
+amixer cget name='Right PGA Mux'
+amixer cset name='Right PGA Mux' 2
+
+保存默认配置参数
+alsactl store -f /var/lib/alsa/asound.state
+
+amixer cget name='Headphone Jack'
+amixer cget numid=26,iface=CARD,name='Headphone Jack
+
+amixer cset name='Headphone Jack' 1
+
+mc_data->codec_hp_det = true;
+
+[ 1188.612331] ES8323 7-0011: Unable to configure sample rate 22050Hz with 5644800Hz MCLK
+[ 1188.612380] ES8323 7-0011: ASoC: error at snd_soc_dai_hw_params on ES8323.7-0011: -22
+/opt/version/S88rc5logic236
+
+imx6dlsabresd login: [  222.666684] hndz  configure sample rate 44100Hz with 24000000Hz MCLK!
+[  222.673181] CPU: 1 PID: 594 Comm: aplay Not tainted 3.14.28-dirty #40
+[  222.679947] [<800149f8>] (unwind_backtrace) from [<80011714>] (show_stack+0x10/0x14)
+[  222.687736] [<80011714>] (show_stack) from [<805673d4>] (dump_stack+0x7c/0xbc)
+[  222.695022] [<805673d4>] (dump_stack) from [<8048fcfc>] (aic3x_hw_params+0x78/0x500)
+[  222.702807] [<8048fcfc>] (aic3x_hw_params) from [<8048aec0>] (soc_pcm_hw_params+0x13c/0x42c)
+[  222.711301] [<8048aec0>] (soc_pcm_hw_params) from [<80473444>] (snd_pcm_hw_params+0xb4/0x384)
+[  222.719865] [<80473444>] (snd_pcm_hw_params) from [<80475254>] (snd_pcm_common_ioctl1+0x5c4/0xdb8)
+[  222.728865] [<80475254>] (snd_pcm_common_ioctl1) from [<80475bd8>] (snd_pcm_playback_ioctl1+0x190/0x45c)
+[  222.738661] [<80475bd8>] (snd_pcm_playback_ioctl1) from [<800e4d98>] (do_vfs_ioctl+0x3dc/0x59c)
+[  222.747396] [<800e4d98>] (do_vfs_ioctl) from [<800e4f8c>] (SyS_ioctl+0x34/0x5c)
+[  222.754746] [<800e4f8c>] (SyS_ioctl) from [<8000e4a0>] (ret_fast_syscall+0x0/0x30)
+
+安装qt
+apt-get install qt4-default
+apt-get install qt4*
+gedit /etc/pam.d/gdm-autologin 第三行
+#auth    required    pam_succeed_if.so user != root quiet_success屏蔽
+gedit /etc/pam.d/gdm-password第三行
+#auth    required    pam_succeed_if.so user != root quiet_success
+gedit /root/.profile
+tty -s&&mesg n 2> /dev/null || true 未改
+
+libmosquittopp.so.1 cannot open
+/opt/bin/VoipServer
+rsync -l 保留软连接
+
+安装candump
+ apt-get install can-utils 
+ 
+ git命令
+ git stash
+ git stash save 'audio linshi change'
+ 、git stash pop [–index] [stash_id] 
+ git stash pop
+ 
+ 
+export CROSS_COMPILE=/home/leno/rk3588/buildroot/rk3588-linux_20240424/rk3588-linux/prebuilts/gcc/linux-x86/aarch64/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+make ARCH=arm64 rockchip_linux_defconfig rk3588_linux.config
+
+make ARCH=arm64 rk3588-evb7-lp4-v10-linux.img -j8
+
+打包文件系统
+拷贝库文件到local目录下
+/home/leno/rk3588/216/locallib$ sudo cp -r * /home/z/zty/rk3588/ubuntu/ubuntu18/ubuntu-rootfs/usr/local/
+sudo cp -r * /home/z/zty/rk3588/ubuntu/ubuntu18/ubuntu-rootfs/usr/local/
+拷贝规则文件 interface 启动脚本rc.local
+sudo cp hndz.rules /home/z/zty/rk3588/ubuntu/ubuntu18/ubuntu-rootfs/etc/udev/rules.d/
+sudo cp interfaces /home/z/zty/rk3588/ubuntu/ubuntu18/ubuntu-rootfs/etc/network/
+
+vi ~/.bashrc
+# 添加一行
+alias code='/usr/share/code/code . --no-sandbox --unity-launch'
+# 报存生效
+source ~/.bashrc
+
+sudo cp libasound.so.2.0.0 /usr/lib/aarch64-linux-gnu/libasound.so.2.0.0
+./configure --prefix=/media/root/395e8fd6-bc2e-436b-8ad3-4d01c44953a5/alsabuild
+make
+make install
+sudo cp libasound.so.2.0.0 /usr/lib/aarch64-linux-gnu/libasound.so.2.0.0
+A9
+amixer cget name='Line Playback Switch'
+static long snd_ctl_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+SNDRV_CTL_IOCTL_ELEM_WRITE
+
+rk3588音频
+Created symlink /home/user/.config/systemd/user/pulseaudio.service → /dev/null.
+
+apt-get remove pulseaudio
+
+音频设置过程
+snd_ctl_ioctl 测试是调用SNDRV_CTL_IOCTL_ELEM_WRITE snd_ctl_elem_write设置switch开关函数为__snd_soc_dapm_set_pin
+
+./configure --prefix=/media/root/395e8fd6-bc2e-436b-8ad3-4d01c44953a51/utilsbuild
+
+
+hn3588 login: [   52.144606] hndz set pcm startup!
+[   52.146250] hndz dai set sysclk 11289600!
+[   52.146276] CPU: 1 PID: 1374 Comm: gnome-shell Not tainted 5.10.110 #123
+[   52.146284] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[   52.146294] Call trace:
+[   52.146315]  dump_backtrace+0x0/0x1b4
+[   52.146325]  show_stack+0x24/0x30
+[   52.146339]  dump_stack_lvl+0xc8/0xf8
+[   52.146347]  dump_stack+0x18/0x34
+[   52.146360]  es8323_set_dai_sysclk+0x40/0xbc
+[   52.146372]  snd_soc_dai_set_sysclk+0x44/0x80
+[   52.146385]  rk_multicodecs_hw_params+0x64/0xdc
+[   52.146394]  snd_soc_link_hw_params+0x38/0x68
+[   52.146403]  soc_pcm_hw_params+0x114/0x468
+[   52.146415]  snd_pcm_hw_params+0x2e8/0x34c
+[   52.146424]  snd_pcm_common_ioctl+0x588/0xea0
+[   52.146432]  snd_pcm_ioctl+0x38/0x50
+[   52.146443]  vfs_ioctl+0x34/0x54
+[   52.146450]  __arm64_sys_ioctl+0x6c/0xa0
+[   52.146462]  el0_svc_common.constprop.0+0x13c/0x1ec
+[   52.146470]  do_el0_svc+0x8c/0x98
+[   52.146478]  el0_svc+0x20/0x30
+[   52.146486]  el0_sync_handler+0xd8/0x184
+[   52.146498]  el0_sync+0x1a0/0x1c0
+
+SNDRV_PCM_IOCTL_HW_PARAMS
+
+[   75.539148] hndz es8323_pcm_hw_params!
+[   75.539167] CPU: 0 PID: 1406 Comm: gnome-shell Not tainted 5.10.110 #124
+[   75.539174] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[   75.539182] Call trace:
+[   75.539195]  dump_backtrace+0x0/0x1b4
+[   75.539204]  show_stack+0x24/0x30
+[   75.539215]  dump_stack_lvl+0xc8/0xf8
+[   75.539222]  dump_stack+0x18/0x34
+[   75.539233]  es8323_pcm_hw_params+0x80/0x244
+[   75.539242]  snd_soc_dai_hw_params+0x64/0x90
+[   75.539250]  soc_pcm_hw_params+0x2c8/0x468
+[   75.539260]  snd_pcm_hw_params+0x2e8/0x34c
+[   75.539268]  snd_pcm_common_ioctl+0x588/0xea0
+[   75.539275]  snd_pcm_ioctl+0x38/0x50
+[   75.539283]  vfs_ioctl+0x34/0x54
+[   75.539291]  __arm64_sys_ioctl+0x6c/0xa0
+[   75.539300]  el0_svc_common.constprop.0+0x13c/0x1ec
+[   75.539308]  do_el0_svc+0x8c/0x98
+[   75.539317]  el0_svc+0x20/0x30
+[   75.539325]  el0_sync_handler+0xd8/0x184
+[   75.539332]  el0_sync+0x1a0/0x1c0
+
+中断超时错误
+hndz irq over id 237 irq 58!
+自动补齐
+. /etc/bash_completion
+. / ( 点号 空格 / )#
+有空格的点号等同于source命令,表示在当前shell环境执行后面的命令或脚本（不加点号默认是新开一个shell执行的
+
+例如 . /home/test.sh 等同于 source /home/test.sh。
+
+强制卸载
+umount -f
+格式化ext4
+mkfs.ext4 -E nodiscard
+
+discard/nodiscard
+   Controls whether ext4 should issue discard/TRIM commands to the underlying block device 
+   when blocks  are  freed.This  is  useful  for  SSD  devices  and  sparse/thinly
+   -provisioned LUNs, but it is off by default until sufficient testing has been done.
+discard 块设备自动回收设备
+
+opt/bin/DBServer: error while loading shared libraries: liblog4cplus-2.0.so.3: cannot open shared object file: No such file or directory
+
+
+
+sudo mount -t nfs -o nolock,addr=172.1.10.199 172.1.10.199:/d/nfs /home/z/mnt/
+
+ModuleNotFoundError: No module named 'apt_pkg'
+apt install python3-pip 
+apt remove python3-apt
+apt install python3-apt
+
+
+拷贝static下的文件夹到更新版里
+
+Par logicfile permission syscomm
+
+
+ssh-keygen -f "/home/z/.ssh/known_hosts" -R "169.254.1.218"
+
+串口波特率
+stty -F /dev/ -a
+
+Linux内核参数之arp_ignore和arp_announce
+ net.ipv4.conf.all.arp_ignore=1
+ net.ipv4.conf.lo.arp_ignore=1
+ net.ipv4.conf.all.arp_announce=2
+ net.ipv4.conf.lo.arp_announce=2
+
+ echo "1">/proc/sys/net/ipv4/conf/all/arp_ignore
+ echo "1">/proc/sys/net/ipv4/conf/lo/arp_ignore
+ echo "2">/proc/sys/net/ipv4/conf/all/arp_announce
+ echo "2">/proc/sys/net/ipv4/conf/lo/arp_announce
+
+./ch-mount.sh -m ubuntu-rootfs/
+./ch-mount.sh -u ubuntu-rootfs/
+./mkimage.sh ubuntu-rootfs rootfs.img
+
+
+串口调试
+[   17.931320] of_dma_request_slave_channel: dma-names property of node '/serial@febb0000' missing or empty
+[   17.931350] dw-apb-uart febb0000.serial: failed to request DMA, use interrupt mode
+[   17.931427] of_dma_request_slave_channel: dma-names property of node '/serial@feba0000' missing or empty
+[   17.931449] dw-apb-uart feba0000.serial: failed to request DMA, use interrupt mode
+[   17.931736] of_dma_request_slave_channel: dma-names property of node '/serial@febc0000' missing or empty
+[   17.931767] dw-apb-uart febc0000.serial: failed to request DMA, use interrupt mode
+[   17.932059] of_dma_request_slave_channel: dma-names property of node '/serial@fd890000' missing or empty
+[   17.932074] dw-apb-uart fd890000.serial: failed to request DMA, use interrupt mode
+a9有个AGTIM 
+
+
+  245.614004] dw-apb-uart febb0000.serial: got rx and tx dma channels
+[  248.760828] dw-apb-uart fd890000.serial: got rx and tx dma channels
+[  248.761331] dw-apb-uart feba0000.serial: got rx and tx dma channels
+[  250.775963] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  250.776074] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  250.776102] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.107636] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.107764] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.107806] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.110037] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.110112] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.110147] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  308.136018] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  308.136069] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  308.136085] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  568.161947] dw-apb-uart febb0000.serial: got rx and tx dma channels
+[  571.266701] dw-apb-uart feba0000.serial: got rx and tx dma channels
+[  571.267127] dw-apb-uart fd890000.serial: got rx and tx dma channels
+[  573.299018] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  573.299126] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  573.299158] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.823135] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.823303] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.823358] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.826492] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.826591] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.826637] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[ 1167.667486] rockchip-vop2 fdd90000.vop: [drm:vop2_crtc_atomic_disable] Crtc atomic disable vp3
+[ 1167.684375] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vop-supply from device tree
+[ 1167.684484] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vop-supply property in node /power-management@fd8d8000/power-controller failed
+
+
+[  553.409273] rc.local[936]: (EE)
+[  553.410313] rc.local[936]: Fatal server error:
+[  553.412474] rc.local[936]: (EE) AddScreen/ScreenInit failed for driver 0
+[  553.418365] rc.local[936]: (EE)
+[  553.421630] rc.local[936]: (EE)
+[  553.424547] rc.local[936]: Please consult the The X.Org Foundation support
+[  553.431402] rc.local[936]:    at http://wiki.x.org
+[  553.436065] rc.local[936]:  for help.
+[  553.440625] rc.local[936]: (EE) Please also check the log file at "/var/log/Xorg.0.log" for additional information.
+[  553.450886] rc.local[936]: (EE)
+[  553.453151] rc.local[936]: (EE) Server terminated with error (1). Closing log file.
+
+
+/opt/bin/ModbusMaster 87654354 87654355 87654356 87654357 87654331 5 87654358 Modbus_RTU_Master_2.xml
+/opt/ModbusMaster 87654354 87654355 87654356 87654357 87654331 5 87654358 Modbus_RTU_Master_2.xml
+
+] hndz irq action sdhci_irq+0x0/0xb14!
+
+[    5.477716] hndz sdhci irq is 58 !
+[    5.477732] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.110 #148
+[    5.477739] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    5.477748] Call trace:
+[    5.477763]  dump_backtrace+0x0/0x1b4
+[    5.477772]  show_stack+0x24/0x30
+[    5.477784]  dump_stack_lvl+0xc8/0xf8
+[    5.477793]  dump_stack+0x18/0x34
+[    5.477805]  sdhci_irq+0xbc/0xbe8
+[    5.477816]  __handle_irq_event_percpu+0xdc/0x214
+[    5.477825]  handle_irq_event_percpu+0x3c/0x94
+[    5.477834]  handle_irq_event+0x54/0x98
+[    5.477844]  handle_fasteoi_irq+0xb0/0x130
+[    5.477853]  generic_handle_irq_desc+0x14/0x20
+[    5.477862]  __handle_domain_irq+0x160/0x168
+[    5.477871]  gic_handle_irq+0x2bc/0x30c
+[    5.477879]  el1_irq+0xcc/0x180
+[    5.477890]  arch_local_irq_enable+0xc/0x28
+[    5.477900]  cpuidle_enter+0x44/0x5c
+[    5.477910]  do_idle+0x23c/0x260
+[    5.477919]  cpu_startup_entry+0x30/0x48
+[    5.477929]  rest_init+0xd4/0xe8
+[    5.477940]  arch_call_rest_init+0x1c/0x28
+[    5.477949]  start_kernel+0x590/0x5c8
+[    5.477970] hndz 58 irq func is handle_fasteoi_irq+0x0/0x130!
+
+
+sudo vi /etc/systemd/journald.conf
+找到 Storage= 行并修改它，例如改为：
+
+[Journal]
+Storage=volatile
+或者如果你想完全禁用日志存储：
+
+[Journal]
+Storage=none
+
+
+tcpdump -i eth1  -w file.cap
+格式化sd卡为ext4
+mkfs.ext4 -E nodiscard /dev/mmcblk1p1
+挂载到 /media/mmcblk0p1
+修改fstab
+/dev/mmcblk1p1 /media/mmcblk0p1 ext4 defaults 0 0
+
+
+`sudo dpkg-reconfigure dash`
+
+
+ssh-keygen -f "/home/root/.ssh/known_hosts"  -R "192.168.168.58"
+
+
+rockchip-pinctrl pinctrl: hndz setting pull of GPIO1-18 to 1
+[    5.742863] CPU: 1 PID: 1 Comm: swapper/0 Not tainted 5.10.110 #158
+[    5.742873] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    5.742882] Call trace:
+[    5.742894]  dump_backtrace+0x0/0x1b4
+[    5.742905]  show_stack+0x24/0x30
+[    5.742917]  dump_stack_lvl+0xc8/0xf8
+[    5.742927]  dump_stack+0x18/0x34
+[    5.742939]  rockchip_set_pull+0x94/0x244
+[    5.742949]  rockchip_pinconf_set+0x17c/0x748
+[    5.742960]  pinconf_apply_setting+0x8c/0x108
+[    5.742970]  pinctrl_commit_state+0xb8/0x15c
+[    5.742980]  pinctrl_select_state+0x28/0x3c
+[    5.742991]  pinctrl_bind_pins+0x184/0x25c
+[    5.743001]  really_probe+0x190/0x46c
+[    5.743011]  driver_probe_device+0x138/0x148
+[    5.743021]  device_driver_attach+0x50/0x7c
+[    5.743031]  __driver_attach+0x150/0x154
+[    5.743041]  bus_for_each_dev+0x7c/0xc8
+[    5.743051]  driver_attach+0x30/0x3c
+
+pinctrl {
+
+ /omit-if-no-ref/
+ pcfg_pull_up: pcfg-pull-up {
+  bias-pull-up;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_down: pcfg-pull-down {
+  bias-pull-down;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none: pcfg-pull-none {
+  bias-disable;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none_drv_level_0: pcfg-pull-none-drv-level-0 {
+  bias-disable;
+  drive-strength = <0>;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none_drv_level_1: pcfg-pull-none-drv-level-1 {
+  bias-disable;
+  drive-strength = <1>;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none_drv_level_2: pcfg-pull-none-drv-level-2 {
+  bias-disable;
+  drive-strength = <2>;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none_drv_level_3: pcfg-pull-none-drv-level-3 {
+  bias-disable;
+  drive-strength = <3>;
+ };
+ 
+git自动保存用户和密码
+git config --global credential.helper store
+更新子模块
+git checkout . --recurse-submodules
+
+
+
+clk_calc_new_rates 时钟
+
+[    4.571295] CPU: 4 PID: 1 Comm: swapper/0 Not tainted 5.10.110 #194
+[    4.571299] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    4.571304] Call trace:
+[    4.571314]  dump_backtrace+0x0/0x1b4
+[    4.571320]  show_stack+0x24/0x30
+[    4.571328]  dump_stack_lvl+0xc8/0xf8
+[    4.571334]  dump_stack+0x18/0x34
+[    4.571342]  clk_calc_new_rates+0x98/0x264
+[    4.571349]  clk_core_set_rate_nolock+0x9c/0x198
+[    4.571356]  clk_set_rate+0x48/0x7c
+[    4.571361]  of_clk_set_defaults+0x2d4/0x348
+[    4.571369]  platform_drv_probe+0x34/0xb0
+[    4.571375]  really_probe+0x2dc/0x46c
+[    4.571381]  driver_probe_device+0x138/0x148
+[    4.571386]  device_driver_attach+0x50/0x7c
+[    4.571391]  __driver_attach+0x150/0x154
+[    4.571397]  bus_for_each_dev+0x7c/0xc8
+[    4.571402]  driver_attach+0x30/0x3c
+[    4.571407]  bus_add_driver+0x1b4/0x1fc
+[    4.571412]  driver_register+0xc0/0xf8
+[    4.571419]  __platform_driver_register+0x58/0x64
+[    4.571425]  rockchip_canfd_driver_init+0x28/0x34
+[    4.571431]  do_one_initcall+0xa0/0x1e8
+[    4.571438]  kernel_init_freeable+0x2a4/0x2ac
+[    4.571446]  kernel_init+0x20/0x11c
+[    4.571452]  ret_from_fork+0x10/0x30
+
+ hndz bittiming 12!
+[    6.901514] CPU: 4 PID: 434 Comm: ip Not tainted 5.10.110 #198
+[    6.901517] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    6.901521] Call trace:
+[    6.901536]  dump_backtrace+0x0/0x1b4
+[    6.901538]  show_stack+0x24/0x30
+[    6.901545]  dump_stack_lvl+0xc8/0xf8
+[    6.901547]  dump_stack+0x18/0x34
+[    6.901554]  rockchip_canfd_set_bittiming+0x3c/0x268
+[    6.901562]  can_changelink+0x10c/0x2e8
+[    6.901569]  __rtnl_newlink+0x2d4/0x640
+[    6.901572]  rtnl_newlink+0x5c/0x88
+[    6.901574]  rtnetlink_rcv_msg+0x230/0x280
+[    6.901578]  netlink_rcv_skb+0xa8/0x118
+[    6.901581]  rtnetlink_rcv+0x24/0x30
+[    6.901583]  netlink_unicast+0x134/0x1d0
+[    6.901585]  netlink_sendmsg+0x2cc/0x2f8
+[    6.901589]  sock_sendmsg_nosec+0x1c/0x34
+[    6.901590]  ____sys_sendmsg+0x194/0x1ec
+[    6.901593]  ___sys_sendmsg+0x80/0xcc
+[    6.901595]  __sys_sendmsg+0x74/0xc0
+[    6.901597]  __arm64_sys_sendmsg+0x2c/0x38
+[    6.901601]  el0_svc_common.constprop.0+0x13c/0x1ec
+[    6.901604]  do_el0_svc+0x8c/0x98
+[    6.901609]  el0_svc+0x20/0x30
+[    6.901614]  el0_sync_handler+0xd8/0x184
+[    6.901617]  el0_sync+0x1a0/0x1c0
+[    6.901689] hndz brp 5 sjw 0 tseg1 107 tseg2 15!
+[    6.901692] hndz brp1 65535 sjw 65535 tseg1 65535 tseg2 65535!
+
+
+cat kernel/debug/clk/clk_summary
+ pre-up /sbin/ip link set $IFACE type can bitrate 100000 dbitrate 100000 fd on
+/sbin/ip link set can0 type can bitrate 100000 triple-sampling on restart-ms 20
+
+/sbin/ip link set can1 type can bitrate 100000
+echo 8 > /proc/irq/65/smp_affinity
+
+
+	// if(core->name != NULL)
+	// {
+	// 	if (strstr(core->name, "clk_can0") || strstr(core->name, "clk_can1"))
+	// 	{
+	// 		printk("hndz calc %s clk rate %ld!\n", core->name, rate);
+	// 		dump_stack();
+	// 		mark = 1;
+	// 	}
+	// }
+	//  if((err_reg != 0) && (err_reg &ERR_DIR_RX) == 0)
+	//  {
+	// 	rockchip_canfd_write(rcan, CAN_CMD, 0);
+	// 	can_get_echo_skb(ndev, 0);
+	// 	netif_wake_queue(ndev);
+	// 	can_led_event(ndev, CAN_LED_EVENT_TX);
+	//  }
+arecord  -c 2 -r 16000 -f S16_LE  %1 &
+
+
+3588 引脚配置 rpckchip-pinconf.dtsi文件中
+
+
+
+
+[    4.245361] zty devm_extcon_dev_register!
+[    4.245368] CPU: 4 PID: 1 Comm: swapper/0 Not tainted 5.10.110 #1
+[    4.245372] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    4.245376] Call trace:
+[    4.245385]  dump_backtrace+0x0/0x1b4
+[    4.245390]  show_stack+0x24/0x30
+[    4.245396]  dump_stack_lvl+0xc8/0xf8
+[    4.245401]  dump_stack+0x18/0x34
+[    4.245407]  devm_extcon_dev_register+0x38/0xac
+[    4.245414]  rockchip_usb2phy_probe+0x2a4/0xce8
+[    4.245420]  platform_drv_probe+0x60/0xb0
+[    4.245425]  really_probe+0x2dc/0x46c
+[    4.245429]  driver_probe_device+0x138/0x148
+[    4.245433]  device_driver_attach+0x50/0x7c
+[    4.245437]  __driver_attach+0x150/0x154
+[    4.245443]  bus_for_each_dev+0x7c/0xc8
+[    4.245447]  driver_attach+0x30/0x3c
+[    4.245452]  bus_add_driver+0x1b4/0x1fc
+[    4.245456]  driver_register+0xc0/0xf8
+[    4.245460]  __platform_driver_register+0x58/0x64
+[    4.245466]  rockchip_usb2phy_driver_init+0x28/0x34
+[    4.245470]  do_one_initcall+0xa0/0x1e8
+[    4.245476]  kernel_init_freeable+0x2a0/0x2a8
+[    4.245482]  kernel_init+0x20/0x11c
+[    4.245486]  ret_from_fork+0x10/0x30
+
+
+route add default gw 169.254.1.188
+vi /etc/resolve.conf
+114.114.114.114
+修改位置在/home/z/zty/a9/copy/arptable里
+
+
+sudo iptables -t nat -A POSTROUTING -o wlp4s0 -j MASQUERADE
+sudo iptables -A FORWARD -i wlp4s0 -o enp2s0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i wlp4s0 -o enp2s0 -j ACCEPT
+————————————————
+route add default gw 192.168.1.142
+route add default gw 192.168.1.192
+
+其中，IP为开发板的IP地址，Gateway为Ubuntu网卡eth0的IP地址。
+
+　　执行命令：vi /etc/resolv.conf
+
+　　写入如下内容：
+
+nameserver 114.114.114.114
+vi /etc/resolv.conf
+192.168.43.1
+
+
+vop设备树的信息
+以ports->port->endpoint->remote-endpoint的顺序 通过remote-endpoint属性来指定远端的设备端点
+
+
+使能dp
+&usbdp_phy0 {
+status = "disabled";
+};
+&usbdp_phy0_dp {
+status = "disabled";
+};
+&usbdp_phy0_u3 {
+status = "disabled";
+};
+&dp0 {
+status = "disabled";
+};
+
+
+
+pdm1m1_sdi3
+
+ov5640
+[    5.508923]  dump_backtrace+0x0/0x1b4
+[    5.508935]  show_stack+0x24/0x30
+[    5.508950]  dump_stack_lvl+0xc8/0xf8
+[    5.508961]  dump_stack+0x18/0x34
+[    5.508976]  ov5640_set_power_on+0x98/0x224
+[    5.508988]  ov5640_probe+0x314/0x6e0
+[    5.508999]  i2c_device_probe+0x198/0x29c
+[    5.509012]  really_probe+0x2dc/0x46c
+[    5.509023]  driver_probe_device+0x138/0x148
+[    5.509034]  device_driver_attach+0x50/0x7c
+[    5.509045]  __driver_attach+0x150/0x154
+[    5.509059]  bus_for_each_dev+0x7c/0xc8
+[    5.509070]  driver_attach+0x30/0x3c
+[    5.509081]  bus_add_driver+0x1b4/0x1fc
+[    5.509092]  driver_register+0xc0/0xf8
+[    5.509105]  i2c_register_driver+0x70/0xb4
+[    5.509119]  ov5640_i2c_driver_init+0x28/0x34
+[    5.509131]  do_one_initcall+0xa0/0x1e8
+[    5.509144]  kernel_init_freeable+0x2a0/0x2a8
+[    5.509156]  kernel_init+0x20/0x11c
+[    5.509167]  ret_from_fork+0x10/0x30
+
+
+gst-launch-1.0 v4l2src device=/dev/video11 ! video/x-raw,format=NV12,width=640,height=480, framerate=30/1 ! xvimagesink
+
+
+capsfilter caps="video/x-raw,width=640,height=480,framerate=30/1" ！imxipuvideotransform
+ gst-launch-1.0 imxv4l2src device=/dev/video0 ! capsfilter caps="video/x-raw,width=640,height=480,framerate=30/1" ! autovideosink
+ 
+ gst-launch-1.0 imxv4l2src device=/dev/video0 ! 'video/x-raw,format=(string)RGB565,width=640,height=480,framerate=(fraction)30/1'! imxv4l2sink
+ 
+ 
+ gst-launch-1.0 imxv4l2src -e -v device=/dev/video0 num-buffers=100 ! vpuenc_h264 ! h264parse ! filesink location=video1.mp4
+ 
+ 
+ gst-launch-1.0 v4l2src device=/dev/video11 ! video/x-raw,format=YUY2,width=640,height=480,framerate=15/1 ! queue2 ! videorate ! videoscale ! videoconvert ! xvimagesink
+ 
+ 
+ v4l2-ctl --verbose -d /dev/video0 --set-fmt-video=width=1920,height=1080,pixelformat='NV12' --stream-mmap=4 --set-selection=target=crop,flags=0,top=0,left=0,width=1920,height=1080 --stream-to=./out.yuv
+ 
+ 
+ media-ctl -d /dev/media0 -p
+ 
+ grep '' /sys/class/video4linux/video*/name
+rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+
+
+[   17.097229] hndz ov mode 255 orig mode 255!
+[   17.101505] CPU: 1 PID: 721 Comm: camera Not tainted 3.14.28-00041-g651d9f9e-dirty #83
+[   17.109505] [<800149f8>] (unwind_backtrace) from [<80011714>] (show_stack+0x10/0x14)
+[   17.117578] [<80011714>] (show_stack) from [<80569634>] (dump_stack+0x7c/0xbc)
+[   17.124846] [<80569634>] (dump_stack) from [<803b83f4>] (ov5640_init_mode+0x24/0x5ec)
+[   17.132719] [<803b83f4>] (ov5640_init_mode) from [<803b13d0>] (mxc_v4l_open+0x2d8/0x37c)
+[   17.140853] [<803b13d0>] (mxc_v4l_open) from [<80391dc8>] (v4l2_open+0x9c/0x100)
+[   17.148294] [<80391dc8>] (v4l2_open) from [<800d8aac>] (chrdev_open+0xa4/0x178)
+[   17.155639] [<800d8aac>] (chrdev_open) from [<800d333c>] (do_dentry_open.isra.17+0x110/0x294)
+[   17.164201] [<800d333c>] (do_dentry_open.isra.17) from [<800d3590>] (finish_open+0x20/0x38)
+[   17.172859] [<800d3590>] (finish_open) from [<800e1254>] (do_last.isra.58+0x6dc/0xc34)
+[   17.180824] [<800e1254>] (do_last.isra.58) from [<800e1860>] (path_openat+0xb4/0x5cc)
+[   17.188693] [<800e1860>] (path_openat) from [<800e2c80>] (do_filp_open+0x2c/0x88)
+[   17.196213] [<800e2c80>] (do_filp_open) from [<800d4500>] (do_sys_open+0x104/0x1c8)
+[   17.203907] [<800d4500>] (do_sys_open) from [<8000e4a0>] (ret_fast_syscall+0x0/0x30)
+[   18.030233] hndz ov mode 2 orig mode 0!
+[   18.034142] CPU: 0 PID: 721 Comm: camera Not tainted 3.14.28-00041-g651d9f9e-dirty #83
+[   18.042133] [<800149f8>] (unwind_backtrace) from [<80011714>] (show_stack+0x10/0x14)
+[   18.049928] [<80011714>] (show_stack) from [<80569634>] (dump_stack+0x7c/0xbc)
+[   18.057199] [<80569634>] (dump_stack) from [<803b83f4>] (ov5640_init_mode+0x24/0x5ec)
+[   18.065065] [<803b83f4>] (ov5640_init_mode) from [<803b8a0c>] (ioctl_s_parm+0x50/0xec)
+[   18.073018] [<803b8a0c>] (ioctl_s_parm) from [<803b0eec>] (mxc_v4l2_s_param+0x5c/0x268)
+[   18.081052] [<803b0eec>] (mxc_v4l2_s_param) from [<803b2b50>] (mxc_v4l_do_ioctl+0x744/0x1d7c)
+[   18.089619] [<803b2b50>] (mxc_v4l_do_ioctl) from [<803955ac>] (video_usercopy+0x174/0x478)
+[   18.097913] [<803955ac>] (video_usercopy) from [<80391f14>] (v4l2_ioctl+0xe8/0x160)
+[   18.105610] [<80391f14>] (v4l2_ioctl) from [<800e4da8>] (do_vfs_ioctl+0x3dc/0x59c)
+[   18.113217] [<800e4da8>] (do_vfs_ioctl) from [<800e4f9c>] (SyS_ioctl+0x34/0x5c)
+[   18.120571] [<800e4f9c>] (SyS_ioctl) from [<8000e4a0>] (ret_fast_syscall+0x0/0x30)
+
+3037[3:0] 分频 
+
+struct v4l2_fract {
+	__u32   numerator; //分子
+	__u32   denominator; //分母
+};
+
+sensor驱动中的 exp_def 、 hts_def 、 vts_def
+2475000
+
+ v4l2-ctl --verbose -d /dev/video11 --set-fmt-video=width=640,height=480,pixelformat=UYVY8_2X8 --stream-mmap=4 --set-selection=target=crop,flags=0,top=0,left=0,width=640,height=480 --stream-to=./out.yuv
+
+gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,format=NV12,width=640,height=480, framerate=30/1 ! xvimagesink
+
+
+ v4l2-ctl --verbose -d /dev/video0 --set-fmt-video=width=640,height=480,pixelformat=NV12 --stream-mmap=4 --set-selection=target=crop,flags=0,top=0,left=0,width=640,height=480 --stream-to=./out.yuv
+ 
+v4l2-ctl -d /dev/video11 --list-formats -ext
+
+media-ctl -d /dev/media0 -p
+
+i2cdetect -y 3
+
+
+route add -p 192.168.4.0 mask 255.255.255.0 192.168.1.1
+1
+上面这条命令表示以所有192.168.4.x开头的请求都会通过wifi进行访问，从而实现访问内网。-p表示永久生效,192.168.4.0 表示内网ip的网段,255.255.255.0表示子网掩码,192.168.1.1表示默认网关。
+
+
+# 由于一款主板可能存在多个摄像头，对于使用RKISP的摄像头如 CAM-8MS1M(IMX415) 需要抓取rkisp_mainpath对应的video节点
+# 对于自带ISP的摄像头如 CAM-8MS1M 则是抓取stream_cif_mipi_id0 对应的video节点
+v4l2-ctl -d /dev/video0 --set-crop=top=<0>,left=<0>,width=<640>,heigth=<480>
+
+
+echo 3 > /sys/class/video4linux/video0/dev_debug
+
+video0: VIDIOC_QUERY_EXT_CTRL: error -25
+
+
+v4l2_subdev_call(sensor_sd, pad, set_selection, NULL, &sd_sel);
+
+
+ioctl: VIDIOC_ENUM_FMT
+	Index       : 0
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'NV16'
+	Name        : Y/CbCr 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 1
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'NV61'
+	Name        : Y/CrCb 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 2
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'NV12'
+	Name        : Y/CbCr 4:2:0
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 3
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'NV21'
+	Name        : Y/CrCb 4:2:0
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 4
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'YUYV'
+	Name        : YUYV 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 5
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'YVYU'
+	Name        : YVYU 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 6
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'UYVY'
+	Name        : UYVY 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 7
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'VYUY'
+	Name        : VYUY 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 8
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RGB3'
+	Name        : 24-bit RGB 8-8-8
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 9
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BGR3'
+	Name        : 24-bit BGR 8-8-8
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 10
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RGBP'
+	Name        : 16-bit RGB 5-6-5
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 11
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BGRH'
+	Name        : 18-bit BGRX 6-6-6-14
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 12
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RGGB'
+	Name        : 8-bit Bayer RGRG/GBGB
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 13
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GRBG'
+	Name        : 8-bit Bayer GRGR/BGBG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 14
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GBRG'
+	Name        : 8-bit Bayer GBGB/RGRG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 15
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BA81'
+	Name        : 8-bit Bayer BGBG/GRGR
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 16
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RG10'
+	Name        : 10-bit Bayer RGRG/GBGB
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 17
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BA10'
+	Name        : 10-bit Bayer GRGR/BGBG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 18
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GB10'
+	Name        : 10-bit Bayer GBGB/RGRG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 19
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BG10'
+	Name        : 10-bit Bayer BGBG/GRGR
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 20
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RG12'
+	Name        : 12-bit Bayer RGRG/GBGB
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 21
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BA12'
+	Name        : 12-bit Bayer GRGR/BGBG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 22
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GB12'
+	Name        : 12-bit Bayer GBGB/RGRG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 23
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BG12'
+	Name        : 12-bit Bayer BGBG/GRGR
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 24
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BYR2'
+	Name        : 16-bit Bayer BGBG/GRGR
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 25
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GB16'
+	Name        : 16-bit Bayer GBGB/RGRG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 26
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GR16'
+	Name        : 16-bit Bayer GRGR/BGBG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 27
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RG16'
+	Name        : 16-bit Bayer RGRG/GBGB
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 28
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'Y16 '
+	Name        : 16-bit Greyscale
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 29
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GREY'
+	Name        : 8-bit Greyscale
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 30
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'EBD8'
+	Name        : Embedded data 8-bit
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 31
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'SPD6'
+	Name        : Shield pix data 16-bit
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 32
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'Y12 '
+	Name        : 12-bit Greyscale
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 33
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'Y10 '
+	Name        : 10-bit Greyscale
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+		
+v4l2-ctl --verbose -d /dev/video0 --set-fmt-video=width=640,height=480,pixelformat='NV12' --stream-mmap=3 --set-selection=target=crop,flags=0,top=0,left=0,width=640,height=480 --stream-to=/tmp/out.yuv
+
+ffplay -f rawvideo -video_size 640x480 -pixel_format nv12 out.yuv
+
+
+ gst-launch-1.0 v4l2src device=/dev/video11 ! video/x-raw,format=,width=640,height=480,framerate=15/1 ! queue2 ! videorate ! videoscale ! videoconvert ! xvimagesink
+ 
+ gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,format=NV12,width=.640,height=480, framerate=30/1 ! xvimagesink
+ 
+ ffplay -f rawvideo -video_size 640x480 -pixel_format nv12 out.yuv
+
+ 
+ hndz ov5640 get fmt start!
+[ 6380.284584] CPU: 2 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.284595] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.284607] Call trace:
+[ 6380.284631]  dump_backtrace+0x0/0x1b4
+[ 6380.284644]  show_stack+0x24/0x30
+[ 6380.284659]  dump_stack_lvl+0xc8/0xf8
+[ 6380.284670]  dump_stack+0x18/0x34
+[ 6380.284684]  ov5640_get_fmt+0x3c/0xb0
+[ 6380.284699]  call_get_fmt+0x50/0x64
+[ 6380.284712]  get_input_fmt+0xc8/0x270
+[ 6380.284725]  rkcif_set_fmt+0xc0/0x528
+[ 6380.284736]  rkcif_s_fmt_vid_cap_mplane+0x6c/0x70
+[ 6380.284749]  v4l_s_fmt+0x13c/0x348
+[ 6380.284761]  __video_do_ioctl+0x258/0x384
+[ 6380.284772]  video_usercopy+0x218/0x478
+[ 6380.284783]  video_ioctl2+0x24/0x3c
+[ 6380.284797]  v4l2_ioctl+0x54/0x7c
+[ 6380.284813]  vfs_ioctl+0x34/0x54
+[ 6380.284824]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.284837]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.284847]  do_el0_svc+0x90/0x9c
+[ 6380.284862]  el0_svc+0x20/0x30
+[ 6380.284871]  el0_sync_handler+0xbc/0x158
+[ 6380.284884]  el0_sync+0x1a0/0x1c0
+[ 6380.284899] hndz get selection start!
+[ 6380.284909] CPU: 2 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.284917] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.284925] Call trace:
+[ 6380.284935]  dump_backtrace+0x0/0x1b4
+[ 6380.284944]  show_stack+0x24/0x30
+[ 6380.284953]  dump_stack_lvl+0xc8/0xf8
+[ 6380.284962]  dump_stack+0x18/0x34
+[ 6380.284972]  ov5640_get_selection+0x40/0xd4
+[ 6380.284984]  call_get_selection+0x50/0x64
+[ 6380.284995]  rkcif_sync_crop_info+0x84/0x1a0
+[ 6380.285006]  rkcif_set_fmt+0x128/0x528
+[ 6380.285017]  rkcif_s_fmt_vid_cap_mplane+0x6c/0x70
+[ 6380.285027]  v4l_s_fmt+0x13c/0x348
+[ 6380.285037]  __video_do_ioctl+0x258/0x384
+[ 6380.285049]  video_usercopy+0x218/0x478
+[ 6380.285060]  video_ioctl2+0x24/0x3c
+[ 6380.285070]  v4l2_ioctl+0x54/0x7c
+[ 6380.285081]  vfs_ioctl+0x34/0x54
+[ 6380.285090]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.285101]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.285110]  do_el0_svc+0x90/0x9c
+[ 6380.285122]  el0_svc+0x20/0x30
+[ 6380.285132]  el0_sync_handler+0xbc/0x158
+[ 6380.285143]  el0_sync+0x1a0/0x1c0
+[ 6380.285313] hndz v4ll_s_selection rkcif_s_selection+0x0/0x1a8!
+[ 6380.285327] hndz s selection!
+[ 6380.285341] hndz rkcif_s_selection(line:5905): sd:rockchip-mipi-csi2 pad:1, which:1, target:0
+[ 6380.285355] hndz set selection ret -515!
+[ 6380.339141] rkcif-mipi-lvds2: stream[0] start streaming
+[ 6380.339170] hndz get selection start!
+[ 6380.339178] CPU: 4 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.339182] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.339187] Call trace:
+[ 6380.339198]  dump_backtrace+0x0/0x1b4
+[ 6380.339204]  show_stack+0x24/0x30
+[ 6380.339212]  dump_stack_lvl+0xc8/0xf8
+[ 6380.339217]  dump_stack+0x18/0x34
+[ 6380.339224]  ov5640_get_selection+0x40/0xd4
+[ 6380.339231]  call_get_selection+0x50/0x64
+[ 6380.339238]  rkcif_sync_crop_info+0x84/0x1a0
+[ 6380.339244]  rkcif_do_start_stream+0x438/0x918
+[ 6380.339249]  rkcif_start_streaming+0x24/0x30
+[ 6380.339255]  vb2_start_streaming+0x8c/0x130
+[ 6380.339260]  vb2_core_streamon+0x180/0x18c
+[ 6380.339265]  vb2_streamon+0x70/0x78
+[ 6380.339269]  vb2_ioctl_streamon+0x50/0x6c
+[ 6380.339275]  v4l_streamon+0x30/0x3c
+[ 6380.339281]  __video_do_ioctl+0x258/0x384
+[ 6380.339286]  video_usercopy+0x218/0x478
+[ 6380.339290]  video_ioctl2+0x24/0x3c
+[ 6380.339294]  v4l2_ioctl+0x54/0x7c
+[ 6380.339300]  vfs_ioctl+0x34/0x54
+[ 6380.339305]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.339311]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.339315]  do_el0_svc+0x90/0x9c
+[ 6380.339320]  el0_svc+0x20/0x30
+[ 6380.339324]  el0_sync_handler+0xbc/0x158
+[ 6380.339329]  el0_sync+0x1a0/0x1c0
+[ 6380.339335] hndz ov5640 get fmt start!
+[ 6380.339340] CPU: 4 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.339343] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.339347] Call trace:
+[ 6380.339351]  dump_backtrace+0x0/0x1b4
+[ 6380.339354]  show_stack+0x24/0x30
+[ 6380.339360]  dump_stack_lvl+0xc8/0xf8
+[ 6380.339366]  dump_stack+0x18/0x34
+[ 6380.339371]  ov5640_get_fmt+0x3c/0xb0
+[ 6380.339375]  call_get_fmt+0x50/0x64
+[ 6380.339381]  get_input_fmt+0xc8/0x270
+[ 6380.339387]  rkcif_do_start_stream+0x468/0x918
+[ 6380.339391]  rkcif_start_streaming+0x24/0x30
+[ 6380.339396]  vb2_start_streaming+0x8c/0x130
+[ 6380.339401]  vb2_core_streamon+0x180/0x18c
+[ 6380.339406]  vb2_streamon+0x70/0x78
+[ 6380.339411]  vb2_ioctl_streamon+0x50/0x6c
+[ 6380.339416]  v4l_streamon+0x30/0x3c
+[ 6380.339421]  __video_do_ioctl+0x258/0x384
+[ 6380.339426]  video_usercopy+0x218/0x478
+[ 6380.339431]  video_ioctl2+0x24/0x3c
+[ 6380.339436]  v4l2_ioctl+0x54/0x7c
+[ 6380.339440]  vfs_ioctl+0x34/0x54
+[ 6380.339444]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.339449]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.339453]  do_el0_svc+0x90/0x9c
+[ 6380.339458]  el0_svc+0x20/0x30
+[ 6380.339462]  el0_sync_handler+0xbc/0x158
+[ 6380.339467]  el0_sync+0x1a0/0x1c0
+[ 6380.339471] hndz &stream->crop[CROP_SRC_ACT] crop->width 640!
+[ 6380.339475] hndz crop->width 640  crop->left 0 input.width 640!
+[ 6380.339479] hndz crop->height 480 crop->top 0 input.height 480!
+[ 6380.339483] hndz ov5640 get fmt start!
+[ 6380.339487] CPU: 4 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.339491] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.339494] Call trace:
+[ 6380.339498]  dump_backtrace+0x0/0x1b4
+[ 6380.339502]  show_stack+0x24/0x30
+[ 6380.339507]  dump_stack_lvl+0xc8/0xf8
+[ 6380.339511]  dump_stack+0x18/0x34
+[ 6380.339515]  ov5640_get_fmt+0x3c/0xb0
+[ 6380.339519]  call_get_fmt+0x50/0x64
+[ 6380.339523]  get_input_fmt+0xc8/0x270
+[ 6380.339528]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 6380.339532]  rkcif_do_start_stream+0x59c/0x918
+[ 6380.339537]  rkcif_start_streaming+0x24/0x30
+[ 6380.339541]  vb2_start_streaming+0x8c/0x130
+[ 6380.339547]  vb2_core_streamon+0x180/0x18c
+[ 6380.339551]  vb2_streamon+0x70/0x78
+[ 6380.339556]  vb2_ioctl_streamon+0x50/0x6c
+[ 6380.339560]  v4l_streamon+0x30/0x3c
+[ 6380.339565]  __video_do_ioctl+0x258/0x384
+[ 6380.339570]  video_usercopy+0x218/0x478
+[ 6380.339574]  video_ioctl2+0x24/0x3c
+[ 6380.339579]  v4l2_ioctl+0x54/0x7c
+[ 6380.339583]  vfs_ioctl+0x34/0x54
+[ 6380.339587]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.339591]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.339595]  do_el0_svc+0x90/0x9c
+[ 6380.339600]  el0_svc+0x20/0x30
+[ 6380.339604]  el0_sync_handler+0xbc/0x158
+[ 6380.339608]  el0_sync+0x1a0/0x1c0
+[ 6380.339809] rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+[ 6380.340794] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream on, src_sd: 000000004d229ccf, sd_name:rockchip-csi2-dphy0
+[ 6380.340802] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream ON
+[ 6380.340823] rockchip-csi2-dphy0: dphy0, data_rate_mbps 768
+[ 6380.340842] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[ 6380.340846] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[ 6380.340852] hndz ov5640_set_power_on start!
+[ 6380.400194] hndz read chipid 0x5640!
+[ 6380.878365] hndz set frame fmt!
+[ 6380.878397] CPU: 1 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.878413] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.878428] Call trace:
+[ 6380.878453]  dump_backtrace+0x0/0x1b4
+[ 6380.878472]  show_stack+0x24/0x30
+[ 6380.878493]  dump_stack_lvl+0xc8/0xf8
+[ 6380.878512]  dump_stack+0x18/0x34
+[ 6380.878532]  ov5640_set_framefmt+0x38/0xdc
+[ 6380.878550]  ov5640_sensor_resume+0x22c/0x3cc
+[ 6380.878571]  __genpd_runtime_resume+0x30/0x7c
+[ 6380.878590]  genpd_runtime_resume+0x100/0x1e0
+[ 6380.878608]  __rpm_callback+0x4c/0x110
+[ 6380.878625]  rpm_callback+0x7c/0x88
+[ 6380.878642]  rpm_resume+0x398/0x434
+[ 6380.878660]  __pm_runtime_resume+0x68/0x90
+[ 6380.878681]  ov5640_s_stream+0x44/0x1a0
+[ 6380.878701]  rkcif_pipeline_set_stream+0xe8/0x528
+[ 6380.878720]  rkcif_do_start_stream+0x818/0x918
+[ 6380.878739]  rkcif_start_streaming+0x24/0x30
+[ 6380.878759]  vb2_start_streaming+0x8c/0x130
+[ 6380.878777]  vb2_core_streamon+0x180/0x18c
+[ 6380.878796]  vb2_streamon+0x70/0x78
+[ 6380.878815]  vb2_ioctl_streamon+0x50/0x6c
+[ 6380.878835]  v4l_streamon+0x30/0x3c
+[ 6380.878855]  __video_do_ioctl+0x258/0x384
+[ 6380.878874]  video_usercopy+0x218/0x478
+[ 6380.878893]  video_ioctl2+0x24/0x3c
+[ 6380.878910]  v4l2_ioctl+0x54/0x7c
+[ 6380.878929]  vfs_ioctl+0x34/0x54
+[ 6380.878947]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.878966]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.878985]  do_el0_svc+0x90/0x9c
+[ 6380.879004]  el0_svc+0x20/0x30
+[ 6380.879022]  el0_sync_handler+0xbc/0x158
+[ 6380.879040]  el0_sync+0x1a0/0x1c0
+[ 6380.903037] mipi2-csi2 ERR1:0x10 (fs/fe mis,vc: 0) 
+[ 6380.903078] rkcif-mipi-lvds2: ERROR: csi size err, intstat:0x1000001, lastline:0!!
+[ 6380.903418] mipi2-csi2 ERR1:0x100 (f_seq,vc: 0) 
+[ 6381.950461] rkcif-mipi-lvds2: stream[0] start stopping, total mode 0x1, cur 0x1
+[ 6381.950550] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream off, src_sd: 000000004d229ccf, sd_name:rockchip-csi2-dphy0
+[ 6381.950560] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream OFF
+[ 6381.951611] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream_stop stream stop, dphy0
+[ 6381.951623] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[ 6381.951645] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[ 6381.953866] rkcif-mipi-lvds2: stream[0] stopping finished, dma_en 0x0
+
+ 2929.067323] hndz ov5640 get fmt start!
+[ 2929.067375] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.067385] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.067395] Call trace:
+[ 2929.067417]  dump_backtrace+0x0/0x1b4
+[ 2929.067429]  show_stack+0x24/0x30
+[ 2929.067444]  dump_stack_lvl+0xc8/0xf8
+[ 2929.067454]  dump_stack+0x18/0x34
+[ 2929.067469]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.067483]  call_get_fmt+0x50/0x64
+[ 2929.067497]  get_input_fmt+0xc8/0x270
+[ 2929.067509]  rkcif_set_fmt+0xc0/0x528
+[ 2929.067522]  rkcif_s_fmt_vid_cap_mplane+0x6c/0x70
+[ 2929.067536]  v4l_s_fmt+0x13c/0x348
+[ 2929.067549]  __video_do_ioctl+0x258/0x384
+[ 2929.067562]  video_usercopy+0x218/0x478
+[ 2929.067575]  video_ioctl2+0x24/0x3c
+[ 2929.067587]  v4l2_ioctl+0x54/0x7c
+[ 2929.067602]  vfs_ioctl+0x34/0x54
+[ 2929.067612]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.067626]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.067636]  do_el0_svc+0x90/0x9c
+[ 2929.067647]  el0_svc+0x20/0x30
+[ 2929.067657]  el0_sync_handler+0xbc/0x158
+[ 2929.067667]  el0_sync+0x1a0/0x1c0
+[ 2929.067937] hndz v4ll_s_selection rkcif_s_selection+0x0/0x1a8!
+[ 2929.067948] hndz s selection!
+[ 2929.067961] hndz rkcif_s_selection(line:5909): sd:rockchip-mipi-csi2 pad:1, which:1, target:0
+[ 2929.067973] hndz set selection ret -515!
+[ 2929.069303] rkcif-mipi-lvds2: stream[0] start streaming
+[ 2929.069343] hndz ov5640 get fmt start!
+[ 2929.069359] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.069368] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.069380] Call trace:
+[ 2929.069398]  dump_backtrace+0x0/0x1b4
+[ 2929.069410]  show_stack+0x24/0x30
+[ 2929.069424]  dump_stack_lvl+0xc8/0xf8
+[ 2929.069435]  dump_stack+0x18/0x34
+[ 2929.069449]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.069461]  call_get_fmt+0x50/0x64
+[ 2929.069473]  get_input_fmt+0xc8/0x270
+[ 2929.069484]  rkcif_do_start_stream+0x468/0x918
+[ 2929.069494]  rkcif_start_streaming+0x24/0x30
+[ 2929.069509]  vb2_start_streaming+0x8c/0x130
+[ 2929.069519]  vb2_core_streamon+0x180/0x18c
+[ 2929.069533]  vb2_streamon+0x70/0x78
+[ 2929.069546]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.069560]  v4l_streamon+0x30/0x3c
+[ 2929.069573]  __video_do_ioctl+0x258/0x384
+[ 2929.069583]  video_usercopy+0x218/0x478
+[ 2929.069594]  video_ioctl2+0x24/0x3c
+[ 2929.069604]  v4l2_ioctl+0x54/0x7c
+[ 2929.069618]  vfs_ioctl+0x34/0x54
+[ 2929.069628]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.069642]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.069653]  do_el0_svc+0x90/0x9c
+[ 2929.069668]  el0_svc+0x20/0x30
+[ 2929.069677]  el0_sync_handler+0xbc/0x158
+[ 2929.069690]  el0_sync+0x1a0/0x1c0
+[ 2929.070834] hndz &stream->crop[CROP_SRC_ACT] crop->width 640!
+[ 2929.070846] hndz crop->width 640  crop->left 0 input.width 640!
+[ 2929.070859] hndz crop->height 480 crop->top 0 input.height 480!
+[ 2929.070870] hndz ov5640 get fmt start!
+[ 2929.070882] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.070894] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.070906] Call trace:
+[ 2929.070919]  dump_backtrace+0x0/0x1b4
+[ 2929.070931]  show_stack+0x24/0x30
+[ 2929.070944]  dump_stack_lvl+0xc8/0xf8
+[ 2929.070955]  dump_stack+0x18/0x34
+[ 2929.070967]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.070980]  call_get_fmt+0x50/0x64
+[ 2929.070992]  get_input_fmt+0xc8/0x270
+[ 2929.071004]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 2929.071015]  rkcif_do_start_stream+0x59c/0x918
+[ 2929.071027]  rkcif_start_streaming+0x24/0x30
+[ 2929.071040]  vb2_start_streaming+0x8c/0x130
+[ 2929.071052]  vb2_core_streamon+0x180/0x18c
+[ 2929.071064]  vb2_streamon+0x70/0x78
+[ 2929.071077]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.071090]  v4l_streamon+0x30/0x3c
+[ 2929.071100]  __video_do_ioctl+0x258/0x384
+[ 2929.071113]  video_usercopy+0x218/0x478
+[ 2929.071123]  video_ioctl2+0x24/0x3c
+[ 2929.071135]  v4l2_ioctl+0x54/0x7c
+[ 2929.071149]  vfs_ioctl+0x34/0x54
+[ 2929.071160]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.071174]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.071184]  do_el0_svc+0x90/0x9c
+[ 2929.071197]  el0_svc+0x20/0x30
+[ 2929.071206]  el0_sync_handler+0xbc/0x158
+[ 2929.071217]  el0_sync+0x1a0/0x1c0
+[ 2929.071228] hndz ov5640 get fmt start!
+[ 2929.071238] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.071248] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.071257] Call trace:
+[ 2929.071267]  dump_backtrace+0x0/0x1b4
+[ 2929.071276]  show_stack+0x24/0x30
+[ 2929.071286]  dump_stack_lvl+0xc8/0xf8
+[ 2929.071295]  dump_stack+0x18/0x34
+[ 2929.071307]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.071317]  call_get_fmt+0x50/0x64
+[ 2929.071329]  get_input_fmt+0xc8/0x270
+[ 2929.071340]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 2929.071351]  rkcif_do_start_stream+0x59c/0x918
+[ 2929.071362]  rkcif_start_streaming+0x24/0x30
+[ 2929.071373]  vb2_start_streaming+0x8c/0x130
+[ 2929.071384]  vb2_core_streamon+0x180/0x18c
+[ 2929.071397]  vb2_streamon+0x70/0x78
+[ 2929.071410]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.071422]  v4l_streamon+0x30/0x3c
+[ 2929.071434]  __video_do_ioctl+0x258/0x384
+[ 2929.071446]  video_usercopy+0x218/0x478
+[ 2929.071458]  video_ioctl2+0x24/0x3c
+[ 2929.071467]  v4l2_ioctl+0x54/0x7c
+[ 2929.071477]  vfs_ioctl+0x34/0x54
+[ 2929.071487]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.071497]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.071507]  do_el0_svc+0x90/0x9c
+[ 2929.071518]  el0_svc+0x20/0x30
+[ 2929.071529]  el0_sync_handler+0xbc/0x158
+[ 2929.071538]  el0_sync+0x1a0/0x1c0
+[ 2929.071548] hndz ov5640 get fmt start!
+[ 2929.071559] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.071569] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.071579] Call trace:
+[ 2929.071590]  dump_backtrace+0x0/0x1b4
+[ 2929.071601]  show_stack+0x24/0x30
+[ 2929.071613]  dump_stack_lvl+0xc8/0xf8
+[ 2929.071624]  dump_stack+0x18/0x34
+[ 2929.071636]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.071650]  call_get_fmt+0x50/0x64
+[ 2929.071661]  get_input_fmt+0xc8/0x270
+[ 2929.071675]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 2929.071687]  rkcif_do_start_stream+0x59c/0x918
+[ 2929.071700]  rkcif_start_streaming+0x24/0x30
+[ 2929.071711]  vb2_start_streaming+0x8c/0x130
+[ 2929.071721]  vb2_core_streamon+0x180/0x18c
+[ 2929.071732]  vb2_streamon+0x70/0x78
+[ 2929.071743]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.071754]  v4l_streamon+0x30/0x3c
+[ 2929.071767]  __video_do_ioctl+0x258/0x384
+[ 2929.071777]  video_usercopy+0x218/0x478
+[ 2929.071787]  video_ioctl2+0x24/0x3c
+[ 2929.071797]  v4l2_ioctl+0x54/0x7c
+[ 2929.071806]  vfs_ioctl+0x34/0x54
+[ 2929.071816]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.071827]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.071839]  do_el0_svc+0x90/0x9c
+[ 2929.071852]  el0_svc+0x20/0x30
+[ 2929.071862]  el0_sync_handler+0xbc/0x158
+[ 2929.071871]  el0_sync+0x1a0/0x1c0
+[ 2929.071881] hndz ov5640 get fmt start!
+[ 2929.071894] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.071905] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.071917] Call trace:
+[ 2929.071928]  dump_backtrace+0x0/0x1b4
+[ 2929.071943]  show_stack+0x24/0x30
+[ 2929.071954]  dump_stack_lvl+0xc8/0xf8
+[ 2929.071967]  dump_stack+0x18/0x34
+[ 2929.071979]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.071991]  call_get_fmt+0x50/0x64
+[ 2929.072003]  get_input_fmt+0xc8/0x270
+[ 2929.072016]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 2929.072028]  rkcif_do_start_stream+0x59c/0x918
+[ 2929.072042]  rkcif_start_streaming+0x24/0x30
+[ 2929.072053]  vb2_start_streaming+0x8c/0x130
+[ 2929.072064]  vb2_core_streamon+0x180/0x18c
+[ 2929.072074]  vb2_streamon+0x70/0x78
+[ 2929.072084]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.072095]  v4l_streamon+0x30/0x3c
+[ 2929.072105]  __video_do_ioctl+0x258/0x384
+[ 2929.072118]  video_usercopy+0x218/0x478
+[ 2929.072130]  video_ioctl2+0x24/0x3c
+[ 2929.072141]  v4l2_ioctl+0x54/0x7c
+[ 2929.072153]  vfs_ioctl+0x34/0x54
+[ 2929.072163]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.072177]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.072190]  do_el0_svc+0x90/0x9c
+[ 2929.072203]  el0_svc+0x20/0x30
+[ 2929.072214]  el0_sync_handler+0xbc/0x158
+[ 2929.072227]  el0_sync+0x1a0/0x1c0
+[ 2929.072528] rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+[ 2929.075554] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream on, src_sd: 00000000e6ece603, sd_name:rockchip-csi2-dphy0
+[ 2929.075568] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream ON
+[ 2929.075603] rockchip-csi2-dphy0: dphy0, data_rate_mbps 768
+[ 2929.075633] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[ 2929.075643] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[ 2929.075657] hndz ov5640_set_power_on start!
+[ 2929.134011] hndz read chipid 0x5640!
+[ 2929.580979] hndz set frame fmt!
+[ 2929.581010] CPU: 0 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.581026] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.581043] Call trace:
+[ 2929.581065]  dump_backtrace+0x0/0x1b4
+[ 2929.581084]  show_stack+0x24/0x30
+[ 2929.581105]  dump_stack_lvl+0xc8/0xf8
+[ 2929.581124]  dump_stack+0x18/0x34
+[ 2929.581144]  ov5640_set_framefmt+0x38/0xdc
+[ 2929.581163]  ov5640_sensor_resume+0x22c/0x3cc
+[ 2929.581185]  __genpd_runtime_resume+0x30/0x7c
+[ 2929.581203]  genpd_runtime_resume+0x100/0x1e0
+[ 2929.581222]  __rpm_callback+0x4c/0x110
+[ 2929.581239]  rpm_callback+0x7c/0x88
+[ 2929.581257]  rpm_resume+0x398/0x434
+[ 2929.581275]  __pm_runtime_resume+0x68/0x90
+[ 2929.581295]  ov5640_s_stream+0x44/0x1a0
+[ 2929.581315]  rkcif_pipeline_set_stream+0xe8/0x528
+[ 2929.581335]  rkcif_do_start_stream+0x818/0x918
+[ 2929.581354]  rkcif_start_streaming+0x24/0x30
+[ 2929.581373]  vb2_start_streaming+0x8c/0x130
+[ 2929.581392]  vb2_core_streamon+0x180/0x18c
+[ 2929.581411]  vb2_streamon+0x70/0x78
+[ 2929.581431]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.581449]  v4l_streamon+0x30/0x3c
+[ 2929.581469]  __video_do_ioctl+0x258/0x384
+[ 2929.581489]  video_usercopy+0x218/0x478
+[ 2929.581508]  video_ioctl2+0x24/0x3c
+[ 2929.581526]  v4l2_ioctl+0x54/0x7c
+[ 2929.581544]  vfs_ioctl+0x34/0x54
+[ 2929.581561]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.581581]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.581600]  do_el0_svc+0x90/0x9c
+[ 2929.581619]  el0_svc+0x20/0x30
+[ 2929.581636]  el0_sync_handler+0xbc/0x158
+[ 2929.581654]  el0_sync+0x1a0/0x1c0
+
