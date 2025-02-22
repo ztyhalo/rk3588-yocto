@@ -4536,8 +4536,12 @@ static int rkcif_sanity_check_fmt(struct rkcif_stream *stream,
 	if (s_crop)
 		crop = (struct v4l2_rect *)s_crop;
 	else
+	{
+		printk("hndz &stream->crop[CROP_SRC_ACT] crop->width %d!\n", stream->crop[CROP_SRC_ACT].width);
 		crop = &stream->crop[CROP_SRC_ACT];
-
+	}
+	printk("hndz crop->width %d  crop->left %d input.width %d!\n", crop->width , crop->left , input.width);
+	printk("hndz crop->height %d crop->top %d input.height %d!\n", crop->height ,crop->top , input.height);
 	if (crop->width + crop->left > input.width ||
 	    crop->height + crop->top > input.height) {
 		v4l2_err(v4l2_dev, "crop size is bigger than input\n");
@@ -5703,13 +5707,17 @@ static int rkcif_enum_framesizes(struct file *file, void *prov,
 	struct rkcif_device *dev = stream->cifdev;
 	struct v4l2_rect input_rect;
 	struct csi_channel_info csi_info;
-
+	printk("hndz rkcif_enum_framesizes %d!\n", fsize->index);
 	if (fsize->index != 0)
 		return -EINVAL;
 
 	if (!rkcif_find_output_fmt(stream, fsize->pixel_format))
+	{
+		printk("hndz rkcif_find_output_fmt error 0x%x!\n", fsize->pixel_format);
+		dump_stack();
 		return -EINVAL;
-
+	}
+	printk("hndz rkcif_find_output_fmt ok!\n");
 	input_rect.width = RKCIF_DEFAULT_WIDTH;
 	input_rect.height = RKCIF_DEFAULT_HEIGHT;
 
@@ -5889,7 +5897,7 @@ static int rkcif_s_selection(struct file *file, void *fh,
 		v4l2_dbg(1, rkcif_debug, &dev->v4l2_dev, "sel is null\n");
 		goto err;
 	}
-
+	printk("hndz s selection!\n");
 	sensor_sd = get_remote_sensor(stream, &pad);
 
 	sd_sel.r = s->r;
@@ -5897,13 +5905,16 @@ static int rkcif_s_selection(struct file *file, void *fh,
 	sd_sel.target = s->target;
 	sd_sel.which = V4L2_SUBDEV_FORMAT_ACTIVE;
 
+	printk("hndz %s(line:%d): sd:%s pad:%d, which:%d, target:%d\n",
+			 __func__, __LINE__, sensor_sd->name, pad, sd_sel.which, sd_sel.target);
+
 	ret = v4l2_subdev_call(sensor_sd, pad, set_selection, NULL, &sd_sel);
 	if (!ret) {
 		s->r = sd_sel.r;
 		v4l2_dbg(1, rkcif_debug, &dev->v4l2_dev, "%s: pad:%d, which:%d, target:%d\n",
 			 __func__, pad, sd_sel.which, sd_sel.target);
 	}
-
+	printk("hndz set selection ret %d!\n", ret);
 	return ret;
 
 err:

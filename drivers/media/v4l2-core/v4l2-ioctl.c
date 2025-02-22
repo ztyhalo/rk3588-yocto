@@ -2401,6 +2401,7 @@ static int v4l_s_selection(const struct v4l2_ioctl_ops *ops,
 		p->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 	else if (p->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
 		p->type = V4L2_BUF_TYPE_VIDEO_OUTPUT;
+	printk("hndz v4ll_s_selection %pS!\n",  ops->vidioc_s_selection);
 	ret = ops->vidioc_s_selection(file, fh, p);
 	p->type = old_type;
 	return ret;

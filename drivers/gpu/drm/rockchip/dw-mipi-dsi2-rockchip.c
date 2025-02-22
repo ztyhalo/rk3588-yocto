@@ -1252,7 +1252,7 @@ static int dw_mipi_dsi2_bind(struct device *dev, struct device *master,
 
 	if (dsi2->master)
 		return 0;
-
+	// printk("hndz panel name %s bridge name %s!\n", dev_name(dsi2->panel->dev), dev_name(dsi2->bridge->dev->dev));
 	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, -1,
 					  &dsi2->panel, &dsi2->bridge);
 	if (ret) {

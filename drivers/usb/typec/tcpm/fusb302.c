@@ -471,7 +471,7 @@ static int fusb302_set_src_current(struct fusb302_chip *chip,
 				   enum src_current_status status)
 {
 	int ret = 0;
-	printk("zty set src current!\n");
+	printk("zty set src current %d!\n", status);
 	chip->src_current_status = status;
 	switch (status) {
 	case SRC_CURRENT_DEFAULT:
@@ -692,6 +692,7 @@ static int tcpm_set_cc(struct tcpc_dev *dev, enum typec_cc_status cc)
 			goto done;
 		}
 		fusb302_log(chip, "zty init vc lvl ture!\n");
+		printk("zty init vc lvl ture!\n");
 		// dump_stack();
 		chip->intr_bc_lvl = true;
 		chip->intr_comp_chng = false;
@@ -752,6 +753,7 @@ static int tcpm_set_vconn(struct tcpc_dev *dev, bool on)
 		goto done;
 	chip->vconn_on = on;
 	fusb302_log(chip, "vconn := %s", on ? "On" : "Off");
+	printk("hndz  vconn := %s", on ? "On" : "Off");
 done:
 	mutex_unlock(&chip->lock);
 
@@ -1190,6 +1192,7 @@ static int fusb302_set_cc_polarity_and_pull(struct fusb302_chip *chip,
 				     switches1_mask, switches1_data);
 	if (ret < 0)
 		return ret;
+	printk("hndz switches0_data 0x%x!\n", switches0_data);
 	chip->cc_polarity = cc_polarity;
 
 	return ret;
@@ -1270,6 +1273,7 @@ static int fusb302_get_src_cc_status(struct fusb302_chip *chip,
 	int ret;
 
 	fusb302_log(chip, "zty src_current_status is %d cc_polarity %d!\n", chip->src_current_status, cc_polarity);
+	printk("hndz src_current_status is %d cc_polarity %d!\n", chip->src_current_status, cc_polarity);
 	/* Step 1: Set switches so that we measure the right CC pin */
 	switches0_data = (cc_polarity == TYPEC_POLARITY_CC1) ?
 		FUSB_REG_SWITCHES0_CC1_PU_EN | FUSB_REG_SWITCHES0_MEAS_CC1 :
@@ -1292,6 +1296,7 @@ static int fusb302_get_src_cc_status(struct fusb302_chip *chip,
 		return ret;
 
 	fusb302_log(chip, "get_src_cc_status rd_mda status0: 0x%0x", status0);
+	printk("hndz get_src_cc_status rd_mda status0: 0x%0x", status0);
 	if (status0 & FUSB_REG_STATUS0_COMP) {
 		*cc = TYPEC_CC_OPEN;
 		return 0;
@@ -1308,10 +1313,12 @@ static int fusb302_get_src_cc_status(struct fusb302_chip *chip,
 		return ret;
 
 	fusb302_log(chip, "get_src_cc_status ra_mda status0: 0x%0x", status0);
+	printk("hndz get_src_cc_status ra_mda status0: 0x%0x", status0);
 	if (status0 & FUSB_REG_STATUS0_COMP)
 	{
 		*cc = TYPEC_CC_RD;
 		fusb302_log(chip, "zty typec rd cc_polarity %d!\n", cc_polarity);
+		printk("hndz typec TYPEC_CC_RD rd cc_polarity %d!\n", cc_polarity);
 	}
 	else
 	{
@@ -1375,8 +1382,12 @@ static int fusb302_handle_togdone_src(struct fusb302_chip *chip,
 		fusb302_log(chip, "unexpected CC status cc1=%s, cc2=%s, restarting toggling",
 			    typec_cc_status_name[cc1],
 			    typec_cc_status_name[cc2]);
+		printk("hndz unexpected CC status cc1=%s, cc2=%s, restarting toggling",
+			    typec_cc_status_name[cc1],
+			    typec_cc_status_name[cc2]);
 		return fusb302_set_toggling(chip, toggling_mode);
 	}
+	printk("hndz cc1 %d cc2 %d cc polarity %d!\n", cc1, cc2, cc_polarity);
 	/* set polarity and pull_up, pull_down */
 	ret = fusb302_set_cc_polarity_and_pull(chip, cc_polarity, true, false);
 	if (ret < 0) {
@@ -1421,16 +1432,13 @@ static int fusb302_handle_togdone(struct fusb302_chip *chip)
 		return ret;
 	togdone_result = (status1a >> FUSB_REG_STATUS1A_TOGSS_POS) &
 			 FUSB_REG_STATUS1A_TOGSS_MASK;
+	printk("hndz togdone_result %d!\n", togdone_result);
 	switch (togdone_result) {
 	case FUSB_REG_STATUS1A_TOGSS_SNK1:
 	case FUSB_REG_STATUS1A_TOGSS_SNK2:
 		return fusb302_handle_togdone_snk(chip, togdone_result);
 	case FUSB_REG_STATUS1A_TOGSS_SRC1:
 	case FUSB_REG_STATUS1A_TOGSS_SRC2:
-		fusb302_log(chip, "zty usb master!\n");
-		ret = fusb302_handle_togdone_src(chip, togdone_result);
-		fusb302_log(chip, "zty usb master end!\n");
-		return ret;
 		return fusb302_handle_togdone_src(chip, togdone_result);
 	case FUSB_REG_STATUS1A_TOGSS_AA:
 		/* doesn't support */
@@ -1560,9 +1568,10 @@ static void fusb302_irq_work(struct kthread_work *work)
 	fusb302_log(chip,
 		    "IRQ: 0x%02x, a: 0x%02x, b: 0x%02x, status0: 0x%02x",
 		    interrupt, interrupta, interruptb, status0);
-		// printk(
-		//     "zty IRQ: 0x%02x, a: 0x%02x, b: 0x%02x, status0: 0x%02x!\n",
-		//     interrupt, interrupta, interruptb, status0);
+	printk(
+		"zty IRQ: 0x%02x, a: 0x%02x, b: 0x%02x, status0: 0x%02x!\n",
+		interrupt, interrupta, interruptb, status0);
+	printk("hndz intr_togdone %d intr_bc_lvl %d intr_comp_chng %d!\n", intr_togdone, intr_bc_lvl, intr_comp_chng);
 
 	if (interrupt & FUSB_REG_INTERRUPT_VBUSOK) {
 		vbus_present = !!(status0 & FUSB_REG_STATUS0_VBUSOK);
@@ -1591,7 +1600,7 @@ static void fusb302_irq_work(struct kthread_work *work)
 
 	if ((interrupt & FUSB_REG_INTERRUPT_BC_LVL) && intr_bc_lvl) {
 		fusb302_log(chip, "IRQ: BC_LVL, handler pending");
-		// printk("zty IRQ: BC_LVL, handler pending!\n");
+		printk("zty IRQ: BC_LVL, handler pending!\n");
 		/*
 		 * as BC_LVL interrupt can be affected by PD activity,
 		 * apply delay to for the handler to wait for the PD
@@ -1623,7 +1632,7 @@ static void fusb302_irq_work(struct kthread_work *work)
 
 	if (interrupta & FUSB_REG_INTERRUPTA_RETRYFAIL) {
 		fusb302_log(chip, "IRQ: PD retry failed");
-		// printk("zty IRQ: PD retry failed!\n");
+		 printk("zty IRQ: PD retry failed!\n");
 		tcpm_pd_transmit_complete(chip->tcpm_port, TCPC_TX_FAILED);
 	}
 

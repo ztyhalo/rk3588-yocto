@@ -1255,6 +1255,9 @@ static void tcpm_set_state(struct tcpm_port *port, enum tcpm_state state,
 		tcpm_log(port, "pending state change %s -> %s @ %u ms [%s %s]",
 			 tcpm_states[port->state], tcpm_states[state], delay_ms,
 			 pd_rev[port->negotiated_rev], tcpm_ams_str[port->ams]);
+		printk("lh pending state change %s -> %s @ %u ms [%s %s]",
+			 tcpm_states[port->state], tcpm_states[state], delay_ms,
+			 pd_rev[port->negotiated_rev], tcpm_ams_str[port->ams]);
 		port->delayed_state = state;
 		mod_tcpm_delayed_work(port, delay_ms);
 		port->delayed_runtime = ktime_add(ktime_get(), ms_to_ktime(delay_ms));
@@ -1263,6 +1266,11 @@ static void tcpm_set_state(struct tcpm_port *port, enum tcpm_state state,
 		tcpm_log(port, "state change %s -> %s [%s %s]",
 			 tcpm_states[port->state], tcpm_states[state],
 			 pd_rev[port->negotiated_rev], tcpm_ams_str[port->ams]);
+		printk("zty state change  %s -> %s [%s %s]",
+			 tcpm_states[port->state], tcpm_states[state],
+			 pd_rev[port->negotiated_rev], tcpm_ams_str[port->ams]);
+		//  if( port->state == 1 && state == 3)
+		//  	dump_stack();
 		port->delayed_state = INVALID_STATE;
 		port->prev_state = port->state;
 		port->state = state;
@@ -4922,6 +4930,9 @@ static void tcpm_state_machine_work(struct kthread_work *work)
 		tcpm_log(port, "state change %s -> %s [delayed %ld ms]",
 			 tcpm_states[port->state],
 			 tcpm_states[port->delayed_state], port->delay_ms);
+		printk("hndz state change %s -> %s [delayed %ld ms]",
+			 tcpm_states[port->state],
+			 tcpm_states[port->delayed_state], port->delay_ms);
 		port->prev_state = port->state;
 		port->state = port->delayed_state;
 		port->delayed_state = INVALID_STATE;
@@ -5762,7 +5773,11 @@ static int tcpm_try_role(struct typec_port *p, int role)
 	if (tcpc->try_role)
 		ret = tcpc->try_role(tcpc, role);
 	if (!ret)
+	{
 		port->try_role = role;
+		printk("hndz try role is %d!\n", role);
+		dump_stack();
+	}
 	port->try_src_count = 0;
 	port->try_snk_count = 0;
 	mutex_unlock(&port->lock);
@@ -6547,7 +6562,7 @@ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc)
 		goto out_destroy_wq;
 
 	port->try_role = port->typec_caps.prefer_role;
-
+	printk("hndz init port->try_role %d!\n", port->try_role);
 	port->typec_caps.fwnode = tcpc->fwnode;
 	port->typec_caps.revision = 0x0120;	/* Type-C spec release 1.2 */
 	port->typec_caps.pd_revision = 0x0300;	/* USB-PD spec release 3.0 */

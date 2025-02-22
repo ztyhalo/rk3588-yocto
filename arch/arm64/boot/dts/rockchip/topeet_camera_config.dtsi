@@ -1,6 +1,6 @@
-#define CAMERA_J1  //U20
+//#define CAMERA_J1  //U20
 //#define CAMERA_J2  //U18
-//#define CAMERA_J3  //U19
+#define CAMERA_J3  //U19
 //#define CAMERA_J4  //U16 
 
 
@@ -380,11 +380,16 @@
                                 remote-endpoint = <&ov5695_out_3>;
                                 data-lanes = <1 2>;
                         };
-			mipidphy0_in_ucam0_ov13850: endpoint@2 {
-				reg = <2>;
-				remote-endpoint = <&ov13850_out_3>;
-				data-lanes = <1 2 3 4>;
-			};
+						mipidphy0_in_ucam0_ov13850: endpoint@2 {
+							reg = <2>;
+							remote-endpoint = <&ov13850_out_3>;
+							data-lanes = <1 2 3 4>;
+						};
+						mipidphy0_in_ucam3_ov5640: endpoint@3 {
+							reg = <3>;
+							remote-endpoint = <&ov5640_out_3>;
+							data-lanes = <1 2>;
+						};
                 };
 
                 port@1 {
@@ -410,7 +415,7 @@
 	pinctrl-0 = <&i2c3m0_xfer>;
 
 	ov5695_3: ov5695@36 {
-		status = "okay";
+		status = "disable";
 		compatible = "ovti,ov5695";
 		reg = <0x36>;
 		clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
@@ -432,7 +437,7 @@
                 };
         };
 	ov13850_3: ov13850@10 {
-		status = "okay";
+		status = "disable";
 		compatible = "otvi,ov13850";
 		reg = <0x10>;
 		clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
@@ -453,6 +458,30 @@
 			};
 		};
 	};
+	ov5640_3: ov5640@3c {
+		status = "okay";
+		compatible = "ovti,ov5640";
+		reg = <0x3c>;
+		clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
+		clock-names = "xvclk";
+		power-domains = <&power RK3588_PD_VI>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&mipim0_camera3_clk>;
+		//reset-gpios = <&gpio2 RK_PB6 GPIO_ACTIVE_HIGH>;
+		//pwdn-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio1 RK_PD3 GPIO_ACTIVE_HIGH>;
+		pwdn-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
+		rockchip,camera-module-index = <2>;
+		rockchip,camera-module-facing = "back";
+		rockchip,camera-module-name = "default"; //"TongJu";
+		rockchip,camera-module-lens-name = "default"; //"CHT842-MD";
+		port {
+				ov5640_out_3: endpoint {
+						remote-endpoint = <&mipidphy0_in_ucam3_ov5640>;
+						data-lanes = <1 2>;
+				};
+		};
+    };
 };
 
 &mipi2_csi2 {
@@ -498,7 +527,7 @@
                 };
         };
 };
-
+/*
 &rkcif_mipi_lvds2_sditf {
         status = "okay";
 
@@ -508,11 +537,12 @@
                 };
         };
 };
+*/
 
 &rkcif_mmu {
         status = "okay";
 };
-
+/*
 &rkisp0 {
         status = "okay";
 };
@@ -534,7 +564,7 @@
                 };
         };
 };
-
+*/
 
 #endif
 

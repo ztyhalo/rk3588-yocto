@@ -289,7 +289,7 @@ static int rkcif_tools_enum_framesizes(struct file *file, void *prov,
 	struct v4l2_rect input_rect;
 	struct rkcif_sensor_info *terminal_sensor = &dev->terminal_sensor;
 	struct csi_channel_info csi_info;
-
+	printk("hndz cif-tools.c!\n");
 	if (fsize->index >= ARRAY_SIZE(tools_out_fmts))
 		return -EINVAL;
 

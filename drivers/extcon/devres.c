@@ -120,7 +120,7 @@ int devm_extcon_dev_register(struct device *dev, struct extcon_dev *edev)
 	struct extcon_dev **ptr;
 	int ret;
 	printk("zty devm_extcon_dev_register!\n");
-	dump_stack();
+	// dump_stack();
 	ptr = devres_alloc(devm_extcon_dev_unreg, sizeof(*ptr), GFP_KERNEL);
 	if (!ptr)
 		return -ENOMEM;

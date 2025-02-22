@@ -351,7 +351,7 @@ static int rkcif_scale_enum_framesizes(struct file *file, void *prov,
 	struct rkcif_sensor_info *terminal_sensor = &dev->terminal_sensor;
 	struct csi_channel_info csi_info;
 	int scale_times = 0;
-
+	printk("hndz cif-scale.c!\n");
 	if (fsize->index >= RKCIF_SCALE_ENUM_SIZE_MAX)
 		return -EINVAL;
 

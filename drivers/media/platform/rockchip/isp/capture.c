@@ -886,7 +886,7 @@ static int rkisp_enum_framesizes(struct file *file, void *prov,
 	struct rkisp_device *dev = stream->ispdev;
 	struct v4l2_rect max_rsz;
 	struct v4l2_rect *input_win = rkisp_get_isp_sd_win(&dev->isp_sdev);
-
+	printk("hndz isp  rkisp_enum_framesizes!\n");
 	if (fsize->index != 0)
 		return -EINVAL;
 

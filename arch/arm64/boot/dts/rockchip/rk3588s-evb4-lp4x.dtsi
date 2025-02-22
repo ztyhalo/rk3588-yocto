@@ -114,7 +114,7 @@
 		compatible = "regulator-fixed";
 		regulator-name = "vcc3v3_lcd0_n";
 		regulator-boot-on;
-		enable-active-high;
+		enable-active-high;fsf
 		gpio = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
 		vin-supply = <&vcc_3v3_s0>;
 	};

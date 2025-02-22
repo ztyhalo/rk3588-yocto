@@ -613,7 +613,7 @@ static int vidioc_s_selection(struct file *file, void *prv,
 	struct rockchip_rga *rga = ctx->rga;
 	struct rga_frame *f;
 	int ret = 0;
-
+	printk("hndz vidioc s selection !\n");
 	f = rga_get_frame(ctx, s->type);
 	if (IS_ERR(f))
 		return PTR_ERR(f);

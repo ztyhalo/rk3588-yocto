@@ -254,7 +254,8 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
 	 */
 	if (!of_graph_is_present(np))
 		return -ENODEV;
-
+	// printk("hndz find np name %s full %s!\n",np->name ,np->full_name);
+	// dump_stack();
 	remote = of_graph_get_remote_node(np, port, endpoint);
 	if (!remote)
 		return -ENODEV;

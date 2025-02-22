@@ -250,7 +250,19 @@ struct gpio_desc *__must_check devm_gpiod_get_index_optional(struct device *dev,
 		if (PTR_ERR(desc) == -ENOENT)
 			return NULL;
 	}
+	if(desc->name != NULL)
+	{
+		printk("hndz desc name %s!\n", desc->name);
+	}
 
+	if(desc->label != NULL)
+	{
+		printk("hndz desc label %s!\n", desc->label);
+	}
+		if(desc->gdev != NULL)
+	{
+		printk("hndz desc gdev id %d!\n", desc->gdev->id);
+	}
 	return desc;
 }
 EXPORT_SYMBOL_GPL(devm_gpiod_get_index_optional);
