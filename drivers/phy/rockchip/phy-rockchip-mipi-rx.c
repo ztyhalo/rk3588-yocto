@@ -752,7 +752,7 @@ static int mipidphy_get_sensor_data_rate(struct v4l2_subdev *sd)
 
 	link_freq = v4l2_ctrl_find(sensor_sd->ctrl_handler, V4L2_CID_LINK_FREQ);
 	if (!link_freq) {
-		v4l2_warn(sd, "No pixel rate control in subdev\n");
+		v4l2_warn(sd, "No pixel rate control in subdev %s\n", __func__);
 		return -EPIPE;
 	}
 

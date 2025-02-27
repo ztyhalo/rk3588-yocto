@@ -179,7 +179,7 @@ static int __isp_pipeline_s_isp_clk(struct rkisp1_pipeline *p)
 
 	ctrl = v4l2_ctrl_find(sd->ctrl_handler, V4L2_CID_PIXEL_RATE);
 	if (!ctrl) {
-		v4l2_warn(sd, "No pixel rate control in subdev\n");
+		v4l2_warn(sd, "No pixel rate control in subdev %s\n", __func__);
 		return -EPIPE;
 	}
 

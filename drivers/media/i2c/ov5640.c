@@ -179,6 +179,11 @@ enum ov5640_downsize_mode {
 	SCALING,
 };
 
+#define OV5640_LINK_FREQ_246MHZ		246000000
+static const s64 link_freq_menu_items[] = {
+	OV5640_LINK_FREQ_246MHZ
+};
+
 struct reg_value {
 	u16 reg_addr;
 	u8 val;
@@ -1329,6 +1334,9 @@ static int ov5640_get_sysclk(struct ov5640_dev *sensor)
 	VCO = xvclk * multiplier / prediv;
 
 	sysclk = VCO / sysdiv / pll_rdiv * 2 / bit_div2x / sclk_rdiv;
+	printk("hndz vco is %d xvclk %d multiplier %d prediv %d!\n", VCO, xvclk, multiplier, prediv);
+	printk("hndz  SysDiv %d Pll_rdiv %d  Bit_div2x %d sclk_rdiv %d !\n",  sysdiv , pll_rdiv , bit_div2x , sclk_rdiv);
+	printk("hndz sys clk is %d!\n", sysclk);
 
 	return sysclk;
 }
@@ -1580,7 +1588,7 @@ static u64 ov5640_calc_pixel_rate(struct ov5640_dev *sensor)
 
 	rate = sensor->current_mode->vtot * sensor->current_mode->htot;
 	rate *= ov5640_framerates[sensor->current_fr];
-
+	printk("hndz pixel rate %d sensor->current_mode->vtot %d!\n", rate, sensor->current_mode->vtot);
 	return rate;
 }
 
@@ -1793,6 +1801,7 @@ static int ov5640_set_mode(struct ov5640_dev *sensor)
 	rate = ov5640_calc_pixel_rate(sensor) * 16;
 	if (sensor->ep.bus_type == V4L2_MBUS_CSI2_DPHY) {
 		rate = rate / sensor->ep.bus.mipi_csi2.num_data_lanes;
+		printk("hndz set mipi rate %d lanes %d!\n", rate, sensor->ep.bus.mipi_csi2.num_data_lanes);
 		ret = ov5640_set_mipi_pclk(sensor, rate);
 	} else {
 		rate = rate / sensor->ep.bus.parallel.bus_width;
@@ -2799,11 +2808,17 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
 	struct ov5640_ctrls *ctrls = &sensor->ctrls;
 	struct v4l2_ctrl_handler *hdl = &ctrls->handler;
 	int ret;
+	struct v4l2_ctrl *ctrl;
 
 	v4l2_ctrl_handler_init(hdl, 32);
 
 	/* we can use our own mutex for the ctrl lock */
 	hdl->lock = &sensor->lock;
+
+	ctrl = v4l2_ctrl_new_int_menu(hdl, NULL, V4L2_CID_LINK_FREQ,
+				      0, 0, link_freq_menu_items);
+	if (ctrl)
+		ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
 
 	/* Clock related controls */
 	ctrls->pixel_rate = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_PIXEL_RATE,
