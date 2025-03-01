@@ -1,0 +1,3871 @@
+[    3.049520] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08ec.hclk_vo1
+[    3.061488] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08b0.aclk_vdpu_low_pre
+[    3.073982] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08dc.hclk_vo0
+[    3.085513] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a8.hclk_usb
+[    3.096906] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c087c.hclk_nvm
+[    3.108131] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a8.aclk_usb
+[    3.119276] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c0868.hclk_isp1_pre
+[    3.130832] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c0868.aclk_isp1_pre
+[    3.142303] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a0.aclk_rkvdec0_pre
+[    3.154073] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a0.hclk_rkvdec0_pre
+[    3.165693] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a4.aclk_rkvdec1_pre
+[    3.177345] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08a4.hclk_rkvdec1_pre
+[    3.188961] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08b0.aclk_jpeg_decoder_pre
+[    3.201020] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08c0.aclk_rkvenc1_pre
+[    3.212478] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08c0.hclk_rkvenc1_pre
+[    3.223979] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08dc.aclk_hdcp0_pre
+[    3.235193] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08ec.aclk_hdcp1_pre
+[    3.246469] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c0910.pclk_av1_pre
+[    3.257437] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c0910.aclk_av1_pre
+[    3.268384] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c092c.hclk_sdio_pre
+[    3.279477] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08dc.pclk_vo0_grf
+[    3.290432] hndz bus: 'platform': really_probe: probing driver clock-link with device fd7c08ec.pclk_vo1_grf
+[    3.302019] hndz bus: 'platform': really_probe: probing driver sram with device 10f000.sram
+[    3.313111] hndz bus: 'platform': really_probe: probing driver rockchip-pm-domain with device fd8d8000.power-management:power-controller
+[    3.338095] hndz bus: 'platform': really_probe: probing driver sram with device ff001000.sram
+[    3.348079] hndz bus: 'platform': really_probe: probing driver rockchip-pinctrl with device pinctrl
+[    3.359197] hndz bus: 'platform': really_probe: probing driver rockchip-gpio with device fd8a0000.gpio
+    5.924504] hndz bus: 'platform': really_probe: probing driver rockchip_canfd with device fea50000.can
+[    5.924524] CPU: 2 PID: 194 Comm: kworker/u16:2 Not tainted 5.10.110 #98
+[    5.924534] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    5.924554] Workqueue: events_unbound deferred_probe_work_func
+[    5.924568] Call trace:
+[    5.924581]  dump_backtrace+0x0/0x1b4
+[    5.924591]  show_stack+0x24/0x30
+[    5.924604]  dump_stack_lvl+0xc8/0xf8
+[    5.924617]  dump_stack+0x18/0x34
+[    5.924630]  really_probe+0x1dc/0x4b8
+[    5.924643]  driver_probe_device+0x138/0x148
+[    5.924655]  __device_attach_driver+0xd8/0x114
+[    5.924666]  bus_for_each_drv+0xa4/0xcc
+[    5.924677]  __device_attach+0xdc/0x170
+[    5.924689]  device_initial_probe+0x20/0x2c
+[    5.924700]  bus_probe_device+0x3c/0xa0
+[    5.924712]  deferred_probe_work_func+0xe0/0xf4
+[    5.924725]  process_one_work+0x1e0/0x298
+[    5.924738]  process_scheduled_works+0x4c/0x50
+[    5.924751]  worker_thread+0x1f8/0x27c
+[    5.924763]  kthread+0xf8/0x108
+[    5.924776]  ret_from_fork+0x10/0x30
+[    5.924947] rockchip-pinctrl pinctrl: pin gpio0-16 already requested by fd8b0010.pwm; cannot claim for fea50000.can
+[    5.924977] rockchip-pinctrl pinctrl: pin-16 (fea50000.can) status -22
+[    5.924999] rockchip-pinctrl pinctrl: could not request pin 16 (gpio0-16) from group can0m0-pins  on device rockchip-pinctrl
+[    5.925018] rockchip_canfd fea50000.can: Error applying setting, reverse things back
+[    5.925056] rockchip_canfd: probe of fea50000.can failed with error -22
+
+
+
+	/* If using pinctrl, bind pins now before probing */
+		printk("hndz bus: '%s': %s: probing driver %s with device %s\n",
+		 drv->bus->name, __func__, drv->name, dev_name(dev));
+	if(strcmp(dev_name(dev), "fea50000.can") == 0)
+		dump_stack();
+	ret = pinctrl_bind_pins(dev);
+
+arch_timer: cp15 timer(s) running at 24.00MHz (phys).
+
+
+
+  4.483825] hndz tty dev name ttymxc7!
+[    4.483832] CPU: 4 PID: 1 Comm: swapper/0 Not tainted 5.10.110 #103
+[    4.483836] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    4.483841] Call trace:
+[    4.483851]  dump_backtrace+0x0/0x1b4
+[    4.483857]  show_stack+0x24/0x30
+[    4.483864]  dump_stack_lvl+0xc8/0xf8
+[    4.483869]  dump_stack+0x18/0x34
+[    4.483878]  tty_register_device_attr+0x17c/0x23c
+[    4.483884]  tty_port_register_device_attr+0x54/0x6c
+[    4.483891]  uart_add_one_port+0x3ac/0x444
+[    4.483898]  serial8250_register_8250_port+0x31c/0x410
+[    4.483904]  dw8250_probe+0x560/0x61c
+[    4.483911]  platform_drv_probe+0x60/0xb0
+[    4.483916]  really_probe+0x2dc/0x46c
+[    4.483922]  driver_probe_device+0x138/0x148
+[    4.483927]  device_driver_attach+0x50/0x7c
+[    4.483932]  __driver_attach+0x150/0x154
+[    4.483937]  bus_for_each_dev+0x7c/0xc8
+[    4.483942]  driver_attach+0x30/0x3c
+[    4.483947]  bus_add_driver+0x1b4/0x1fc
+[    4.483953]  driver_register+0xc0/0xf8
+[    4.483959]  __platform_driver_register+0x58/0x64
+[    4.483966]  dw8250_platform_driver_init+0x28/0x34
+[    4.483972]  do_one_initcall+0xa0/0x1e8
+[    4.483978]  kernel_init_freeable+0x2a4/0x2ac
+[    4.483985]  kernel_init+0x20/0x11c
+[    4.483991]  ret_from_fork+0x10/0x30
+
+rk3588
+rockchip-pinctrl pinctrl: pin gpio0-16 already requested by fd8b0010.pwm; cannot claim for fea50000.can
+[    5.924977] rockchip-pinctrl pinctrl: pin-16 (fea50000.can) status -22
+[    5.924999] rockchip-pinctrl pinctrl: could not request pin 16 (gpio0-16) from group can0m0-pins  on device rockchip-pinctrl
+[    5.925018] rockchip_canfd fea50000.can: Error applying setting, reverse things back
+[    5.925056] rockchip_canfd: probe of fea50000.can failed with error -22
+
+amixer cset numid=32,iface=MIXER,name='Left PGA Mux' 1
+
+echo "8" > /proc/sys/kernel/printk
+arecord -d 10 /tmp/linshi.wav
+aplay /opt/voice/platform/pidai_baohu.wav
+
+dd if=/opt/boot.img of=/dev/mmcblk0p3 bs=512
+
+
+systemctl disable xrdp
+systemctl stop xrdp
+apt purge xrdp
+apt purge xserver-xorg-core
+apt install xrdp
+apt install xserver-xorg-core
+grep 'ssl-cert' /etc/group
+adduser xrdp ssl-cert
+grep 'ssl-cert' /etc/group
+
+
+
+音频
+amixer controls
+amixer contents
+Headphone
+
+amixer cget name='Speaker Switch'
+amixer cset name='Speaker Switch' 1 打开
+
+amixer cget name='Headphone Switch'
+amixer cset name='Headphone Switch' 1 打开
+
+amixer cget name='Left PGA Mux'  
+  ; Item #0 'Line 1L'
+  ; Item #1 'Line 2L'
+  ; Item #2 'DifferentialL'
+amixer cset name='Left PGA Mux' 2 差分模式
+
+amixer cget name='Right PGA Mux'
+amixer cset name='Right PGA Mux' 2
+
+保存默认配置参数
+alsactl store -f /var/lib/alsa/asound.state
+
+amixer cget name='Headphone Jack'
+amixer cget numid=26,iface=CARD,name='Headphone Jack
+
+amixer cset name='Headphone Jack' 1
+
+mc_data->codec_hp_det = true;
+
+[ 1188.612331] ES8323 7-0011: Unable to configure sample rate 22050Hz with 5644800Hz MCLK
+[ 1188.612380] ES8323 7-0011: ASoC: error at snd_soc_dai_hw_params on ES8323.7-0011: -22
+/opt/version/S88rc5logic236
+
+imx6dlsabresd login: [  222.666684] hndz  configure sample rate 44100Hz with 24000000Hz MCLK!
+[  222.673181] CPU: 1 PID: 594 Comm: aplay Not tainted 3.14.28-dirty #40
+[  222.679947] [<800149f8>] (unwind_backtrace) from [<80011714>] (show_stack+0x10/0x14)
+[  222.687736] [<80011714>] (show_stack) from [<805673d4>] (dump_stack+0x7c/0xbc)
+[  222.695022] [<805673d4>] (dump_stack) from [<8048fcfc>] (aic3x_hw_params+0x78/0x500)
+[  222.702807] [<8048fcfc>] (aic3x_hw_params) from [<8048aec0>] (soc_pcm_hw_params+0x13c/0x42c)
+[  222.711301] [<8048aec0>] (soc_pcm_hw_params) from [<80473444>] (snd_pcm_hw_params+0xb4/0x384)
+[  222.719865] [<80473444>] (snd_pcm_hw_params) from [<80475254>] (snd_pcm_common_ioctl1+0x5c4/0xdb8)
+[  222.728865] [<80475254>] (snd_pcm_common_ioctl1) from [<80475bd8>] (snd_pcm_playback_ioctl1+0x190/0x45c)
+[  222.738661] [<80475bd8>] (snd_pcm_playback_ioctl1) from [<800e4d98>] (do_vfs_ioctl+0x3dc/0x59c)
+[  222.747396] [<800e4d98>] (do_vfs_ioctl) from [<800e4f8c>] (SyS_ioctl+0x34/0x5c)
+[  222.754746] [<800e4f8c>] (SyS_ioctl) from [<8000e4a0>] (ret_fast_syscall+0x0/0x30)
+
+安装qt
+apt-get install qt4-default
+apt-get install qt4*
+gedit /etc/pam.d/gdm-autologin 第三行
+#auth    required    pam_succeed_if.so user != root quiet_success屏蔽
+gedit /etc/pam.d/gdm-password第三行
+#auth    required    pam_succeed_if.so user != root quiet_success
+gedit /root/.profile
+tty -s&&mesg n 2> /dev/null || true 未改
+
+libmosquittopp.so.1 cannot open
+/opt/bin/VoipServer
+rsync -l 保留软连接
+
+安装candump
+ apt-get install can-utils 
+ 
+ git命令
+ git stash
+ git stash save 'audio linshi change'
+ 、git stash pop [–index] [stash_id] 
+ git stash pop
+ 
+ 
+export CROSS_COMPILE=/home/leno/rk3588/buildroot/rk3588-linux_20240424/rk3588-linux/prebuilts/gcc/linux-x86/aarch64/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+make ARCH=arm64 rockchip_linux_defconfig rk3588_linux.config
+
+make ARCH=arm64 rk3588-evb7-lp4-v10-linux.img -j8
+
+打包文件系统
+拷贝库文件到local目录下
+/home/leno/rk3588/216/locallib$ sudo cp -r * /home/z/zty/rk3588/ubuntu/ubuntu18/ubuntu-rootfs/usr/local/
+sudo cp -r * /home/z/zty/rk3588/ubuntu/ubuntu18/ubuntu-rootfs/usr/local/
+拷贝规则文件 interface 启动脚本rc.local
+sudo cp hndz.rules /home/z/zty/rk3588/ubuntu/ubuntu18/ubuntu-rootfs/etc/udev/rules.d/
+sudo cp interfaces /home/z/zty/rk3588/ubuntu/ubuntu18/ubuntu-rootfs/etc/network/
+
+vi ~/.bashrc
+# 添加一行
+alias code='/usr/share/code/code . --no-sandbox --unity-launch'
+# 报存生效
+source ~/.bashrc
+
+sudo cp libasound.so.2.0.0 /usr/lib/aarch64-linux-gnu/libasound.so.2.0.0
+./configure --prefix=/media/root/395e8fd6-bc2e-436b-8ad3-4d01c44953a5/alsabuild
+make
+make install
+sudo cp libasound.so.2.0.0 /usr/lib/aarch64-linux-gnu/libasound.so.2.0.0
+A9
+amixer cget name='Line Playback Switch'
+static long snd_ctl_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+SNDRV_CTL_IOCTL_ELEM_WRITE
+
+rk3588音频
+Created symlink /home/user/.config/systemd/user/pulseaudio.service → /dev/null.
+
+apt-get remove pulseaudio
+
+音频设置过程
+snd_ctl_ioctl 测试是调用SNDRV_CTL_IOCTL_ELEM_WRITE snd_ctl_elem_write设置switch开关函数为__snd_soc_dapm_set_pin
+
+./configure --prefix=/media/root/395e8fd6-bc2e-436b-8ad3-4d01c44953a51/utilsbuild
+
+
+hn3588 login: [   52.144606] hndz set pcm startup!
+[   52.146250] hndz dai set sysclk 11289600!
+[   52.146276] CPU: 1 PID: 1374 Comm: gnome-shell Not tainted 5.10.110 #123
+[   52.146284] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[   52.146294] Call trace:
+[   52.146315]  dump_backtrace+0x0/0x1b4
+[   52.146325]  show_stack+0x24/0x30
+[   52.146339]  dump_stack_lvl+0xc8/0xf8
+[   52.146347]  dump_stack+0x18/0x34
+[   52.146360]  es8323_set_dai_sysclk+0x40/0xbc
+[   52.146372]  snd_soc_dai_set_sysclk+0x44/0x80
+[   52.146385]  rk_multicodecs_hw_params+0x64/0xdc
+[   52.146394]  snd_soc_link_hw_params+0x38/0x68
+[   52.146403]  soc_pcm_hw_params+0x114/0x468
+[   52.146415]  snd_pcm_hw_params+0x2e8/0x34c
+[   52.146424]  snd_pcm_common_ioctl+0x588/0xea0
+[   52.146432]  snd_pcm_ioctl+0x38/0x50
+[   52.146443]  vfs_ioctl+0x34/0x54
+[   52.146450]  __arm64_sys_ioctl+0x6c/0xa0
+[   52.146462]  el0_svc_common.constprop.0+0x13c/0x1ec
+[   52.146470]  do_el0_svc+0x8c/0x98
+[   52.146478]  el0_svc+0x20/0x30
+[   52.146486]  el0_sync_handler+0xd8/0x184
+[   52.146498]  el0_sync+0x1a0/0x1c0
+
+SNDRV_PCM_IOCTL_HW_PARAMS
+
+[   75.539148] hndz es8323_pcm_hw_params!
+[   75.539167] CPU: 0 PID: 1406 Comm: gnome-shell Not tainted 5.10.110 #124
+[   75.539174] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[   75.539182] Call trace:
+[   75.539195]  dump_backtrace+0x0/0x1b4
+[   75.539204]  show_stack+0x24/0x30
+[   75.539215]  dump_stack_lvl+0xc8/0xf8
+[   75.539222]  dump_stack+0x18/0x34
+[   75.539233]  es8323_pcm_hw_params+0x80/0x244
+[   75.539242]  snd_soc_dai_hw_params+0x64/0x90
+[   75.539250]  soc_pcm_hw_params+0x2c8/0x468
+[   75.539260]  snd_pcm_hw_params+0x2e8/0x34c
+[   75.539268]  snd_pcm_common_ioctl+0x588/0xea0
+[   75.539275]  snd_pcm_ioctl+0x38/0x50
+[   75.539283]  vfs_ioctl+0x34/0x54
+[   75.539291]  __arm64_sys_ioctl+0x6c/0xa0
+[   75.539300]  el0_svc_common.constprop.0+0x13c/0x1ec
+[   75.539308]  do_el0_svc+0x8c/0x98
+[   75.539317]  el0_svc+0x20/0x30
+[   75.539325]  el0_sync_handler+0xd8/0x184
+[   75.539332]  el0_sync+0x1a0/0x1c0
+
+中断超时错误
+hndz irq over id 237 irq 58!
+自动补齐
+. /etc/bash_completion
+. / ( 点号 空格 / )#
+有空格的点号等同于source命令,表示在当前shell环境执行后面的命令或脚本（不加点号默认是新开一个shell执行的
+
+例如 . /home/test.sh 等同于 source /home/test.sh。
+
+强制卸载
+umount -f
+格式化ext4
+mkfs.ext4 -E nodiscard
+
+discard/nodiscard
+   Controls whether ext4 should issue discard/TRIM commands to the underlying block device 
+   when blocks  are  freed.This  is  useful  for  SSD  devices  and  sparse/thinly
+   -provisioned LUNs, but it is off by default until sufficient testing has been done.
+discard 块设备自动回收设备
+
+opt/bin/DBServer: error while loading shared libraries: liblog4cplus-2.0.so.3: cannot open shared object file: No such file or directory
+
+
+
+sudo mount -t nfs -o nolock,addr=172.1.10.199 172.1.10.199:/d/nfs /home/z/mnt/
+
+ModuleNotFoundError: No module named 'apt_pkg'
+apt install python3-pip 
+apt remove python3-apt
+apt install python3-apt
+
+
+拷贝static下的文件夹到更新版里
+
+Par logicfile permission syscomm
+
+
+ssh-keygen -f "/home/z/.ssh/known_hosts" -R "169.254.1.218"
+
+串口波特率
+stty -F /dev/ -a
+
+Linux内核参数之arp_ignore和arp_announce
+ net.ipv4.conf.all.arp_ignore=1
+ net.ipv4.conf.lo.arp_ignore=1
+ net.ipv4.conf.all.arp_announce=2
+ net.ipv4.conf.lo.arp_announce=2
+
+ echo "1">/proc/sys/net/ipv4/conf/all/arp_ignore
+ echo "1">/proc/sys/net/ipv4/conf/lo/arp_ignore
+ echo "2">/proc/sys/net/ipv4/conf/all/arp_announce
+ echo "2">/proc/sys/net/ipv4/conf/lo/arp_announce
+
+./ch-mount.sh -m ubuntu-rootfs/
+./ch-mount.sh -u ubuntu-rootfs/
+./mkimage.sh ubuntu-rootfs rootfs.img
+
+
+串口调试
+[   17.931320] of_dma_request_slave_channel: dma-names property of node '/serial@febb0000' missing or empty
+[   17.931350] dw-apb-uart febb0000.serial: failed to request DMA, use interrupt mode
+[   17.931427] of_dma_request_slave_channel: dma-names property of node '/serial@feba0000' missing or empty
+[   17.931449] dw-apb-uart feba0000.serial: failed to request DMA, use interrupt mode
+[   17.931736] of_dma_request_slave_channel: dma-names property of node '/serial@febc0000' missing or empty
+[   17.931767] dw-apb-uart febc0000.serial: failed to request DMA, use interrupt mode
+[   17.932059] of_dma_request_slave_channel: dma-names property of node '/serial@fd890000' missing or empty
+[   17.932074] dw-apb-uart fd890000.serial: failed to request DMA, use interrupt mode
+a9有个AGTIM 
+
+
+  245.614004] dw-apb-uart febb0000.serial: got rx and tx dma channels
+[  248.760828] dw-apb-uart fd890000.serial: got rx and tx dma channels
+[  248.761331] dw-apb-uart feba0000.serial: got rx and tx dma channels
+[  250.775963] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  250.776074] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  250.776102] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.107636] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.107764] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.107806] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.110037] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.110112] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  266.110147] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  308.136018] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  308.136069] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  308.136085] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  568.161947] dw-apb-uart febb0000.serial: got rx and tx dma channels
+[  571.266701] dw-apb-uart feba0000.serial: got rx and tx dma channels
+[  571.267127] dw-apb-uart fd890000.serial: got rx and tx dma channels
+[  573.299018] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  573.299126] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  573.299158] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.823135] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.823303] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.823358] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.826492] rockchip_canfd fea50000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.826591] rockchip_canfd fea60000.can can1: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[  588.826637] rockchip_canfd fea70000.can can2: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[ 1167.667486] rockchip-vop2 fdd90000.vop: [drm:vop2_crtc_atomic_disable] Crtc atomic disable vp3
+[ 1167.684375] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vop-supply from device tree
+[ 1167.684484] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vop-supply property in node /power-management@fd8d8000/power-controller failed
+
+
+[  553.409273] rc.local[936]: (EE)
+[  553.410313] rc.local[936]: Fatal server error:
+[  553.412474] rc.local[936]: (EE) AddScreen/ScreenInit failed for driver 0
+[  553.418365] rc.local[936]: (EE)
+[  553.421630] rc.local[936]: (EE)
+[  553.424547] rc.local[936]: Please consult the The X.Org Foundation support
+[  553.431402] rc.local[936]:    at http://wiki.x.org
+[  553.436065] rc.local[936]:  for help.
+[  553.440625] rc.local[936]: (EE) Please also check the log file at "/var/log/Xorg.0.log" for additional information.
+[  553.450886] rc.local[936]: (EE)
+[  553.453151] rc.local[936]: (EE) Server terminated with error (1). Closing log file.
+
+
+/opt/bin/ModbusMaster 87654354 87654355 87654356 87654357 87654331 5 87654358 Modbus_RTU_Master_2.xml
+/opt/ModbusMaster 87654354 87654355 87654356 87654357 87654331 5 87654358 Modbus_RTU_Master_2.xml
+
+] hndz irq action sdhci_irq+0x0/0xb14!
+
+[    5.477716] hndz sdhci irq is 58 !
+[    5.477732] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.110 #148
+[    5.477739] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    5.477748] Call trace:
+[    5.477763]  dump_backtrace+0x0/0x1b4
+[    5.477772]  show_stack+0x24/0x30
+[    5.477784]  dump_stack_lvl+0xc8/0xf8
+[    5.477793]  dump_stack+0x18/0x34
+[    5.477805]  sdhci_irq+0xbc/0xbe8
+[    5.477816]  __handle_irq_event_percpu+0xdc/0x214
+[    5.477825]  handle_irq_event_percpu+0x3c/0x94
+[    5.477834]  handle_irq_event+0x54/0x98
+[    5.477844]  handle_fasteoi_irq+0xb0/0x130
+[    5.477853]  generic_handle_irq_desc+0x14/0x20
+[    5.477862]  __handle_domain_irq+0x160/0x168
+[    5.477871]  gic_handle_irq+0x2bc/0x30c
+[    5.477879]  el1_irq+0xcc/0x180
+[    5.477890]  arch_local_irq_enable+0xc/0x28
+[    5.477900]  cpuidle_enter+0x44/0x5c
+[    5.477910]  do_idle+0x23c/0x260
+[    5.477919]  cpu_startup_entry+0x30/0x48
+[    5.477929]  rest_init+0xd4/0xe8
+[    5.477940]  arch_call_rest_init+0x1c/0x28
+[    5.477949]  start_kernel+0x590/0x5c8
+[    5.477970] hndz 58 irq func is handle_fasteoi_irq+0x0/0x130!
+
+
+sudo vi /etc/systemd/journald.conf
+找到 Storage= 行并修改它，例如改为：
+
+[Journal]
+Storage=volatile
+或者如果你想完全禁用日志存储：
+
+[Journal]
+Storage=none
+
+
+tcpdump -i eth1  -w file.cap
+格式化sd卡为ext4
+mkfs.ext4 -E nodiscard /dev/mmcblk1p1
+挂载到 /media/mmcblk0p1
+修改fstab
+/dev/mmcblk1p1 /media/mmcblk0p1 ext4 defaults 0 0
+
+
+`sudo dpkg-reconfigure dash`
+
+
+ssh-keygen -f "/home/root/.ssh/known_hosts"  -R "192.168.168.58"
+
+
+rockchip-pinctrl pinctrl: hndz setting pull of GPIO1-18 to 1
+[    5.742863] CPU: 1 PID: 1 Comm: swapper/0 Not tainted 5.10.110 #158
+[    5.742873] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    5.742882] Call trace:
+[    5.742894]  dump_backtrace+0x0/0x1b4
+[    5.742905]  show_stack+0x24/0x30
+[    5.742917]  dump_stack_lvl+0xc8/0xf8
+[    5.742927]  dump_stack+0x18/0x34
+[    5.742939]  rockchip_set_pull+0x94/0x244
+[    5.742949]  rockchip_pinconf_set+0x17c/0x748
+[    5.742960]  pinconf_apply_setting+0x8c/0x108
+[    5.742970]  pinctrl_commit_state+0xb8/0x15c
+[    5.742980]  pinctrl_select_state+0x28/0x3c
+[    5.742991]  pinctrl_bind_pins+0x184/0x25c
+[    5.743001]  really_probe+0x190/0x46c
+[    5.743011]  driver_probe_device+0x138/0x148
+[    5.743021]  device_driver_attach+0x50/0x7c
+[    5.743031]  __driver_attach+0x150/0x154
+[    5.743041]  bus_for_each_dev+0x7c/0xc8
+[    5.743051]  driver_attach+0x30/0x3c
+
+pinctrl {
+
+ /omit-if-no-ref/
+ pcfg_pull_up: pcfg-pull-up {
+  bias-pull-up;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_down: pcfg-pull-down {
+  bias-pull-down;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none: pcfg-pull-none {
+  bias-disable;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none_drv_level_0: pcfg-pull-none-drv-level-0 {
+  bias-disable;
+  drive-strength = <0>;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none_drv_level_1: pcfg-pull-none-drv-level-1 {
+  bias-disable;
+  drive-strength = <1>;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none_drv_level_2: pcfg-pull-none-drv-level-2 {
+  bias-disable;
+  drive-strength = <2>;
+ };
+
+ /omit-if-no-ref/
+ pcfg_pull_none_drv_level_3: pcfg-pull-none-drv-level-3 {
+  bias-disable;
+  drive-strength = <3>;
+ };
+ 
+git自动保存用户和密码
+git config --global credential.helper store
+更新子模块
+git checkout . --recurse-submodules
+
+
+
+clk_calc_new_rates 时钟
+
+[    4.571295] CPU: 4 PID: 1 Comm: swapper/0 Not tainted 5.10.110 #194
+[    4.571299] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    4.571304] Call trace:
+[    4.571314]  dump_backtrace+0x0/0x1b4
+[    4.571320]  show_stack+0x24/0x30
+[    4.571328]  dump_stack_lvl+0xc8/0xf8
+[    4.571334]  dump_stack+0x18/0x34
+[    4.571342]  clk_calc_new_rates+0x98/0x264
+[    4.571349]  clk_core_set_rate_nolock+0x9c/0x198
+[    4.571356]  clk_set_rate+0x48/0x7c
+[    4.571361]  of_clk_set_defaults+0x2d4/0x348
+[    4.571369]  platform_drv_probe+0x34/0xb0
+[    4.571375]  really_probe+0x2dc/0x46c
+[    4.571381]  driver_probe_device+0x138/0x148
+[    4.571386]  device_driver_attach+0x50/0x7c
+[    4.571391]  __driver_attach+0x150/0x154
+[    4.571397]  bus_for_each_dev+0x7c/0xc8
+[    4.571402]  driver_attach+0x30/0x3c
+[    4.571407]  bus_add_driver+0x1b4/0x1fc
+[    4.571412]  driver_register+0xc0/0xf8
+[    4.571419]  __platform_driver_register+0x58/0x64
+[    4.571425]  rockchip_canfd_driver_init+0x28/0x34
+[    4.571431]  do_one_initcall+0xa0/0x1e8
+[    4.571438]  kernel_init_freeable+0x2a4/0x2ac
+[    4.571446]  kernel_init+0x20/0x11c
+[    4.571452]  ret_from_fork+0x10/0x30
+
+ hndz bittiming 12!
+[    6.901514] CPU: 4 PID: 434 Comm: ip Not tainted 5.10.110 #198
+[    6.901517] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    6.901521] Call trace:
+[    6.901536]  dump_backtrace+0x0/0x1b4
+[    6.901538]  show_stack+0x24/0x30
+[    6.901545]  dump_stack_lvl+0xc8/0xf8
+[    6.901547]  dump_stack+0x18/0x34
+[    6.901554]  rockchip_canfd_set_bittiming+0x3c/0x268
+[    6.901562]  can_changelink+0x10c/0x2e8
+[    6.901569]  __rtnl_newlink+0x2d4/0x640
+[    6.901572]  rtnl_newlink+0x5c/0x88
+[    6.901574]  rtnetlink_rcv_msg+0x230/0x280
+[    6.901578]  netlink_rcv_skb+0xa8/0x118
+[    6.901581]  rtnetlink_rcv+0x24/0x30
+[    6.901583]  netlink_unicast+0x134/0x1d0
+[    6.901585]  netlink_sendmsg+0x2cc/0x2f8
+[    6.901589]  sock_sendmsg_nosec+0x1c/0x34
+[    6.901590]  ____sys_sendmsg+0x194/0x1ec
+[    6.901593]  ___sys_sendmsg+0x80/0xcc
+[    6.901595]  __sys_sendmsg+0x74/0xc0
+[    6.901597]  __arm64_sys_sendmsg+0x2c/0x38
+[    6.901601]  el0_svc_common.constprop.0+0x13c/0x1ec
+[    6.901604]  do_el0_svc+0x8c/0x98
+[    6.901609]  el0_svc+0x20/0x30
+[    6.901614]  el0_sync_handler+0xd8/0x184
+[    6.901617]  el0_sync+0x1a0/0x1c0
+[    6.901689] hndz brp 5 sjw 0 tseg1 107 tseg2 15!
+[    6.901692] hndz brp1 65535 sjw 65535 tseg1 65535 tseg2 65535!
+
+
+cat kernel/debug/clk/clk_summary
+ pre-up /sbin/ip link set $IFACE type can bitrate 100000 dbitrate 100000 fd on
+/sbin/ip link set can0 type can bitrate 100000 triple-sampling on restart-ms 20
+
+/sbin/ip link set can1 type can bitrate 100000
+echo 8 > /proc/irq/65/smp_affinity
+
+
+	// if(core->name != NULL)
+	// {
+	// 	if (strstr(core->name, "clk_can0") || strstr(core->name, "clk_can1"))
+	// 	{
+	// 		printk("hndz calc %s clk rate %ld!\n", core->name, rate);
+	// 		dump_stack();
+	// 		mark = 1;
+	// 	}
+	// }
+	//  if((err_reg != 0) && (err_reg &ERR_DIR_RX) == 0)
+	//  {
+	// 	rockchip_canfd_write(rcan, CAN_CMD, 0);
+	// 	can_get_echo_skb(ndev, 0);
+	// 	netif_wake_queue(ndev);
+	// 	can_led_event(ndev, CAN_LED_EVENT_TX);
+	//  }
+arecord  -c 2 -r 16000 -f S16_LE  %1 &
+
+
+3588 引脚配置 rpckchip-pinconf.dtsi文件中
+
+
+
+
+[    4.245361] zty devm_extcon_dev_register!
+[    4.245368] CPU: 4 PID: 1 Comm: swapper/0 Not tainted 5.10.110 #1
+[    4.245372] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[    4.245376] Call trace:
+[    4.245385]  dump_backtrace+0x0/0x1b4
+[    4.245390]  show_stack+0x24/0x30
+[    4.245396]  dump_stack_lvl+0xc8/0xf8
+[    4.245401]  dump_stack+0x18/0x34
+[    4.245407]  devm_extcon_dev_register+0x38/0xac
+[    4.245414]  rockchip_usb2phy_probe+0x2a4/0xce8
+[    4.245420]  platform_drv_probe+0x60/0xb0
+[    4.245425]  really_probe+0x2dc/0x46c
+[    4.245429]  driver_probe_device+0x138/0x148
+[    4.245433]  device_driver_attach+0x50/0x7c
+[    4.245437]  __driver_attach+0x150/0x154
+[    4.245443]  bus_for_each_dev+0x7c/0xc8
+[    4.245447]  driver_attach+0x30/0x3c
+[    4.245452]  bus_add_driver+0x1b4/0x1fc
+[    4.245456]  driver_register+0xc0/0xf8
+[    4.245460]  __platform_driver_register+0x58/0x64
+[    4.245466]  rockchip_usb2phy_driver_init+0x28/0x34
+[    4.245470]  do_one_initcall+0xa0/0x1e8
+[    4.245476]  kernel_init_freeable+0x2a0/0x2a8
+[    4.245482]  kernel_init+0x20/0x11c
+[    4.245486]  ret_from_fork+0x10/0x30
+
+
+route add default gw 169.254.1.188
+vi /etc/resolve.conf
+114.114.114.114
+修改位置在/home/z/zty/a9/copy/arptable里
+
+
+sudo iptables -t nat -A POSTROUTING -o wlp4s0 -j MASQUERADE
+sudo iptables -A FORWARD -i wlp4s0 -o enp2s0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i wlp4s0 -o enp2s0 -j ACCEPT
+————————————————
+route add default gw 192.168.1.142
+route add default gw 192.168.1.192
+
+其中，IP为开发板的IP地址，Gateway为Ubuntu网卡eth0的IP地址。
+
+　　执行命令：vi /etc/resolv.conf
+
+　　写入如下内容：
+
+nameserver 114.114.114.114
+vi /etc/resolv.conf
+192.168.43.1
+
+
+vop设备树的信息
+以ports->port->endpoint->remote-endpoint的顺序 通过remote-endpoint属性来指定远端的设备端点
+
+
+使能dp
+&usbdp_phy0 {
+status = "disabled";
+};
+&usbdp_phy0_dp {
+status = "disabled";
+};
+&usbdp_phy0_u3 {
+status = "disabled";
+};
+&dp0 {
+status = "disabled";
+};
+
+
+
+pdm1m1_sdi3
+
+ov5640
+[    5.508923]  dump_backtrace+0x0/0x1b4
+[    5.508935]  show_stack+0x24/0x30
+[    5.508950]  dump_stack_lvl+0xc8/0xf8
+[    5.508961]  dump_stack+0x18/0x34
+[    5.508976]  ov5640_set_power_on+0x98/0x224
+[    5.508988]  ov5640_probe+0x314/0x6e0
+[    5.508999]  i2c_device_probe+0x198/0x29c
+[    5.509012]  really_probe+0x2dc/0x46c
+[    5.509023]  driver_probe_device+0x138/0x148
+[    5.509034]  device_driver_attach+0x50/0x7c
+[    5.509045]  __driver_attach+0x150/0x154
+[    5.509059]  bus_for_each_dev+0x7c/0xc8
+[    5.509070]  driver_attach+0x30/0x3c
+[    5.509081]  bus_add_driver+0x1b4/0x1fc
+[    5.509092]  driver_register+0xc0/0xf8
+[    5.509105]  i2c_register_driver+0x70/0xb4
+[    5.509119]  ov5640_i2c_driver_init+0x28/0x34
+[    5.509131]  do_one_initcall+0xa0/0x1e8
+[    5.509144]  kernel_init_freeable+0x2a0/0x2a8
+[    5.509156]  kernel_init+0x20/0x11c
+[    5.509167]  ret_from_fork+0x10/0x30
+
+
+gst-launch-1.0 v4l2src device=/dev/video11 ! video/x-raw,format=NV12,width=640,height=480, framerate=30/1 ! xvimagesink
+
+
+capsfilter caps="video/x-raw,width=640,height=480,framerate=30/1" ！imxipuvideotransform
+ gst-launch-1.0 imxv4l2src device=/dev/video0 ! capsfilter caps="video/x-raw,width=640,height=480,framerate=30/1" ! autovideosink
+ 
+ gst-launch-1.0 imxv4l2src device=/dev/video0 ! 'video/x-raw,format=(string)RGB565,width=640,height=480,framerate=(fraction)30/1'! imxv4l2sink
+ 
+ 
+ gst-launch-1.0 imxv4l2src -e -v device=/dev/video0 num-buffers=100 ! vpuenc_h264 ! h264parse ! filesink location=video1.mp4
+ 
+ 
+ gst-launch-1.0 v4l2src device=/dev/video11 ! video/x-raw,format=YUY2,width=640,height=480,framerate=15/1 ! queue2 ! videorate ! videoscale ! videoconvert ! xvimagesink
+ 
+ 
+ v4l2-ctl --verbose -d /dev/video0 --set-fmt-video=width=1920,height=1080,pixelformat='NV12' --stream-mmap=4 --set-selection=target=crop,flags=0,top=0,left=0,width=1920,height=1080 --stream-to=./out.yuv
+ 
+ 
+ media-ctl -d /dev/media0 -p
+ 
+ grep '' /sys/class/video4linux/video*/name
+rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+
+
+[   17.097229] hndz ov mode 255 orig mode 255!
+[   17.101505] CPU: 1 PID: 721 Comm: camera Not tainted 3.14.28-00041-g651d9f9e-dirty #83
+[   17.109505] [<800149f8>] (unwind_backtrace) from [<80011714>] (show_stack+0x10/0x14)
+[   17.117578] [<80011714>] (show_stack) from [<80569634>] (dump_stack+0x7c/0xbc)
+[   17.124846] [<80569634>] (dump_stack) from [<803b83f4>] (ov5640_init_mode+0x24/0x5ec)
+[   17.132719] [<803b83f4>] (ov5640_init_mode) from [<803b13d0>] (mxc_v4l_open+0x2d8/0x37c)
+[   17.140853] [<803b13d0>] (mxc_v4l_open) from [<80391dc8>] (v4l2_open+0x9c/0x100)
+[   17.148294] [<80391dc8>] (v4l2_open) from [<800d8aac>] (chrdev_open+0xa4/0x178)
+[   17.155639] [<800d8aac>] (chrdev_open) from [<800d333c>] (do_dentry_open.isra.17+0x110/0x294)
+[   17.164201] [<800d333c>] (do_dentry_open.isra.17) from [<800d3590>] (finish_open+0x20/0x38)
+[   17.172859] [<800d3590>] (finish_open) from [<800e1254>] (do_last.isra.58+0x6dc/0xc34)
+[   17.180824] [<800e1254>] (do_last.isra.58) from [<800e1860>] (path_openat+0xb4/0x5cc)
+[   17.188693] [<800e1860>] (path_openat) from [<800e2c80>] (do_filp_open+0x2c/0x88)
+[   17.196213] [<800e2c80>] (do_filp_open) from [<800d4500>] (do_sys_open+0x104/0x1c8)
+[   17.203907] [<800d4500>] (do_sys_open) from [<8000e4a0>] (ret_fast_syscall+0x0/0x30)
+[   18.030233] hndz ov mode 2 orig mode 0!
+[   18.034142] CPU: 0 PID: 721 Comm: camera Not tainted 3.14.28-00041-g651d9f9e-dirty #83
+[   18.042133] [<800149f8>] (unwind_backtrace) from [<80011714>] (show_stack+0x10/0x14)
+[   18.049928] [<80011714>] (show_stack) from [<80569634>] (dump_stack+0x7c/0xbc)
+[   18.057199] [<80569634>] (dump_stack) from [<803b83f4>] (ov5640_init_mode+0x24/0x5ec)
+[   18.065065] [<803b83f4>] (ov5640_init_mode) from [<803b8a0c>] (ioctl_s_parm+0x50/0xec)
+[   18.073018] [<803b8a0c>] (ioctl_s_parm) from [<803b0eec>] (mxc_v4l2_s_param+0x5c/0x268)
+[   18.081052] [<803b0eec>] (mxc_v4l2_s_param) from [<803b2b50>] (mxc_v4l_do_ioctl+0x744/0x1d7c)
+[   18.089619] [<803b2b50>] (mxc_v4l_do_ioctl) from [<803955ac>] (video_usercopy+0x174/0x478)
+[   18.097913] [<803955ac>] (video_usercopy) from [<80391f14>] (v4l2_ioctl+0xe8/0x160)
+[   18.105610] [<80391f14>] (v4l2_ioctl) from [<800e4da8>] (do_vfs_ioctl+0x3dc/0x59c)
+[   18.113217] [<800e4da8>] (do_vfs_ioctl) from [<800e4f9c>] (SyS_ioctl+0x34/0x5c)
+[   18.120571] [<800e4f9c>] (SyS_ioctl) from [<8000e4a0>] (ret_fast_syscall+0x0/0x30)
+
+3037[3:0] 分频 
+
+struct v4l2_fract {
+	__u32   numerator; //分子
+	__u32   denominator; //分母
+};
+
+sensor驱动中的 exp_def 、 hts_def 、 vts_def
+2475000
+
+ v4l2-ctl --verbose -d /dev/video11 --set-fmt-video=width=640,height=480,pixelformat=UYVY8_2X8 --stream-mmap=4 --set-selection=target=crop,flags=0,top=0,left=0,width=640,height=480 --stream-to=./out.yuv
+
+gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,format=NV12,width=640,height=480, framerate=30/1 ! xvimagesink
+
+
+ v4l2-ctl --verbose -d /dev/video0 --set-fmt-video=width=640,height=480,pixelformat=NV12 --stream-mmap=4 --set-selection=target=crop,flags=0,top=0,left=0,width=640,height=480 --stream-to=./out.yuv
+ 
+v4l2-ctl -d /dev/video11 --list-formats -ext
+
+media-ctl -d /dev/media0 -p
+
+i2cdetect -y 3
+
+
+route add -p 192.168.4.0 mask 255.255.255.0 192.168.1.1
+1
+上面这条命令表示以所有192.168.4.x开头的请求都会通过wifi进行访问，从而实现访问内网。-p表示永久生效,192.168.4.0 表示内网ip的网段,255.255.255.0表示子网掩码,192.168.1.1表示默认网关。
+
+
+# 由于一款主板可能存在多个摄像头，对于使用RKISP的摄像头如 CAM-8MS1M(IMX415) 需要抓取rkisp_mainpath对应的video节点
+# 对于自带ISP的摄像头如 CAM-8MS1M 则是抓取stream_cif_mipi_id0 对应的video节点
+v4l2-ctl -d /dev/video0 --set-crop=top=<0>,left=<0>,width=<640>,heigth=<480>
+
+
+echo 3 > /sys/class/video4linux/video0/dev_debug
+
+video0: VIDIOC_QUERY_EXT_CTRL: error -25
+
+
+v4l2_subdev_call(sensor_sd, pad, set_selection, NULL, &sd_sel);
+
+
+ioctl: VIDIOC_ENUM_FMT
+	Index       : 0
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'NV16'
+	Name        : Y/CbCr 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 1
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'NV61'
+	Name        : Y/CrCb 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 2
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'NV12'
+	Name        : Y/CbCr 4:2:0
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 3
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'NV21'
+	Name        : Y/CrCb 4:2:0
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 4
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'YUYV'
+	Name        : YUYV 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 5
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'YVYU'
+	Name        : YVYU 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 6
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'UYVY'
+	Name        : UYVY 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 7
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'VYUY'
+	Name        : VYUY 4:2:2
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 8
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RGB3'
+	Name        : 24-bit RGB 8-8-8
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 9
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BGR3'
+	Name        : 24-bit BGR 8-8-8
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 10
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RGBP'
+	Name        : 16-bit RGB 5-6-5
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 11
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BGRH'
+	Name        : 18-bit BGRX 6-6-6-14
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 12
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RGGB'
+	Name        : 8-bit Bayer RGRG/GBGB
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 13
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GRBG'
+	Name        : 8-bit Bayer GRGR/BGBG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 14
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GBRG'
+	Name        : 8-bit Bayer GBGB/RGRG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 15
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BA81'
+	Name        : 8-bit Bayer BGBG/GRGR
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 16
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RG10'
+	Name        : 10-bit Bayer RGRG/GBGB
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 17
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BA10'
+	Name        : 10-bit Bayer GRGR/BGBG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 18
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GB10'
+	Name        : 10-bit Bayer GBGB/RGRG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 19
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BG10'
+	Name        : 10-bit Bayer BGBG/GRGR
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 20
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RG12'
+	Name        : 12-bit Bayer RGRG/GBGB
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 21
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BA12'
+	Name        : 12-bit Bayer GRGR/BGBG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 22
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GB12'
+	Name        : 12-bit Bayer GBGB/RGRG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 23
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BG12'
+	Name        : 12-bit Bayer BGBG/GRGR
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 24
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'BYR2'
+	Name        : 16-bit Bayer BGBG/GRGR
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 25
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GB16'
+	Name        : 16-bit Bayer GBGB/RGRG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 26
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GR16'
+	Name        : 16-bit Bayer GRGR/BGBG
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 27
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'RG16'
+	Name        : 16-bit Bayer RGRG/GBGB
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 28
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'Y16 '
+	Name        : 16-bit Greyscale
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 29
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'GREY'
+	Name        : 8-bit Greyscale
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 30
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'EBD8'
+	Name        : Embedded data 8-bit
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 31
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'SPD6'
+	Name        : Shield pix data 16-bit
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 32
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'Y12 '
+	Name        : 12-bit Greyscale
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+
+	Index       : 33
+	Type        : Video Capture Multiplanar
+	Pixel Format: 'Y10 '
+	Name        : 10-bit Greyscale
+		Size: Stepwise 64x64 - 640x480 with step 8/8
+		
+v4l2-ctl --verbose -d /dev/video0 --set-fmt-video=width=640,height=480,pixelformat='NV12' --stream-mmap=3 --set-selection=target=crop,flags=0,top=0,left=0,width=640,height=480 --stream-to=/tmp/out.yuv
+
+ffplay -f rawvideo -video_size 640x480 -pixel_format nv12 out.yuv
+
+
+ gst-launch-1.0 v4l2src device=/dev/video11 ! video/x-raw,format=,width=640,height=480,framerate=15/1 ! queue2 ! videorate ! videoscale ! videoconvert ! xvimagesink
+ 
+ gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,format=NV12,width=.640,height=480, framerate=30/1 ! xvimagesink
+ 
+ ffplay -f rawvideo -video_size 640x480 -pixel_format nv12 out.yuv
+
+ 
+ hndz ov5640 get fmt start!
+[ 6380.284584] CPU: 2 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.284595] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.284607] Call trace:
+[ 6380.284631]  dump_backtrace+0x0/0x1b4
+[ 6380.284644]  show_stack+0x24/0x30
+[ 6380.284659]  dump_stack_lvl+0xc8/0xf8
+[ 6380.284670]  dump_stack+0x18/0x34
+[ 6380.284684]  ov5640_get_fmt+0x3c/0xb0
+[ 6380.284699]  call_get_fmt+0x50/0x64
+[ 6380.284712]  get_input_fmt+0xc8/0x270
+[ 6380.284725]  rkcif_set_fmt+0xc0/0x528
+[ 6380.284736]  rkcif_s_fmt_vid_cap_mplane+0x6c/0x70
+[ 6380.284749]  v4l_s_fmt+0x13c/0x348
+[ 6380.284761]  __video_do_ioctl+0x258/0x384
+[ 6380.284772]  video_usercopy+0x218/0x478
+[ 6380.284783]  video_ioctl2+0x24/0x3c
+[ 6380.284797]  v4l2_ioctl+0x54/0x7c
+[ 6380.284813]  vfs_ioctl+0x34/0x54
+[ 6380.284824]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.284837]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.284847]  do_el0_svc+0x90/0x9c
+[ 6380.284862]  el0_svc+0x20/0x30
+[ 6380.284871]  el0_sync_handler+0xbc/0x158
+[ 6380.284884]  el0_sync+0x1a0/0x1c0
+[ 6380.284899] hndz get selection start!
+[ 6380.284909] CPU: 2 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.284917] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.284925] Call trace:
+[ 6380.284935]  dump_backtrace+0x0/0x1b4
+[ 6380.284944]  show_stack+0x24/0x30
+[ 6380.284953]  dump_stack_lvl+0xc8/0xf8
+[ 6380.284962]  dump_stack+0x18/0x34
+[ 6380.284972]  ov5640_get_selection+0x40/0xd4
+[ 6380.284984]  call_get_selection+0x50/0x64
+[ 6380.284995]  rkcif_sync_crop_info+0x84/0x1a0
+[ 6380.285006]  rkcif_set_fmt+0x128/0x528
+[ 6380.285017]  rkcif_s_fmt_vid_cap_mplane+0x6c/0x70
+[ 6380.285027]  v4l_s_fmt+0x13c/0x348
+[ 6380.285037]  __video_do_ioctl+0x258/0x384
+[ 6380.285049]  video_usercopy+0x218/0x478
+[ 6380.285060]  video_ioctl2+0x24/0x3c
+[ 6380.285070]  v4l2_ioctl+0x54/0x7c
+[ 6380.285081]  vfs_ioctl+0x34/0x54
+[ 6380.285090]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.285101]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.285110]  do_el0_svc+0x90/0x9c
+[ 6380.285122]  el0_svc+0x20/0x30
+[ 6380.285132]  el0_sync_handler+0xbc/0x158
+[ 6380.285143]  el0_sync+0x1a0/0x1c0
+[ 6380.285313] hndz v4ll_s_selection rkcif_s_selection+0x0/0x1a8!
+[ 6380.285327] hndz s selection!
+[ 6380.285341] hndz rkcif_s_selection(line:5905): sd:rockchip-mipi-csi2 pad:1, which:1, target:0
+[ 6380.285355] hndz set selection ret -515!
+[ 6380.339141] rkcif-mipi-lvds2: stream[0] start streaming
+[ 6380.339170] hndz get selection start!
+[ 6380.339178] CPU: 4 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.339182] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.339187] Call trace:
+[ 6380.339198]  dump_backtrace+0x0/0x1b4
+[ 6380.339204]  show_stack+0x24/0x30
+[ 6380.339212]  dump_stack_lvl+0xc8/0xf8
+[ 6380.339217]  dump_stack+0x18/0x34
+[ 6380.339224]  ov5640_get_selection+0x40/0xd4
+[ 6380.339231]  call_get_selection+0x50/0x64
+[ 6380.339238]  rkcif_sync_crop_info+0x84/0x1a0
+[ 6380.339244]  rkcif_do_start_stream+0x438/0x918
+[ 6380.339249]  rkcif_start_streaming+0x24/0x30
+[ 6380.339255]  vb2_start_streaming+0x8c/0x130
+[ 6380.339260]  vb2_core_streamon+0x180/0x18c
+[ 6380.339265]  vb2_streamon+0x70/0x78
+[ 6380.339269]  vb2_ioctl_streamon+0x50/0x6c
+[ 6380.339275]  v4l_streamon+0x30/0x3c
+[ 6380.339281]  __video_do_ioctl+0x258/0x384
+[ 6380.339286]  video_usercopy+0x218/0x478
+[ 6380.339290]  video_ioctl2+0x24/0x3c
+[ 6380.339294]  v4l2_ioctl+0x54/0x7c
+[ 6380.339300]  vfs_ioctl+0x34/0x54
+[ 6380.339305]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.339311]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.339315]  do_el0_svc+0x90/0x9c
+[ 6380.339320]  el0_svc+0x20/0x30
+[ 6380.339324]  el0_sync_handler+0xbc/0x158
+[ 6380.339329]  el0_sync+0x1a0/0x1c0
+[ 6380.339335] hndz ov5640 get fmt start!
+[ 6380.339340] CPU: 4 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.339343] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.339347] Call trace:
+[ 6380.339351]  dump_backtrace+0x0/0x1b4
+[ 6380.339354]  show_stack+0x24/0x30
+[ 6380.339360]  dump_stack_lvl+0xc8/0xf8
+[ 6380.339366]  dump_stack+0x18/0x34
+[ 6380.339371]  ov5640_get_fmt+0x3c/0xb0
+[ 6380.339375]  call_get_fmt+0x50/0x64
+[ 6380.339381]  get_input_fmt+0xc8/0x270
+[ 6380.339387]  rkcif_do_start_stream+0x468/0x918
+[ 6380.339391]  rkcif_start_streaming+0x24/0x30
+[ 6380.339396]  vb2_start_streaming+0x8c/0x130
+[ 6380.339401]  vb2_core_streamon+0x180/0x18c
+[ 6380.339406]  vb2_streamon+0x70/0x78
+[ 6380.339411]  vb2_ioctl_streamon+0x50/0x6c
+[ 6380.339416]  v4l_streamon+0x30/0x3c
+[ 6380.339421]  __video_do_ioctl+0x258/0x384
+[ 6380.339426]  video_usercopy+0x218/0x478
+[ 6380.339431]  video_ioctl2+0x24/0x3c
+[ 6380.339436]  v4l2_ioctl+0x54/0x7c
+[ 6380.339440]  vfs_ioctl+0x34/0x54
+[ 6380.339444]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.339449]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.339453]  do_el0_svc+0x90/0x9c
+[ 6380.339458]  el0_svc+0x20/0x30
+[ 6380.339462]  el0_sync_handler+0xbc/0x158
+[ 6380.339467]  el0_sync+0x1a0/0x1c0
+[ 6380.339471] hndz &stream->crop[CROP_SRC_ACT] crop->width 640!
+[ 6380.339475] hndz crop->width 640  crop->left 0 input.width 640!
+[ 6380.339479] hndz crop->height 480 crop->top 0 input.height 480!
+[ 6380.339483] hndz ov5640 get fmt start!
+[ 6380.339487] CPU: 4 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.339491] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.339494] Call trace:
+[ 6380.339498]  dump_backtrace+0x0/0x1b4
+[ 6380.339502]  show_stack+0x24/0x30
+[ 6380.339507]  dump_stack_lvl+0xc8/0xf8
+[ 6380.339511]  dump_stack+0x18/0x34
+[ 6380.339515]  ov5640_get_fmt+0x3c/0xb0
+[ 6380.339519]  call_get_fmt+0x50/0x64
+[ 6380.339523]  get_input_fmt+0xc8/0x270
+[ 6380.339528]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 6380.339532]  rkcif_do_start_stream+0x59c/0x918
+[ 6380.339537]  rkcif_start_streaming+0x24/0x30
+[ 6380.339541]  vb2_start_streaming+0x8c/0x130
+[ 6380.339547]  vb2_core_streamon+0x180/0x18c
+[ 6380.339551]  vb2_streamon+0x70/0x78
+[ 6380.339556]  vb2_ioctl_streamon+0x50/0x6c
+[ 6380.339560]  v4l_streamon+0x30/0x3c
+[ 6380.339565]  __video_do_ioctl+0x258/0x384
+[ 6380.339570]  video_usercopy+0x218/0x478
+[ 6380.339574]  video_ioctl2+0x24/0x3c
+[ 6380.339579]  v4l2_ioctl+0x54/0x7c
+[ 6380.339583]  vfs_ioctl+0x34/0x54
+[ 6380.339587]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.339591]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.339595]  do_el0_svc+0x90/0x9c
+[ 6380.339600]  el0_svc+0x20/0x30
+[ 6380.339604]  el0_sync_handler+0xbc/0x158
+[ 6380.339608]  el0_sync+0x1a0/0x1c0
+[ 6380.339809] rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+[ 6380.340794] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream on, src_sd: 000000004d229ccf, sd_name:rockchip-csi2-dphy0
+[ 6380.340802] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream ON
+[ 6380.340823] rockchip-csi2-dphy0: dphy0, data_rate_mbps 768
+[ 6380.340842] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[ 6380.340846] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[ 6380.340852] hndz ov5640_set_power_on start!
+[ 6380.400194] hndz read chipid 0x5640!
+[ 6380.878365] hndz set frame fmt!
+[ 6380.878397] CPU: 1 PID: 2563 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 6380.878413] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 6380.878428] Call trace:
+[ 6380.878453]  dump_backtrace+0x0/0x1b4
+[ 6380.878472]  show_stack+0x24/0x30
+[ 6380.878493]  dump_stack_lvl+0xc8/0xf8
+[ 6380.878512]  dump_stack+0x18/0x34
+[ 6380.878532]  ov5640_set_framefmt+0x38/0xdc
+[ 6380.878550]  ov5640_sensor_resume+0x22c/0x3cc
+[ 6380.878571]  __genpd_runtime_resume+0x30/0x7c
+[ 6380.878590]  genpd_runtime_resume+0x100/0x1e0
+[ 6380.878608]  __rpm_callback+0x4c/0x110
+[ 6380.878625]  rpm_callback+0x7c/0x88
+[ 6380.878642]  rpm_resume+0x398/0x434
+[ 6380.878660]  __pm_runtime_resume+0x68/0x90
+[ 6380.878681]  ov5640_s_stream+0x44/0x1a0
+[ 6380.878701]  rkcif_pipeline_set_stream+0xe8/0x528
+[ 6380.878720]  rkcif_do_start_stream+0x818/0x918
+[ 6380.878739]  rkcif_start_streaming+0x24/0x30
+[ 6380.878759]  vb2_start_streaming+0x8c/0x130
+[ 6380.878777]  vb2_core_streamon+0x180/0x18c
+[ 6380.878796]  vb2_streamon+0x70/0x78
+[ 6380.878815]  vb2_ioctl_streamon+0x50/0x6c
+[ 6380.878835]  v4l_streamon+0x30/0x3c
+[ 6380.878855]  __video_do_ioctl+0x258/0x384
+[ 6380.878874]  video_usercopy+0x218/0x478
+[ 6380.878893]  video_ioctl2+0x24/0x3c
+[ 6380.878910]  v4l2_ioctl+0x54/0x7c
+[ 6380.878929]  vfs_ioctl+0x34/0x54
+[ 6380.878947]  __arm64_sys_ioctl+0x6c/0xa0
+[ 6380.878966]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 6380.878985]  do_el0_svc+0x90/0x9c
+[ 6380.879004]  el0_svc+0x20/0x30
+[ 6380.879022]  el0_sync_handler+0xbc/0x158
+[ 6380.879040]  el0_sync+0x1a0/0x1c0
+[ 6380.903037] mipi2-csi2 ERR1:0x10 (fs/fe mis,vc: 0) 
+[ 6380.903078] rkcif-mipi-lvds2: ERROR: csi size err, intstat:0x1000001, lastline:0!!
+[ 6380.903418] mipi2-csi2 ERR1:0x100 (f_seq,vc: 0) 
+[ 6381.950461] rkcif-mipi-lvds2: stream[0] start stopping, total mode 0x1, cur 0x1
+[ 6381.950550] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream off, src_sd: 000000004d229ccf, sd_name:rockchip-csi2-dphy0
+[ 6381.950560] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream OFF
+[ 6381.951611] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream_stop stream stop, dphy0
+[ 6381.951623] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[ 6381.951645] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[ 6381.953866] rkcif-mipi-lvds2: stream[0] stopping finished, dma_en 0x0
+
+ 2929.067323] hndz ov5640 get fmt start!
+[ 2929.067375] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.067385] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.067395] Call trace:
+[ 2929.067417]  dump_backtrace+0x0/0x1b4
+[ 2929.067429]  show_stack+0x24/0x30
+[ 2929.067444]  dump_stack_lvl+0xc8/0xf8
+[ 2929.067454]  dump_stack+0x18/0x34
+[ 2929.067469]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.067483]  call_get_fmt+0x50/0x64
+[ 2929.067497]  get_input_fmt+0xc8/0x270
+[ 2929.067509]  rkcif_set_fmt+0xc0/0x528
+[ 2929.067522]  rkcif_s_fmt_vid_cap_mplane+0x6c/0x70
+[ 2929.067536]  v4l_s_fmt+0x13c/0x348
+[ 2929.067549]  __video_do_ioctl+0x258/0x384
+[ 2929.067562]  video_usercopy+0x218/0x478
+[ 2929.067575]  video_ioctl2+0x24/0x3c
+[ 2929.067587]  v4l2_ioctl+0x54/0x7c
+[ 2929.067602]  vfs_ioctl+0x34/0x54
+[ 2929.067612]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.067626]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.067636]  do_el0_svc+0x90/0x9c
+[ 2929.067647]  el0_svc+0x20/0x30
+[ 2929.067657]  el0_sync_handler+0xbc/0x158
+[ 2929.067667]  el0_sync+0x1a0/0x1c0
+[ 2929.067937] hndz v4ll_s_selection rkcif_s_selection+0x0/0x1a8!
+[ 2929.067948] hndz s selection!
+[ 2929.067961] hndz rkcif_s_selection(line:5909): sd:rockchip-mipi-csi2 pad:1, which:1, target:0
+[ 2929.067973] hndz set selection ret -515!
+[ 2929.069303] rkcif-mipi-lvds2: stream[0] start streaming
+[ 2929.069343] hndz ov5640 get fmt start!
+[ 2929.069359] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.069368] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.069380] Call trace:
+[ 2929.069398]  dump_backtrace+0x0/0x1b4
+[ 2929.069410]  show_stack+0x24/0x30
+[ 2929.069424]  dump_stack_lvl+0xc8/0xf8
+[ 2929.069435]  dump_stack+0x18/0x34
+[ 2929.069449]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.069461]  call_get_fmt+0x50/0x64
+[ 2929.069473]  get_input_fmt+0xc8/0x270
+[ 2929.069484]  rkcif_do_start_stream+0x468/0x918
+[ 2929.069494]  rkcif_start_streaming+0x24/0x30
+[ 2929.069509]  vb2_start_streaming+0x8c/0x130
+[ 2929.069519]  vb2_core_streamon+0x180/0x18c
+[ 2929.069533]  vb2_streamon+0x70/0x78
+[ 2929.069546]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.069560]  v4l_streamon+0x30/0x3c
+[ 2929.069573]  __video_do_ioctl+0x258/0x384
+[ 2929.069583]  video_usercopy+0x218/0x478
+[ 2929.069594]  video_ioctl2+0x24/0x3c
+[ 2929.069604]  v4l2_ioctl+0x54/0x7c
+[ 2929.069618]  vfs_ioctl+0x34/0x54
+[ 2929.069628]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.069642]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.069653]  do_el0_svc+0x90/0x9c
+[ 2929.069668]  el0_svc+0x20/0x30
+[ 2929.069677]  el0_sync_handler+0xbc/0x158
+[ 2929.069690]  el0_sync+0x1a0/0x1c0
+[ 2929.070834] hndz &stream->crop[CROP_SRC_ACT] crop->width 640!
+[ 2929.070846] hndz crop->width 640  crop->left 0 input.width 640!
+[ 2929.070859] hndz crop->height 480 crop->top 0 input.height 480!
+[ 2929.070870] hndz ov5640 get fmt start!
+[ 2929.070882] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.070894] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.070906] Call trace:
+[ 2929.070919]  dump_backtrace+0x0/0x1b4
+[ 2929.070931]  show_stack+0x24/0x30
+[ 2929.070944]  dump_stack_lvl+0xc8/0xf8
+[ 2929.070955]  dump_stack+0x18/0x34
+[ 2929.070967]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.070980]  call_get_fmt+0x50/0x64
+[ 2929.070992]  get_input_fmt+0xc8/0x270
+[ 2929.071004]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 2929.071015]  rkcif_do_start_stream+0x59c/0x918
+[ 2929.071027]  rkcif_start_streaming+0x24/0x30
+[ 2929.071040]  vb2_start_streaming+0x8c/0x130
+[ 2929.071052]  vb2_core_streamon+0x180/0x18c
+[ 2929.071064]  vb2_streamon+0x70/0x78
+[ 2929.071077]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.071090]  v4l_streamon+0x30/0x3c
+[ 2929.071100]  __video_do_ioctl+0x258/0x384
+[ 2929.071113]  video_usercopy+0x218/0x478
+[ 2929.071123]  video_ioctl2+0x24/0x3c
+[ 2929.071135]  v4l2_ioctl+0x54/0x7c
+[ 2929.071149]  vfs_ioctl+0x34/0x54
+[ 2929.071160]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.071174]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.071184]  do_el0_svc+0x90/0x9c
+[ 2929.071197]  el0_svc+0x20/0x30
+[ 2929.071206]  el0_sync_handler+0xbc/0x158
+[ 2929.071217]  el0_sync+0x1a0/0x1c0
+[ 2929.071228] hndz ov5640 get fmt start!
+[ 2929.071238] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.071248] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.071257] Call trace:
+[ 2929.071267]  dump_backtrace+0x0/0x1b4
+[ 2929.071276]  show_stack+0x24/0x30
+[ 2929.071286]  dump_stack_lvl+0xc8/0xf8
+[ 2929.071295]  dump_stack+0x18/0x34
+[ 2929.071307]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.071317]  call_get_fmt+0x50/0x64
+[ 2929.071329]  get_input_fmt+0xc8/0x270
+[ 2929.071340]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 2929.071351]  rkcif_do_start_stream+0x59c/0x918
+[ 2929.071362]  rkcif_start_streaming+0x24/0x30
+[ 2929.071373]  vb2_start_streaming+0x8c/0x130
+[ 2929.071384]  vb2_core_streamon+0x180/0x18c
+[ 2929.071397]  vb2_streamon+0x70/0x78
+[ 2929.071410]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.071422]  v4l_streamon+0x30/0x3c
+[ 2929.071434]  __video_do_ioctl+0x258/0x384
+[ 2929.071446]  video_usercopy+0x218/0x478
+[ 2929.071458]  video_ioctl2+0x24/0x3c
+[ 2929.071467]  v4l2_ioctl+0x54/0x7c
+[ 2929.071477]  vfs_ioctl+0x34/0x54
+[ 2929.071487]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.071497]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.071507]  do_el0_svc+0x90/0x9c
+[ 2929.071518]  el0_svc+0x20/0x30
+[ 2929.071529]  el0_sync_handler+0xbc/0x158
+[ 2929.071538]  el0_sync+0x1a0/0x1c0
+[ 2929.071548] hndz ov5640 get fmt start!
+[ 2929.071559] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.071569] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.071579] Call trace:
+[ 2929.071590]  dump_backtrace+0x0/0x1b4
+[ 2929.071601]  show_stack+0x24/0x30
+[ 2929.071613]  dump_stack_lvl+0xc8/0xf8
+[ 2929.071624]  dump_stack+0x18/0x34
+[ 2929.071636]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.071650]  call_get_fmt+0x50/0x64
+[ 2929.071661]  get_input_fmt+0xc8/0x270
+[ 2929.071675]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 2929.071687]  rkcif_do_start_stream+0x59c/0x918
+[ 2929.071700]  rkcif_start_streaming+0x24/0x30
+[ 2929.071711]  vb2_start_streaming+0x8c/0x130
+[ 2929.071721]  vb2_core_streamon+0x180/0x18c
+[ 2929.071732]  vb2_streamon+0x70/0x78
+[ 2929.071743]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.071754]  v4l_streamon+0x30/0x3c
+[ 2929.071767]  __video_do_ioctl+0x258/0x384
+[ 2929.071777]  video_usercopy+0x218/0x478
+[ 2929.071787]  video_ioctl2+0x24/0x3c
+[ 2929.071797]  v4l2_ioctl+0x54/0x7c
+[ 2929.071806]  vfs_ioctl+0x34/0x54
+[ 2929.071816]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.071827]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.071839]  do_el0_svc+0x90/0x9c
+[ 2929.071852]  el0_svc+0x20/0x30
+[ 2929.071862]  el0_sync_handler+0xbc/0x158
+[ 2929.071871]  el0_sync+0x1a0/0x1c0
+[ 2929.071881] hndz ov5640 get fmt start!
+[ 2929.071894] CPU: 3 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.071905] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.071917] Call trace:
+[ 2929.071928]  dump_backtrace+0x0/0x1b4
+[ 2929.071943]  show_stack+0x24/0x30
+[ 2929.071954]  dump_stack_lvl+0xc8/0xf8
+[ 2929.071967]  dump_stack+0x18/0x34
+[ 2929.071979]  ov5640_get_fmt+0x3c/0xb0
+[ 2929.071991]  call_get_fmt+0x50/0x64
+[ 2929.072003]  get_input_fmt+0xc8/0x270
+[ 2929.072016]  rkcif_create_dummy_buf.isra.0+0x110/0x188
+[ 2929.072028]  rkcif_do_start_stream+0x59c/0x918
+[ 2929.072042]  rkcif_start_streaming+0x24/0x30
+[ 2929.072053]  vb2_start_streaming+0x8c/0x130
+[ 2929.072064]  vb2_core_streamon+0x180/0x18c
+[ 2929.072074]  vb2_streamon+0x70/0x78
+[ 2929.072084]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.072095]  v4l_streamon+0x30/0x3c
+[ 2929.072105]  __video_do_ioctl+0x258/0x384
+[ 2929.072118]  video_usercopy+0x218/0x478
+[ 2929.072130]  video_ioctl2+0x24/0x3c
+[ 2929.072141]  v4l2_ioctl+0x54/0x7c
+[ 2929.072153]  vfs_ioctl+0x34/0x54
+[ 2929.072163]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.072177]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.072190]  do_el0_svc+0x90/0x9c
+[ 2929.072203]  el0_svc+0x20/0x30
+[ 2929.072214]  el0_sync_handler+0xbc/0x158
+[ 2929.072227]  el0_sync+0x1a0/0x1c0
+[ 2929.072528] rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+[ 2929.075554] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream on, src_sd: 00000000e6ece603, sd_name:rockchip-csi2-dphy0
+[ 2929.075568] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream ON
+[ 2929.075603] rockchip-csi2-dphy0: dphy0, data_rate_mbps 768
+[ 2929.075633] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[ 2929.075643] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[ 2929.075657] hndz ov5640_set_power_on start!
+[ 2929.134011] hndz read chipid 0x5640!
+[ 2929.580979] hndz set frame fmt!
+[ 2929.581010] CPU: 0 PID: 2385 Comm: v4l2-ctl Not tainted 5.10.110 #1
+[ 2929.581026] Hardware name: Rockchip RK3588 EVB7 LP4 V10 Board (DT)
+[ 2929.581043] Call trace:
+[ 2929.581065]  dump_backtrace+0x0/0x1b4
+[ 2929.581084]  show_stack+0x24/0x30
+[ 2929.581105]  dump_stack_lvl+0xc8/0xf8
+[ 2929.581124]  dump_stack+0x18/0x34
+[ 2929.581144]  ov5640_set_framefmt+0x38/0xdc
+[ 2929.581163]  ov5640_sensor_resume+0x22c/0x3cc
+[ 2929.581185]  __genpd_runtime_resume+0x30/0x7c
+[ 2929.581203]  genpd_runtime_resume+0x100/0x1e0
+[ 2929.581222]  __rpm_callback+0x4c/0x110
+[ 2929.581239]  rpm_callback+0x7c/0x88
+[ 2929.581257]  rpm_resume+0x398/0x434
+[ 2929.581275]  __pm_runtime_resume+0x68/0x90
+[ 2929.581295]  ov5640_s_stream+0x44/0x1a0
+[ 2929.581315]  rkcif_pipeline_set_stream+0xe8/0x528
+[ 2929.581335]  rkcif_do_start_stream+0x818/0x918
+[ 2929.581354]  rkcif_start_streaming+0x24/0x30
+[ 2929.581373]  vb2_start_streaming+0x8c/0x130
+[ 2929.581392]  vb2_core_streamon+0x180/0x18c
+[ 2929.581411]  vb2_streamon+0x70/0x78
+[ 2929.581431]  vb2_ioctl_streamon+0x50/0x6c
+[ 2929.581449]  v4l_streamon+0x30/0x3c
+[ 2929.581469]  __video_do_ioctl+0x258/0x384
+[ 2929.581489]  video_usercopy+0x218/0x478
+[ 2929.581508]  video_ioctl2+0x24/0x3c
+[ 2929.581526]  v4l2_ioctl+0x54/0x7c
+[ 2929.581544]  vfs_ioctl+0x34/0x54
+[ 2929.581561]  __arm64_sys_ioctl+0x6c/0xa0
+[ 2929.581581]  el0_svc_common.constprop.0+0x13c/0x1ec
+[ 2929.581600]  do_el0_svc+0x90/0x9c
+[ 2929.581619]  el0_svc+0x20/0x30
+[ 2929.581636]  el0_sync_handler+0xbc/0x158
+[ 2929.581654]  el0_sync+0x1a0/0x1c0
+
+old dmesg
+[    1.358365] 
+                 _______                    _   
+                |__   __|                  | |  
+                   | | ___  _ __   ___  ___| |_ 
+                   | |/ _ \| '_ \ / _ \/ _ \ __|
+                   | | (_) | |_) |  __/  __/ |_ 
+                   |_|\___/| .__/ \___|\___|\__|
+                           | |                  
+                           |_|                  
+               TOPEET BOARD:iTOP-RK3588
+               http://www.topeetboard.com
+               
+[    1.358388] Linux version 5.10.110 (oe-user@oe-host) (aarch64-poky-linux-gcc (GCC) 11.3.0, GNU ld (GNU Binutils) 2.38.20220708) #1 SMP Wed Oct 18 03:32:42 UTC 2023
+[    1.369224] Machine model: Rockchip RK3588 EVB7 LP4 V10 Board
+[    1.369308] earlycon: uart8250 at MMIO32 0x00000000feb50000 (options '')
+[    1.447271] printk: bootconsole [uart8250] enabled
+[    1.454856] efi: UEFI not found.
+[    1.464024] OF: fdt: Reserved memory: failed to reserve memory for node 'drm-cubic-lut@00000000': base 0x0000000000000000, size 0 MiB
+[    1.476935] Reserved memory: created CMA memory pool at 0x0000000010000000, size 128 MiB
+[    1.485601] OF: reserved mem: initialized node cma, compatible id shared-dma-pool
+[    1.635972] Zone ranges:
+[    1.638671]   DMA      [mem 0x0000000000200000-0x00000000ffffffff]
+[    1.645303]   DMA32    empty
+[    1.648353]   Normal   [mem 0x0000000100000000-0x00000002ffffffff]
+[    1.654984] Movable zone start for each node
+[    1.659521] Early memory node ranges
+[    1.663341]   node   0: [mem 0x0000000000200000-0x00000000083fffff]
+[    1.670022]   node   0: [mem 0x0000000009400000-0x00000000efffffff]
+[    1.676695]   node   0: [mem 0x0000000100000000-0x00000001ffffffff]
+[    1.683350]   node   0: [mem 0x00000002f0000000-0x00000002ffffffff]
+[    1.690022] Initmem setup node 0 [mem 0x0000000000200000-0x00000002ffffffff]
+[    1.697562] On node 0 totalpages: 2092544
+[    1.697567]   DMA zone: 15288 pages used for memmap
+[    1.697571]   DMA zone: 0 pages reserved
+[    1.697575]   DMA zone: 978432 pages, LIFO batch:63
+[    1.697581]   Normal zone: 17408 pages used for memmap
+[    1.697585]   Normal zone: 1114112 pages, LIFO batch:63
+[    1.743796] psci: probing for conduit method from DT.
+[    1.749192] psci: PSCIv1.1 detected in firmware.
+[    1.754130] psci: Using standard PSCI v0.2 function IDs
+[    1.759651] psci: Trusted OS migration not required
+[    1.764824] psci: SMC Calling Convention v1.2
+[    1.769826] percpu: Embedded 31 pages/cpu s88424 r8192 d30360 u126976
+[    1.776731] pcpu-alloc: s88424 r8192 d30360 u126976 alloc=31*4096
+[    1.776738] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 [0] 4 [0] 5 [0] 6 [0] 7 
+[    1.776887] Detected VIPT I-cache on CPU0
+[    1.781199] CPU features: detected: GIC system register CPU interface
+[    1.788044] CPU features: detected: Virtualization Host Extensions
+[    1.794643] CPU features: detected: ARM errata 1165522, 1319367, or 1530923
+[    1.802146] alternatives: patching kernel code
+[    1.807209] Built 1 zonelists, mobility grouping on.  Total pages: 2059848
+[    1.814535] Kernel command line: storagemedia=emmc androidboot.storagemedia=emmc androidboot.mode=normal  root=PARTUUID=614e0000-0000 androidboot.verifiedbootstate=orange androidboot.serialno=2197730880a7f1e5  rw rootwait earlycon=uart8250,mmio32,0xfeb50000 console=ttyFIQ0 irqchip.gicv3_pseudo_nmi=0
+[    1.844016] Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+[    1.852936] Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+[    1.861274] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    1.874022] software IO TLB: mapped [mem 0x00000000e9f00000-0x00000000edf00000] (64MB)
+[    1.954492] Memory: 7976372K/8370176K available (17024K kernel code, 3486K rwdata, 6200K rodata, 6848K init, 571K bss, 262732K reserved, 131072K cma-reserved)
+[    1.969792] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
+[    1.976764] ftrace: allocating 63747 entries in 250 pages
+[    2.085288] ftrace: allocated 250 pages with 6 groups
+[    2.090965] rcu: Hierarchical RCU implementation.
+[    2.096010] rcu: 	RCU event tracing is enabled.
+[    2.100827] 	Rude variant of Tasks RCU enabled.
+[    2.105668] 	Tracing variant of Tasks RCU enabled.
+[    2.110771] rcu: RCU calculated value of scheduler-enlistment delay is 30 jiffies.
+[    2.124689] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    2.132828] GICv3: GIC: Using split EOI/Deactivate mode
+[    2.138394] GICv3: 480 SPIs implemented
+[    2.142500] GICv3: 0 Extended SPIs implemented
+[    2.147255] GICv3: Distributor has no Range Selector support
+[    2.153282] GICv3: 16 PPIs implemented
+[    2.157314] GICv3: CPU0: found redistributor 0 region 0:0x00000000fe680000
+[    2.164783] ITS [mem 0xfe640000-0xfe65ffff]
+[    2.169302] ITS@0x00000000fe640000: allocated 8192 Devices @100200000 (indirect, esz 8, psz 64K, shr 0)
+[    2.179374] ITS@0x00000000fe640000: allocated 32768 Interrupt Collections @100210000 (flat, esz 2, psz 64K, shr 0)
+[    2.190427] ITS: using cache flushing for cmd queue
+[    2.195632] ITS [mem 0xfe660000-0xfe67ffff]
+[    2.200126] ITS@0x00000000fe660000: allocated 8192 Devices @100230000 (indirect, esz 8, psz 64K, shr 0)
+[    2.210189] ITS@0x00000000fe660000: allocated 32768 Interrupt Collections @100240000 (flat, esz 2, psz 64K, shr 0)
+[    2.221251] ITS: using cache flushing for cmd queue
+[    2.226616] GICv3: using LPI property table @0x0000000100250000
+[    2.233038] GIC: using cache flushing for LPI property table
+[    2.239100] GICv3: CPU0: using allocated LPI pending table @0x0000000100260000
+[    2.247005] random: get_random_bytes called from start_kernel+0x3d8/0x5c4 with crng_init=0
+[    2.364609] arch_timer: cp15 timer(s) running at 24.00MHz (phys).
+[    2.379939] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+[    2.391469] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+[    2.401140] Console: colour dummy device 80x25
+[    2.405921] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=80000)
+[    2.416879] pid_max: default: 32768 minimum: 301
+[    2.421962] Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    2.430055] Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    2.440297] rcu: Hierarchical SRCU implementation.
+[    2.446257] Platform MSI: msi-controller@fe640000 domain created
+[    2.452683] Platform MSI: msi-controller@fe660000 domain created
+[    2.459389] PCI/MSI: /interrupt-controller@fe600000/msi-controller@fe640000 domain created
+[    2.468234] PCI/MSI: /interrupt-controller@fe600000/msi-controller@fe660000 domain created
+[    2.477182] EFI services will not be available.
+[    2.482356] smp: Bringing up secondary CPUs ...
+[    2.495474] Detected VIPT I-cache on CPU1
+[    2.495510] GICv3: CPU1: found redistributor 100 region 0:0x00000000fe6a0000
+[    2.495528] GICv3: CPU1: using allocated LPI pending table @0x0000000100270000
+[    2.495571] CPU1: Booted secondary processor 0x0000000100 [0x412fd050]
+[    2.503912] Detected VIPT I-cache on CPU2
+[    2.503941] GICv3: CPU2: found redistributor 200 region 0:0x00000000fe6c0000
+[    2.503958] GICv3: CPU2: using allocated LPI pending table @0x0000000100280000
+[    2.503996] CPU2: Booted secondary processor 0x0000000200 [0x412fd050]
+[    2.512304] Detected VIPT I-cache on CPU3
+[    2.512332] GICv3: CPU3: found redistributor 300 region 0:0x00000000fe6e0000
+[    2.512349] GICv3: CPU3: using allocated LPI pending table @0x0000000100290000
+[    2.512385] CPU3: Booted secondary processor 0x0000000300 [0x412fd050]
+[    2.520702] CPU features: detected: Spectre-v4
+[    2.520706] CPU features: detected: Spectre-BHB
+[    2.520709] Detected PIPT I-cache on CPU4
+[    2.520723] GICv3: CPU4: found redistributor 400 region 0:0x00000000fe700000
+[    2.520733] GICv3: CPU4: using allocated LPI pending table @0x00000001002a0000
+[    2.520756] CPU4: Booted secondary processor 0x0000000400 [0x414fd0b0]
+[    2.529024] Detected PIPT I-cache on CPU5
+[    2.529039] GICv3: CPU5: found redistributor 500 region 0:0x00000000fe720000
+[    2.529049] GICv3: CPU5: using allocated LPI pending table @0x00000001002b0000
+[    2.529074] CPU5: Booted secondary processor 0x0000000500 [0x414fd0b0]
+[    2.537353] Detected PIPT I-cache on CPU6
+[    2.537368] GICv3: CPU6: found redistributor 600 region 0:0x00000000fe740000
+[    2.537377] GICv3: CPU6: using allocated LPI pending table @0x00000001002c0000
+[    2.537401] CPU6: Booted secondary processor 0x0000000600 [0x414fd0b0]
+[    2.545661] Detected PIPT I-cache on CPU7
+[    2.545676] GICv3: CPU7: found redistributor 700 region 0:0x00000000fe760000
+[    2.545686] GICv3: CPU7: using allocated LPI pending table @0x00000001002d0000
+[    2.545710] CPU7: Booted secondary processor 0x0000000700 [0x414fd0b0]
+[    2.545778] smp: Brought up 1 node, 8 CPUs
+[    2.745518] SMP: Total of 8 processors activated.
+[    2.750568] CPU features: detected: Privileged Access Never
+[    2.756502] CPU features: detected: User Access Override
+[    2.762192] CPU features: detected: 32-bit EL0 Support
+[    2.767674] CPU features: detected: Common not Private translations
+[    2.774370] CPU features: detected: RAS Extension Support
+[    2.780164] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    2.789348] CPU features: detected: CRC32 instructions
+[    2.794838] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    2.802272] CPU features: detected: RCpc load-acquire (LDAPR)
+[    2.808493] CPU: All CPU(s) started at EL2
+[    2.814313] devtmpfs: initialized
+[    2.828499] Registered cp15_barrier emulation handler
+[    2.833880] Registered setend emulation handler
+[    2.838737] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370867519511994 ns
+[    2.849065] futex hash table entries: 2048 (order: 5, 131072 bytes, linear)
+[    2.857812] pinctrl core: initialized pinctrl subsystem
+[    2.863448] regulator-dummy: no parameters, enabled
+[    2.863548] DMI not present or invalid.
+[    2.867754] NET: Registered protocol family 16
+[    2.873549] DMA: preallocated 1024 KiB GFP_KERNEL pool for atomic allocations
+[    2.881238] DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    2.890181] thermal_sys: Registered thermal governor 'fair_share'
+[    2.890183] thermal_sys: Registered thermal governor 'step_wise'
+[    2.896710] thermal_sys: Registered thermal governor 'user_space'
+[    2.903129] thermal_sys: Registered thermal governor 'power_allocator'
+[    2.909758] thermal thermal_zone1: power_allocator: sustainable_power will be estimated
+[    2.925289] thermal thermal_zone2: power_allocator: sustainable_power will be estimated
+[    2.933877] thermal thermal_zone3: power_allocator: sustainable_power will be estimated
+[    2.942406] thermal thermal_zone4: power_allocator: sustainable_power will be estimated
+[    2.950862] thermal thermal_zone5: power_allocator: sustainable_power will be estimated
+[    2.959346] thermal thermal_zone6: power_allocator: sustainable_power will be estimated
+[    2.967896] cpuidle: using governor menu
+[    2.972040] Registered FIQ tty driver
+[    2.976124] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    2.983487] ASID allocator initialised with 65536 entries
+[    2.990517] ramoops: dmesg-0	0x20000@0x0000000000110000
+[    2.996235] ramoops: console	0x80000@0x0000000000130000
+[    3.001699] ramoops: pmsg	0x50000@0x00000000001b0000
+[    3.007245] printk: console [ramoops-1] enabled
+[    3.012095] pstore: Registered ramoops as persistent store backend
+[    3.018688] ramoops: using 0xf0000@0x110000, ecc: 0
+[    3.066074] rockchip-gpio fd8a0000.gpio: probed /pinctrl/gpio@fd8a0000
+[    3.073224] rockchip-gpio fec20000.gpio: probed /pinctrl/gpio@fec20000
+[    3.080372] rockchip-gpio fec30000.gpio: probed /pinctrl/gpio@fec30000
+[    3.087520] rockchip-gpio fec40000.gpio: probed /pinctrl/gpio@fec40000
+[    3.094659] rockchip-gpio fec50000.gpio: probed /pinctrl/gpio@fec50000
+[    3.101621] rockchip-pinctrl pinctrl: probed pinctrl
+[    3.173400] raid6: neonx8   gen()  5641 MB/s
+[    3.233494] raid6: neonx8   xor()  4356 MB/s
+[    3.293587] raid6: neonx4   gen()  5329 MB/s
+[    3.353681] raid6: neonx4   xor()  4650 MB/s
+[    3.413774] raid6: neonx2   gen()  5577 MB/s
+[    3.473869] raid6: neonx2   xor()  4275 MB/s
+[    3.533963] raid6: neonx1   gen()  4505 MB/s
+[    3.594055] raid6: neonx1   xor()  2937 MB/s
+[    3.654155] raid6: int64x8  gen()  1415 MB/s
+[    3.714245] raid6: int64x8  xor()   929 MB/s
+[    3.774336] raid6: int64x4  gen()  1837 MB/s
+[    3.834436] raid6: int64x4  xor()   994 MB/s
+[    3.894522] raid6: int64x2  gen()  2522 MB/s
+[    3.954610] raid6: int64x2  xor()  1388 MB/s
+[    4.014703] raid6: int64x1  gen()  2046 MB/s
+[    4.074789] raid6: int64x1  xor()  1024 MB/s
+[    4.079294] raid6: using algorithm neonx8 gen() 5641 MB/s
+[    4.085063] raid6: .... xor() 4356 MB/s, rmw enabled
+[    4.090321] raid6: using neon recovery algorithm
+[    4.095723] fiq_debugger fiq_debugger.0: IRQ fiq not found
+[    4.101699] fiq_debugger fiq_debugger.0: IRQ wakeup not found
+[    4.107792] fiq_debugger_probe: could not install nmi irq handler
+[    4.114322] printk: console [ttyFIQ0] enabled
+[    4.123269] printk: bootconsole [uart8250] disabled
+[    4.128560] Registered fiq debugger ttyFIQ0
+[    4.128774] vcc12v_dcin: 12000 mV, enabled
+[    4.128847] reg-fixed-voltage vcc12v-dcin: vcc12v_dcin supplying 12000000uV
+[    4.128892] reg-fixed-voltage vcc5v0-sys: Looking up vin-supply from device tree
+[    4.128895] vcc5v0_sys: supplied by vcc12v_dcin
+[    4.128902] vcc12v_dcin: could not add device link regulator.2: -ENOENT
+[    4.128917] vcc5v0_sys: 5000 mV, enabled
+[    4.128978] reg-fixed-voltage vcc5v0-sys: vcc5v0_sys supplying 5000000uV
+[    4.129019] reg-fixed-voltage vcc5v0-usbdcin: Looking up vin-supply from device tree
+[    4.129022] vcc5v0_usbdcin: supplied by vcc12v_dcin
+[    4.129027] vcc12v_dcin: could not add device link regulator.3: -ENOENT
+[    4.129041] vcc5v0_usbdcin: 5000 mV, enabled
+[    4.129098] reg-fixed-voltage vcc5v0-usbdcin: vcc5v0_usbdcin supplying 5000000uV
+[    4.129139] reg-fixed-voltage vcc5v0-usb: Looking up vin-supply from device tree
+[    4.129143] vcc5v0_usb: supplied by vcc5v0_usbdcin
+[    4.129148] vcc5v0_usbdcin: could not add device link regulator.4: -ENOENT
+[    4.129165] vcc5v0_usb: 5000 mV, enabled
+[    4.129219] reg-fixed-voltage vcc5v0-usb: vcc5v0_usb supplying 5000000uV
+[    4.129267] reg-fixed-voltage vcc-1v1-nldo-s3: Looking up vin-supply from device tree
+[    4.129270] vcc_1v1_nldo_s3: supplied by vcc5v0_sys
+[    4.129275] vcc5v0_sys: could not add device link regulator.5: -ENOENT
+[    4.129288] vcc_1v1_nldo_s3: 1100 mV, enabled
+[    4.129345] reg-fixed-voltage vcc-1v1-nldo-s3: vcc_1v1_nldo_s3 supplying 1100000uV
+[    4.129399] vcc3v3_pcie30: 3300 mV, disabled
+[    4.129442] reg-fixed-voltage vcc3v3-pcie30: Looking up vin-supply from device tree
+[    4.129445] vcc3v3_pcie30: supplied by vcc12v_dcin
+[    4.129477] reg-fixed-voltage vcc3v3-pcie30: vcc3v3_pcie30 supplying 3300000uV
+[    4.129558] reg-fixed-voltage vcc5v0-host: Looking up vin-supply from device tree
+[    4.129561] vcc5v0_host: supplied by vcc5v0_usb
+[    4.129567] vcc5v0_usb: could not add device link regulator.7: -ENOENT
+[    4.129582] vcc5v0_host: 5000 mV, enabled
+[    4.129638] reg-fixed-voltage vcc5v0-host: vcc5v0_host supplying 5000000uV
+[    4.129707] vbus5v0_typec: 5000 mV, disabled
+[    4.129753] reg-fixed-voltage vbus5v0-typec: Looking up vin-supply from device tree
+[    4.129757] vbus5v0_typec: supplied by vcc5v0_usb
+[    4.129790] reg-fixed-voltage vbus5v0-typec: vbus5v0_typec supplying 5000000uV
+[    4.130061] iommu: Default domain type: Translated 
+[    4.130144] rk_iommu fdab9000.iommu: version = 2
+[    4.130435] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vdpu-supply from device tree
+[    4.130451] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vdpu-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.130502] rk_iommu fdb50800.iommu: version = 2
+[    4.130706] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up rga30-supply from device tree
+[    4.130720] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up rga30-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.130745] rk_iommu fdb60f00.iommu: version = 2
+[    4.130886] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up rga31-supply from device tree
+[    4.130899] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up rga31-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.130927] rk_iommu fdb70f00.iommu: version = 2
+[    4.131087] rk_iommu fdb90480.iommu: version = 2
+[    4.131271] rk_iommu fdba0800.iommu: version = 2
+[    4.131452] rk_iommu fdba4800.iommu: version = 2
+[    4.131634] rk_iommu fdba8800.iommu: version = 2
+[    4.131827] rk_iommu fdbac800.iommu: version = 2
+[    4.132016] rk_iommu fdbb0800.iommu: version = 2
+[    4.132149] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up venc0-supply from device tree
+[    4.132163] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up venc0-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.132208] rk_iommu fdbdf000.iommu: version = 2
+[    4.132306] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vcodec-supply from device tree
+[    4.132319] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vcodec-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.132412] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up venc1-supply from device tree
+[    4.132425] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up venc1-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.132474] rk_iommu fdbef000.iommu: version = 2
+[    4.132686] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up rkvdec0-supply from device tree
+[    4.132699] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up rkvdec0-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.132754] rk_iommu fdc38700.iommu: version = 2
+[    4.132963] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up rkvdec1-supply from device tree
+[    4.132977] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up rkvdec1-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.133030] rk_iommu fdc48700.iommu: version = 2
+[    4.133180] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vi-supply from device tree
+[    4.133194] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vi-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.133241] rk_iommu fdce0800.iommu: version = 2
+[    4.133357] rk_iommu fdd97e00.iommu: version = 2
+[    4.133662] SCSI subsystem initialized
+[    4.133678] libata version 3.00 loaded.
+[    4.133743] usbcore: registered new interface driver usbfs
+[    4.133760] usbcore: registered new interface driver hub
+[    4.133775] usbcore: registered new device driver usb
+[    4.133810] mc: Linux media interface: v0.10
+[    4.133821] videodev: Linux video capture interface: v2.00
+[    4.133848] pps_core: LinuxPPS API ver. 1 registered
+[    4.133851] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    4.133858] PTP clock support registered
+[    4.134104] arm-scmi firmware:scmi: SCMI Notifications - Core Enabled.
+[    4.134136] arm-scmi firmware:scmi: SCMI Protocol v2.0 'rockchip:' Firmware version 0x0
+[    4.135257] Advanced Linux Sound Architecture Driver Initialized.
+[    4.135450] Bluetooth: Core ver 2.22
+[    4.135463] NET: Registered protocol family 31
+[    4.135467] Bluetooth: HCI device and connection manager initialized
+[    4.135472] Bluetooth: HCI socket layer initialized
+[    4.135477] Bluetooth: L2CAP socket layer initialized
+[    4.135484] Bluetooth: SCO socket layer initialized
+[    4.136729] rockchip-cpuinfo cpuinfo: SoC		: 35881000
+[    4.136735] rockchip-cpuinfo cpuinfo: Serial		: 2197730880a7f1e5
+[    4.137102] clocksource: Switched to clocksource arch_sys_counter
+[    4.418737] NET: Registered protocol family 2
+[    4.418850] IP idents hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    4.420800] tcp_listen_portaddr_hash hash table entries: 4096 (order: 5, 163840 bytes, linear)
+[    4.420876] TCP established hash table entries: 65536 (order: 7, 524288 bytes, linear)
+[    4.421200] TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+[    4.421934] TCP: Hash tables configured (established 65536 bind 65536)
+[    4.421987] UDP hash table entries: 4096 (order: 6, 393216 bytes, linear)
+[    4.422131] UDP-Lite hash table entries: 4096 (order: 6, 393216 bytes, linear)
+[    4.422326] NET: Registered protocol family 1
+[    4.422654] RPC: Registered named UNIX socket transport module.
+[    4.422660] RPC: Registered udp transport module.
+[    4.422663] RPC: Registered tcp transport module.
+[    4.422667] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    4.423052] PCI: CLS 0 bytes, default 64
+[    4.423989] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available
+[    4.426616] Initialise system trusted keyrings
+[    4.426705] workingset: timestamp_bits=46 max_order=21 bucket_order=0
+[    4.429012] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    4.429313] NFS: Registering the id_resolver key type
+[    4.429324] Key type id_resolver registered
+[    4.429328] Key type id_legacy registered
+[    4.429343] ntfs: driver 2.1.32 [Flags: R/O].
+[    4.429428] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[    4.429523] fuse: init (API version 7.32)
+[    4.429670] SGI XFS with security attributes, no debug enabled
+[    4.450063] NET: Registered protocol family 38
+[    4.450070] xor: measuring software checksum speed
+[    4.451595]    8regs           :  6573 MB/sec
+[    4.452726]    32regs          :  8722 MB/sec
+[    4.453678]    arm64_neon      : 10588 MB/sec
+[    4.453681] xor: using function: arm64_neon (10588 MB/sec)
+[    4.453687] Key type asymmetric registered
+[    4.453691] Asymmetric key parser 'x509' registered
+[    4.453706] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 242)
+[    4.453800] io scheduler mq-deadline registered
+[    4.453807] io scheduler kyber registered
+[    4.454278] rockchip-csi2-dphy-hw fedc0000.csi2-dphy0-hw: csi2 dphy hw probe successfully!
+[    4.454496] rockchip-csi2-dphy csi2-dphy0: csi2 dphy0 probe successfully!
+[    4.455402] zty devm_extcon_dev_register!
+[    4.455481] phy phy-fd5d0000.syscon:usb2-phy@0.0: Looking up phy-supply from device tree
+[    4.455487] phy phy-fd5d0000.syscon:usb2-phy@0.0: Looking up phy-supply property in node /syscon@fd5d0000/usb2-phy@0/otg-port failed
+[    4.455526] phy phy-fd5d0000.syscon:usb2-phy@0.0: Looking up vbus-supply from device tree
+[    4.455532] phy phy-fd5d0000.syscon:usb2-phy@0.0: Looking up vbus-supply property in node /syscon@fd5d0000/usb2-phy@0/otg-port failed
+[    4.456385] zty devm_extcon_dev_register!
+[    4.456677] phy phy-fd5d8000.syscon:usb2-phy@8000.1: Looking up phy-supply from device tree
+[    4.456688] vcc5v0_host: could not add device link phy-fd5d8000.syscon:usb2-phy@8000.1: -ENOENT
+[    4.457552] zty devm_extcon_dev_register!
+[    4.457842] phy phy-fd5dc000.syscon:usb2-phy@c000.2: Looking up phy-supply from device tree
+[    4.457849] phy phy-fd5dc000.syscon:usb2-phy@c000.2: Looking up phy-supply property in node /syscon@fd5dc000/usb2-phy@c000/host-port failed
+[    4.458746] zty devm_extcon_dev_register!
+[    4.459035] phy phy-fd5d4000.syscon:usb2-phy@4000.3: Looking up phy-supply from device tree
+[    4.459042] phy phy-fd5d4000.syscon:usb2-phy@4000.3: Looking up phy-supply property in node /syscon@fd5d4000/usb2-phy@4000/otg-port failed
+[    4.459079] phy phy-fd5d4000.syscon:usb2-phy@4000.3: Looking up vbus-supply from device tree
+[    4.459084] phy phy-fd5d4000.syscon:usb2-phy@4000.3: Looking up vbus-supply property in node /syscon@fd5d4000/usb2-phy@4000/otg-port failed
+[    4.460948] phy phy-feda0000.phy.4: Looking up phy-supply from device tree
+[    4.460954] phy phy-feda0000.phy.4: Looking up phy-supply property in node /phy@feda0000 failed
+[    4.461072] phy phy-fedb0000.phy.5: Looking up phy-supply from device tree
+[    4.461076] phy phy-fedb0000.phy.5: Looking up phy-supply property in node /phy@fedb0000 failed
+[    4.462843] mpp_service mpp-srv: unknown mpp version for missing VCS info
+[    4.462849] mpp_service mpp-srv: probe start
+[    4.464260] mpp_vdpu1 fdb51000.avsd-plus: Adding to iommu group 1
+[    4.464420] mpp_vdpu1 fdb51000.avsd-plus: probe device
+[    4.464534] mpp_vdpu1 fdb51000.avsd-plus: reset_group->rw_sem_on=0
+[    4.464542] mpp_vdpu1 fdb51000.avsd-plus: reset_group->rw_sem_on=0
+[    4.464678] mpp_vdpu1 fdb51000.avsd-plus: probing finish
+[    4.464998] mpp_vdpu2 fdb50400.vdpu: Adding to iommu group 1
+[    4.465084] mpp_vdpu2 fdb50400.vdpu: probe device
+[    4.465174] mpp_vdpu2 fdb50400.vdpu: reset_group->rw_sem_on=0
+[    4.465180] mpp_vdpu2 fdb50400.vdpu: reset_group->rw_sem_on=0
+[    4.465284] mpp_vdpu2 fdb50400.vdpu: probing finish
+[    4.465439] mpp_vepu2 jpege-ccu: probing start
+[    4.465445] mpp_vepu2 jpege-ccu: probing finish
+[    4.465553] mpp_vepu2 fdb50000.vepu: Adding to iommu group 1
+[    4.465592] mpp_vepu2 fdb50000.vepu: probing start
+[    4.465679] mpp_vepu2 fdb50000.vepu: reset_group->rw_sem_on=0
+[    4.465684] mpp_vepu2 fdb50000.vepu: reset_group->rw_sem_on=0
+[    4.465804] mpp_vepu2 fdb50000.vepu: probing finish
+[    4.465884] mpp_vepu2 fdba0000.jpege-core: Adding to iommu group 5
+[    4.465964] mpp_vepu2 fdba0000.jpege-core: probing start
+[    4.466065] mpp_vepu2 fdba0000.jpege-core: attach ccu success
+[    4.466176] mpp_vepu2 fdba0000.jpege-core: probing finish
+[    4.466243] mpp_vepu2 fdba4000.jpege-core: Adding to iommu group 6
+[    4.466326] mpp_vepu2 fdba4000.jpege-core: probing start
+[    4.466422] mpp_vepu2 fdba4000.jpege-core: attach ccu success
+[    4.466535] mpp_vepu2 fdba4000.jpege-core: probing finish
+[    4.466604] mpp_vepu2 fdba8000.jpege-core: Adding to iommu group 7
+[    4.466686] mpp_vepu2 fdba8000.jpege-core: probing start
+[    4.466781] mpp_vepu2 fdba8000.jpege-core: attach ccu success
+[    4.466892] mpp_vepu2 fdba8000.jpege-core: probing finish
+[    4.466951] mpp_vepu2 fdbac000.jpege-core: Adding to iommu group 8
+[    4.467037] mpp_vepu2 fdbac000.jpege-core: probing start
+[    4.467141] mpp_vepu2 fdbac000.jpege-core: attach ccu success
+[    4.467255] mpp_vepu2 fdbac000.jpege-core: probing finish
+[    4.467480] mpp-iep2 fdbb0000.iep: Adding to iommu group 9
+[    4.467566] mpp-iep2 fdbb0000.iep: probe device
+[    4.467681] mpp-iep2 fdbb0000.iep: allocate roi buffer failed
+[    4.467786] mpp-iep2 fdbb0000.iep: probing finish
+[    4.467957] mpp_jpgdec fdb90000.jpegd: Adding to iommu group 4
+[    4.468106] mpp_jpgdec fdb90000.jpegd: probe device
+[    4.468327] mpp_jpgdec fdb90000.jpegd: probing finish
+[    4.468662] mpp_rkvdec2 fdc30000.rkvdec-ccu: rkvdec-ccu, probing start
+[    4.468720] mpp_rkvdec2 fdc30000.rkvdec-ccu: probing finish
+[    4.468807] mpp_rkvdec2 fdc38100.rkvdec-core: Adding to iommu group 12
+[    4.469065] mpp_rkvdec2 fdc38100.rkvdec-core: rkvdec-core, probing start
+[    4.469176] mpp_rkvdec2 fdc38100.rkvdec-core: shared_niu_a is not found!
+[    4.469180] rkvdec2_init:1010: No niu aclk reset resource define
+[    4.469185] mpp_rkvdec2 fdc38100.rkvdec-core: shared_niu_h is not found!
+[    4.469189] rkvdec2_init:1013: No niu hclk reset resource define
+[    4.469203] mpp_rkvdec2 fdc38100.rkvdec-core: Looking up vdec-supply from device tree
+[    4.469208] mpp_rkvdec2 fdc38100.rkvdec-core: Looking up vdec-supply property in node /rkvdec-core@fdc38000 failed
+[    4.469215] mpp_rkvdec2 fdc38100.rkvdec-core: no regulator, devfreq is disabled
+[    4.469264] mpp_rkvdec2 fdc38100.rkvdec-core: core_mask=00010001
+[    4.469268] mpp_rkvdec2 fdc38100.rkvdec-core: attach ccu as core 0
+[    4.469411] mpp_rkvdec2 fdc38100.rkvdec-core: sram_start 0x00000000ff001000
+[    4.469416] mpp_rkvdec2 fdc38100.rkvdec-core: rcb_iova 0x00000000fff00000
+[    4.469420] mpp_rkvdec2 fdc38100.rkvdec-core: sram_size 491520
+[    4.469424] mpp_rkvdec2 fdc38100.rkvdec-core: rcb_size 1048576
+[    4.469429] mpp_rkvdec2 fdc38100.rkvdec-core: min_width 512
+[    4.469458] mpp_rkvdec2 fdc38100.rkvdec-core: probing finish
+[    4.469531] mpp_rkvdec2 fdc48100.rkvdec-core: Adding to iommu group 13
+[    4.469765] mpp_rkvdec2 fdc48100.rkvdec-core: rkvdec-core, probing start
+[    4.469881] mpp_rkvdec2 fdc48100.rkvdec-core: shared_niu_a is not found!
+[    4.469886] rkvdec2_init:1010: No niu aclk reset resource define
+[    4.469890] mpp_rkvdec2 fdc48100.rkvdec-core: shared_niu_h is not found!
+[    4.469894] rkvdec2_init:1013: No niu hclk reset resource define
+[    4.469908] mpp_rkvdec2 fdc48100.rkvdec-core: Looking up vdec-supply from device tree
+[    4.469912] mpp_rkvdec2 fdc48100.rkvdec-core: Looking up vdec-supply property in node /rkvdec-core@fdc48000 failed
+[    4.469918] mpp_rkvdec2 fdc48100.rkvdec-core: no regulator, devfreq is disabled
+[    4.469955] mpp_rkvdec2 fdc48100.rkvdec-core: core_mask=00020002
+[    4.469972] mpp_rkvdec2 fdc48100.rkvdec-core: attach ccu as core 1
+[    4.470139] mpp_rkvdec2 fdc48100.rkvdec-core: sram_start 0x00000000ff079000
+[    4.470144] mpp_rkvdec2 fdc48100.rkvdec-core: rcb_iova 0x00000000ffe00000
+[    4.470148] mpp_rkvdec2 fdc48100.rkvdec-core: sram_size 487424
+[    4.470152] mpp_rkvdec2 fdc48100.rkvdec-core: rcb_size 1048576
+[    4.470157] mpp_rkvdec2 fdc48100.rkvdec-core: min_width 512
+[    4.470186] mpp_rkvdec2 fdc48100.rkvdec-core: probing finish
+[    4.470357] mpp_rkvenc2 rkvenc-ccu: probing start
+[    4.470363] mpp_rkvenc2 rkvenc-ccu: probing finish
+[    4.470482] mpp_rkvenc2 fdbd0000.rkvenc-core: Adding to iommu group 10
+[    4.470684] mpp_rkvenc2 fdbd0000.rkvenc-core: probing start
+[    4.470701] mpp_rkvenc2 fdbd0000.rkvenc-core: link mode task capacity 8
+[    4.470839] mpp_rkvenc2 fdbd0000.rkvenc-core: attach ccu as core 0
+[    4.470960] mpp_rkvenc2 fdbd0000.rkvenc-core: probing finish
+[    4.471031] mpp_rkvenc2 fdbe0000.rkvenc-core: Adding to iommu group 11
+[    4.471250] mpp_rkvenc2 fdbe0000.rkvenc-core: probing start
+[    4.471267] mpp_rkvenc2 fdbe0000.rkvenc-core: link mode task capacity 8
+[    4.471427] mpp_rkvenc2 fdbe0000.rkvenc-core: attach ccu as core 1
+[    4.471574] mpp_rkvenc2 fdbe0000.rkvenc-core: probing finish
+[    4.471787] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up av1-supply from device tree
+[    4.471802] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up av1-supply property in node /power-management@fd8d8000/power-controller failed
+[    4.472060] mpp_av1dec: Adding child /av1d@fdc70000
+[    4.472289] mpp_av1dec: register device av1d-master
+[    4.472307] mpp_av1dec av1d-master: av1_iommu_of_xlate,784
+[    4.472325] av1_iommu_probe_device,736, consumer : av1d-master, supplier : fdca0000.iommu
+[    4.472334] mpp_av1dec av1d-master: Adding to iommu group 16
+[    4.472558] mpp_av1dec av1d-master: probing start
+[    4.472792] mpp_av1dec av1d-master: probing finish
+[    4.472830] mpp_service mpp-srv: probe success
+[    4.479880] dma-pl330 fea10000.dma-controller: Loaded driver for PL330 DMAC-241330
+[    4.479889] dma-pl330 fea10000.dma-controller: 	DBUFF-128x8bytes Num_Chans-8 Num_Peri-32 Num_Events-16
+[    4.480789] dma-pl330 fea30000.dma-controller: Loaded driver for PL330 DMAC-241330
+[    4.480797] dma-pl330 fea30000.dma-controller: 	DBUFF-128x8bytes Num_Chans-8 Num_Peri-32 Num_Events-16
+[    4.481680] dma-pl330 fed10000.dma-controller: Loaded driver for PL330 DMAC-241330
+[    4.481688] dma-pl330 fed10000.dma-controller: 	DBUFF-128x8bytes Num_Chans-8 Num_Peri-32 Num_Events-16
+[    4.482120] rockchip-pvtm fda40000.pvtm: pvtm@0 probed
+[    4.482186] rockchip-pvtm fda50000.pvtm: pvtm@1 probed
+[    4.482243] rockchip-pvtm fda60000.pvtm: pvtm@2 probed
+[    4.482298] rockchip-pvtm fdaf0000.pvtm: pvtm@3 probed
+[    4.482349] rockchip-pvtm fdb30000.pvtm: pvtm@4 probed
+[    4.482884] rockchip-system-monitor rockchip-system-monitor: system monitor probe
+[    4.483624] Serial: 8250/16550 driver, 10 ports, IRQ sharing disabled
+[    4.484903] random: fast init done
+[    4.484959] random: crng init done
+[    4.485691] rockchip-vop2 fdd90000.vop: Adding to iommu group 15
+[    4.492122] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp0 assign plane mask: 0x5, primary plane phy id: 2
+[    4.492133] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp1 assign plane mask: 0xa, primary plane phy id: 3
+[    4.492148] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp2 assign plane mask: 0x140, primary plane phy id: 8
+[    4.492156] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp3 assign plane mask: 0x280, primary plane phy id: 9
+[    4.492164] rockchip-drm display-subsystem: failed to get hdmi0_phy_pll: -2
+[    4.492169] rockchip-drm display-subsystem: failed to get hdmi1_phy_pll: -2
+[    4.492389] [drm] failed to init overlay plane Cluster0-win1
+[    4.492421] [drm] failed to init overlay plane Cluster1-win1
+[    4.492452] [drm] failed to init overlay plane Cluster2-win1
+[    4.492482] [drm] failed to init overlay plane Cluster3-win1
+[    4.503219] rockchip-drm display-subsystem: bound fdd90000.vop (ops 0xffffffc0111c6360)
+[    4.503257] dw-mipi-dsi2 fde20000.dsi: [drm:dw_mipi_dsi2_bind] *ERROR* Failed to find panel or bridge: -517
+[    4.507990] panel-simple-dsi fde20000.dsi.0: Looking up power-supply from device tree
+[    4.508066] panel-simple-dsi fde20000.dsi.0: failed to get power regulator: -517
+[    4.510621] brd: module loaded
+[    4.513794] loop: module loaded
+[    4.513993] zram: Added device: zram0
+[    4.514136] lkdtm: No crash points registered, enable through debugfs
+[    4.514282] system_heap: orders[0] = 6
+[    4.514287] system_heap: orders[1] = 4
+[    4.514291] system_heap: orders[2] = 0
+[    4.516389] rockchip-spi feb20000.spi: no high_speed pinctrl state
+[    4.517782] rk806 spi2.0: chip id: RK806,ver:0x2, 0x1
+[    4.517940] rk806 spi2.0: ON: 0x70 OFF:0x2
+[    4.520052] rk806-regulator rk806-regulator.2.auto: Looking up vcc1-supply from device tree
+[    4.520112] vdd_gpu_s0: supplied by vcc5v0_sys
+[    4.520124] vcc5v0_sys: could not add device link regulator.9: -ENOENT
+[    4.520874] vdd_gpu_s0: 550 <--> 950 mV at 750 mV, enabled
+[    4.521206] rk806-regulator rk806-regulator.2.auto: Looking up vcc2-supply from device tree
+[    4.521212] vdd_cpu_lit_s0: supplied by vcc5v0_sys
+[    4.521220] vcc5v0_sys: could not add device link regulator.10: -ENOENT
+[    4.521434] vdd_cpu_lit_s0: 550 <--> 950 mV at 750 mV, enabled
+[    4.521838] rk806-regulator rk806-regulator.2.auto: Looking up vcc3-supply from device tree
+[    4.521844] vdd_log_s0: supplied by vcc5v0_sys
+[    4.521851] vcc5v0_sys: could not add device link regulator.11: -ENOENT
+[    4.522103] vdd_log_s0: 675 <--> 750 mV at 750 mV, enabled
+[    4.522491] rk806-regulator rk806-regulator.2.auto: Looking up vcc4-supply from device tree
+[    4.522497] vdd_vdenc_s0: supplied by vcc5v0_sys
+[    4.522504] vcc5v0_sys: could not add device link regulator.12: -ENOENT
+[    4.522753] vdd_vdenc_s0: 550 <--> 950 mV at 750 mV, enabled
+[    4.523238] rk806-regulator rk806-regulator.2.auto: Looking up vcc5-supply from device tree
+[    4.523244] vdd_ddr_s0: supplied by vcc5v0_sys
+[    4.523250] vcc5v0_sys: could not add device link regulator.13: -ENOENT
+[    4.523505] vdd_ddr_s0: 675 <--> 900 mV at 850 mV, enabled
+[    4.523695] rk806-regulator rk806-regulator.2.auto: Looking up vcc6-supply from device tree
+[    4.523700] vdd2_ddr_s3: supplied by vcc5v0_sys
+[    4.523706] vcc5v0_sys: could not add device link regulator.14: -ENOENT
+[    4.524089] vdd2_ddr_s3: at 500 mV, enabled
+[    4.524426] rk806-regulator rk806-regulator.2.auto: Looking up vcc7-supply from device tree
+[    4.524432] vdd_2v0_pldo_s3: supplied by vcc5v0_sys
+[    4.524441] vcc5v0_sys: could not add device link regulator.15: -ENOENT
+[    4.524688] vdd_2v0_pldo_s3: 2000 mV, enabled
+[    4.525018] rk806-regulator rk806-regulator.2.auto: Looking up vcc8-supply from device tree
+[    4.525023] vcc_3v3_s3: supplied by vcc5v0_sys
+[    4.525030] vcc5v0_sys: could not add device link regulator.16: -ENOENT
+[    4.525278] vcc_3v3_s3: 3300 mV, enabled
+[    4.525585] rk806-regulator rk806-regulator.2.auto: Looking up vcc9-supply from device tree
+[    4.525591] vddq_ddr_s0: supplied by vcc5v0_sys
+[    4.525597] vcc5v0_sys: could not add device link regulator.17: -ENOENT
+[    4.525893] vddq_ddr_s0: at 500 mV, enabled
+[    4.526230] rk806-regulator rk806-regulator.2.auto: Looking up vcc10-supply from device tree
+[    4.526235] vcc_1v8_s3: supplied by vcc5v0_sys
+[    4.526242] vcc5v0_sys: could not add device link regulator.18: -ENOENT
+[    4.526485] vcc_1v8_s3: 1800 mV, enabled
+[    4.526826] rk806-regulator rk806-regulator.2.auto: Looking up vcc13-supply from device tree
+[    4.526833] vdd_0v75_s3: supplied by vcc_1v1_nldo_s3
+[    4.526840] vcc_1v1_nldo_s3: could not add device link regulator.19: -ENOENT
+[    4.527080] vdd_0v75_s3: 750 mV, enabled
+[    4.527482] rk806-regulator rk806-regulator.2.auto: Looking up vcc13-supply from device tree
+[    4.527488] vdd_ddr_pll_s0: supplied by vcc_1v1_nldo_s3
+[    4.527496] vcc_1v1_nldo_s3: could not add device link regulator.20: -ENOENT
+[    4.527747] vdd_ddr_pll_s0: 850 mV, enabled
+[    4.528066] rk806-regulator rk806-regulator.2.auto: Looking up vcc13-supply from device tree
+[    4.528072] avdd_0v75_s0: supplied by vcc_1v1_nldo_s3
+[    4.528078] vcc_1v1_nldo_s3: could not add device link regulator.21: -ENOENT
+[    4.528331] avdd_0v75_s0: 837 mV, enabled
+[    4.528653] rk806-regulator rk806-regulator.2.auto: Looking up vcc14-supply from device tree
+[    4.528659] vdd_0v85_s0: supplied by vcc_1v1_nldo_s3
+[    4.528666] vcc_1v1_nldo_s3: could not add device link regulator.22: -ENOENT
+[    4.528915] vdd_0v85_s0: 850 mV, enabled
+[    4.529241] rk806-regulator rk806-regulator.2.auto: Looking up vcc14-supply from device tree
+[    4.529247] vdd_0v75_s0: supplied by vcc_1v1_nldo_s3
+[    4.529254] vcc_1v1_nldo_s3: could not add device link regulator.23: -ENOENT
+[    4.529501] vdd_0v75_s0: 750 mV, enabled
+[    4.529885] rk806-regulator rk806-regulator.2.auto: Looking up vcc11-supply from device tree
+[    4.529917] avcc_1v8_s0: supplied by vdd_2v0_pldo_s3
+[    4.529924] vdd_2v0_pldo_s3: could not add device link regulator.24: -ENOENT
+[    4.530245] avcc_1v8_s0: 1800 mV, enabled
+[    4.530647] rk806-regulator rk806-regulator.2.auto: Looking up vcc11-supply from device tree
+[    4.530654] vcc_1v8_s0: supplied by vdd_2v0_pldo_s3
+[    4.530662] vdd_2v0_pldo_s3: could not add device link regulator.25: -ENOENT
+[    4.530977] vcc_1v8_s0: 1800 mV, enabled
+[    4.531295] rk806-regulator rk806-regulator.2.auto: Looking up vcc11-supply from device tree
+[    4.531302] avdd_1v2_s0: supplied by vdd_2v0_pldo_s3
+[    4.531308] vdd_2v0_pldo_s3: could not add device link regulator.26: -ENOENT
+[    4.531629] avdd_1v2_s0: 1200 mV, enabled
+[    4.531947] rk806-regulator rk806-regulator.2.auto: Looking up vcc12-supply from device tree
+[    4.531952] vcc_3v3_s0: supplied by vcc5v0_sys
+[    4.531959] vcc5v0_sys: could not add device link regulator.27: -ENOENT
+[    4.532204] vcc_3v3_s0: 3300 mV, enabled
+[    4.532531] rk806-regulator rk806-regulator.2.auto: Looking up vcc12-supply from device tree
+[    4.532537] vccio_sd_s0: supplied by vcc5v0_sys
+[    4.532544] vcc5v0_sys: could not add device link regulator.28: -ENOENT
+[    4.532794] vccio_sd_s0: 1800 <--> 3300 mV at 3300 mV, enabled
+[    4.533133] rk806-regulator rk806-regulator.2.auto: Looking up vcca-supply from device tree
+[    4.533139] pldo6_s3: supplied by vcc5v0_sys
+[    4.533145] vcc5v0_sys: could not add device link regulator.29: -ENOENT
+[    4.533393] pldo6_s3: 1800 mV, enabled
+[    4.533688] rk806 spi2.0: no sleep-setting state
+[    4.533695] rk806 spi2.0: no reset-setting pinctrl state
+[    4.533700] rk806 spi2.0: no dvs-setting pinctrl state
+[    4.535079] hwrng: no data available
+[    4.536521] tun: Universal TUN/TAP device driver, 1.6
+[    4.536591] CAN device driver interface
+[    4.537138] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[    4.537768] rk_gmac-dwmac fe1c0000.ethernet: IRQ eth_lpi not found
+[    4.537892] rk_gmac-dwmac fe1c0000.ethernet: Looking up phy-supply from device tree
+[    4.537903] rk_gmac-dwmac fe1c0000.ethernet: Looking up phy-supply property in node /ethernet@fe1c0000 failed
+[    4.537915] rk_gmac-dwmac fe1c0000.ethernet: no regulator found
+[    4.537922] rk_gmac-dwmac fe1c0000.ethernet: clock input or output? (output).
+[    4.537928] rk_gmac-dwmac fe1c0000.ethernet: TX delay(0x43).
+[    4.537933] rk_gmac-dwmac fe1c0000.ethernet: Can not read property: rx_delay.
+[    4.537938] rk_gmac-dwmac fe1c0000.ethernet: set rx_delay to 0xffffffff
+[    4.537953] rk_gmac-dwmac fe1c0000.ethernet: integrated PHY? (no).
+[    4.537959] rk_gmac-dwmac fe1c0000.ethernet: cannot get clock mac_clk_rx
+[    4.537965] rk_gmac-dwmac fe1c0000.ethernet: cannot get clock mac_clk_tx
+[    4.537979] rk_gmac-dwmac fe1c0000.ethernet: cannot get clock clk_mac_speed
+[    4.538199] rk_gmac-dwmac fe1c0000.ethernet: init for RGMII_RXID
+[    4.538325] rk_gmac-dwmac fe1c0000.ethernet: User ID: 0x30, Synopsys ID: 0x51
+[    4.538332] rk_gmac-dwmac fe1c0000.ethernet: 	DWMAC4/5
+[    4.538339] rk_gmac-dwmac fe1c0000.ethernet: DMA HW capability register supported
+[    4.538343] rk_gmac-dwmac fe1c0000.ethernet: RX Checksum Offload Engine supported
+[    4.538348] rk_gmac-dwmac fe1c0000.ethernet: TX Checksum insertion supported
+[    4.538353] rk_gmac-dwmac fe1c0000.ethernet: Wake-Up On Lan supported
+[    4.538385] rk_gmac-dwmac fe1c0000.ethernet: TSO supported
+[    4.538390] rk_gmac-dwmac fe1c0000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+[    4.538396] rk_gmac-dwmac fe1c0000.ethernet: Enabled Flow TC (entries=2)
+[    4.538401] rk_gmac-dwmac fe1c0000.ethernet: TSO feature enabled
+[    4.538406] rk_gmac-dwmac fe1c0000.ethernet: Using 32 bits DMA width
+[    4.538657] hndz desc label snps,reset!
+[    4.538662] hndz desc gdev id 3!
+[    5.162828] zty bcm89883 match 0x0!
+[    5.162933] err: 0, Line: 466, Fun: stmmac_mdio_register
+[    5.164729] rk_gmac-dwmac fe1b0000.ethernet: IRQ eth_lpi not found
+[    5.165147] rk_gmac-dwmac fe1b0000.ethernet: Looking up phy-supply from device tree
+[    5.165172] rk_gmac-dwmac fe1b0000.ethernet: Looking up phy-supply property in node /ethernet@fe1b0000 failed
+[    5.165201] rk_gmac-dwmac fe1b0000.ethernet: no regulator found
+[    5.165217] rk_gmac-dwmac fe1b0000.ethernet: clock input or output? (output).
+[    5.165230] rk_gmac-dwmac fe1b0000.ethernet: TX delay(0x44).
+[    5.165242] rk_gmac-dwmac fe1b0000.ethernet: Can not read property: rx_delay.
+[    5.165254] rk_gmac-dwmac fe1b0000.ethernet: set rx_delay to 0xffffffff
+[    5.165273] rk_gmac-dwmac fe1b0000.ethernet: integrated PHY? (no).
+[    5.165290] rk_gmac-dwmac fe1b0000.ethernet: cannot get clock mac_clk_rx
+[    5.165306] rk_gmac-dwmac fe1b0000.ethernet: cannot get clock mac_clk_tx
+[    5.165349] rk_gmac-dwmac fe1b0000.ethernet: cannot get clock clk_mac_speed
+[    5.165592] rk_gmac-dwmac fe1b0000.ethernet: init for RGMII_RXID
+[    5.165751] rk_gmac-dwmac fe1b0000.ethernet: User ID: 0x30, Synopsys ID: 0x51
+[    5.165769] rk_gmac-dwmac fe1b0000.ethernet: 	DWMAC4/5
+[    5.165782] rk_gmac-dwmac fe1b0000.ethernet: DMA HW capability register supported
+[    5.165794] rk_gmac-dwmac fe1b0000.ethernet: RX Checksum Offload Engine supported
+[    5.165805] rk_gmac-dwmac fe1b0000.ethernet: TX Checksum insertion supported
+[    5.165816] rk_gmac-dwmac fe1b0000.ethernet: Wake-Up On Lan supported
+[    5.165884] rk_gmac-dwmac fe1b0000.ethernet: TSO supported
+[    5.165896] rk_gmac-dwmac fe1b0000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+[    5.165911] rk_gmac-dwmac fe1b0000.ethernet: Enabled Flow TC (entries=2)
+[    5.165922] rk_gmac-dwmac fe1b0000.ethernet: TSO feature enabled
+[    5.165934] rk_gmac-dwmac fe1b0000.ethernet: Using 32 bits DMA width
+[    5.297686] terry in : phy_rtl8211f_led_fixup
+[    5.299776] err: 0, Line: 466, Fun: stmmac_mdio_register
+[    5.301795] PPP generic driver version 2.4.2
+[    5.301954] PPP BSD Compression module registered
+[    5.301969] PPP Deflate Compression module registered
+[    5.301994] PPP MPPE Compression module registered
+[    5.302006] NET: Registered protocol family 24
+[    5.302104] usbcore: registered new interface driver rtl8150
+[    5.302156] usbcore: registered new interface driver r8152
+[    5.302204] usbcore: registered new interface driver asix
+[    5.302252] usbcore: registered new interface driver ax88179_178a
+[    5.302294] usbcore: registered new interface driver cdc_ether
+[    5.302335] usbcore: registered new interface driver net1080
+[    5.302376] usbcore: registered new interface driver rndis_host
+[    5.302417] usbcore: registered new interface driver cdc_subset
+[    5.302463] usbcore: registered new interface driver zaurus
+[    5.302520] usbcore: registered new interface driver cdc_ncm
+[    5.302576] usbcore: registered new interface driver qmi_wwan_q
+[    5.302619] usbcore: registered new interface driver qmi_wwan
+[    5.302661] usbcore: registered new interface driver cdc_mbim
+[    5.304526] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up usb-supply from device tree
+[    5.304573] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up usb-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.307415] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    5.307434] ehci-pci: EHCI PCI platform driver
+[    5.307459] ehci-platform: EHCI generic platform driver
+[    5.307634] usb add hcd device!
+[    5.309721] ehci-platform fc800000.usb: EHCI Host Controller
+[    5.309799] ehci-platform fc800000.usb: new USB bus registered, assigned bus number 1
+[    5.309869] ehci-platform fc800000.usb: irq 20, io mem 0xfc800000
+[    5.320451] ehci-platform fc800000.usb: USB 2.0 started, EHCI 1.00
+[    5.320491] zty usb new device!
+[    5.320547] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 5.10
+[    5.320554] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    5.320559] usb usb1: Product: EHCI Host Controller
+[    5.320564] usb usb1: Manufacturer: Linux 5.10.110 ehci_hcd
+[    5.320569] usb usb1: SerialNumber: fc800000.usb
+[    5.320786] hub 1-0:1.0: USB hub found
+[    5.320803] hub 1-0:1.0: 1 port detected
+[    5.321138] usb add hcd device!
+[    5.323214] ehci-platform fc880000.usb: EHCI Host Controller
+[    5.323291] ehci-platform fc880000.usb: new USB bus registered, assigned bus number 2
+[    5.323347] ehci-platform fc880000.usb: irq 22, io mem 0xfc880000
+[    5.333781] ehci-platform fc880000.usb: USB 2.0 started, EHCI 1.00
+[    5.333815] zty usb new device!
+[    5.333867] usb usb2: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 5.10
+[    5.333873] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    5.333879] usb usb2: Product: EHCI Host Controller
+[    5.333884] usb usb2: Manufacturer: Linux 5.10.110 ehci_hcd
+[    5.333889] usb usb2: SerialNumber: fc880000.usb
+[    5.334081] hub 2-0:1.0: USB hub found
+[    5.334097] hub 2-0:1.0: 1 port detected
+[    5.334475] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    5.334488] ohci-platform: OHCI generic platform driver
+[    5.334601] usb add hcd device!
+[    5.334655] ohci-platform fc840000.usb: Generic Platform OHCI controller
+[    5.334725] ohci-platform fc840000.usb: new USB bus registered, assigned bus number 3
+[    5.334781] ohci-platform fc840000.usb: irq 21, io mem 0xfc840000
+[    5.394476] zty usb new device!
+[    5.394530] usb usb3: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 5.10
+[    5.394537] usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    5.394541] usb usb3: Product: Generic Platform OHCI controller
+[    5.394547] usb usb3: Manufacturer: Linux 5.10.110 ohci_hcd
+[    5.394551] usb usb3: SerialNumber: fc840000.usb
+[    5.394744] hub 3-0:1.0: USB hub found
+[    5.394762] hub 3-0:1.0: 1 port detected
+[    5.395033] usb add hcd device!
+[    5.395077] ohci-platform fc8c0000.usb: Generic Platform OHCI controller
+[    5.395164] ohci-platform fc8c0000.usb: new USB bus registered, assigned bus number 4
+[    5.395211] ohci-platform fc8c0000.usb: irq 23, io mem 0xfc8c0000
+[    5.403835] zty kick_hub_wq!
+[    5.403876] hub 3-0:1.0: state 7 ports 1 chg 0000 evt 0000
+[    5.447136] zty kick_hub_wq!
+[    5.447168] hub 1-0:1.0: state 7 ports 1 chg 0002 evt 0000
+[    5.447219] usb usb1-port1: zty hub is no superspeed!
+[    5.447254] usb usb1-port1: zty hub_port reset 0, port1 1 warm 0!
+[    5.447265] zty no superseppd warm is 0!
+[    5.454476] zty usb new device!
+[    5.454529] usb usb4: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 5.10
+[    5.454535] usb usb4: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    5.454540] usb usb4: Product: Generic Platform OHCI controller
+[    5.454545] usb usb4: Manufacturer: Linux 5.10.110 ohci_hcd
+[    5.454550] usb usb4: SerialNumber: fc8c0000.usb
+[    5.454738] hub 4-0:1.0: USB hub found
+[    5.454755] hub 4-0:1.0: 1 port detected
+[    5.455243] usbcore: registered new interface driver cdc_acm
+[    5.455249] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+[    5.455268] usbcore: registered new interface driver cdc_wdm
+[    5.455392] usbcore: registered new interface driver uas
+[    5.455440] usbcore: registered new interface driver usb-storage
+[    5.455479] usbcore: registered new interface driver usbserial_generic
+[    5.455491] usbserial: USB Serial support registered for generic
+[    5.455509] usbcore: registered new interface driver ch341
+[    5.455520] usbserial: USB Serial support registered for ch341-uart
+[    5.455539] usbcore: registered new interface driver cp210x
+[    5.455550] usbserial: USB Serial support registered for cp210x
+[    5.455579] usbcore: registered new interface driver ftdi_sio
+[    5.455590] usbserial: USB Serial support registered for FTDI USB Serial Device
+[    5.455655] usbcore: registered new interface driver keyspan
+[    5.455666] usbserial: USB Serial support registered for Keyspan - (without firmware)
+[    5.455677] usbserial: USB Serial support registered for Keyspan 1 port adapter
+[    5.455688] usbserial: USB Serial support registered for Keyspan 2 port adapter
+[    5.455698] usbserial: USB Serial support registered for Keyspan 4 port adapter
+[    5.455717] usbcore: registered new interface driver option
+[    5.455728] usbserial: USB Serial support registered for GSM modem (1-port)
+[    5.455819] usbcore: registered new interface driver oti6858
+[    5.455831] usbserial: USB Serial support registered for oti6858
+[    5.455849] usbcore: registered new interface driver pl2303
+[    5.455859] usbserial: USB Serial support registered for pl2303
+[    5.455880] usbcore: registered new interface driver qcserial
+[    5.455892] usbserial: USB Serial support registered for Qualcomm USB modem
+[    5.455917] usbcore: registered new interface driver sierra
+[    5.455927] usbserial: USB Serial support registered for Sierra USB modem
+[    5.457468] input: rk805 pwrkey as /devices/platform/feb20000.spi/spi_master/spi2/spi2.0/rk805-pwrkey.1.auto/input/input0
+[    5.457710] i2c /dev entries driver
+[    5.460466] zty kick_hub_wq!
+[    5.460627] hub 2-0:1.0: state 7 ports 1 chg 0002 evt 0000
+[    5.460682] usb usb2-port1: zty hub is no superspeed!
+[    5.460709] usb usb2-port1: zty hub_port reset 0, port1 1 warm 0!
+[    5.460719] zty no superseppd warm is 0!
+[    5.461177] rk860-regulator 0-0042: Looking up vin-supply from device tree
+[    5.461230] vdd_cpu_big0_s0: supplied by vcc5v0_sys
+[    5.461242] vcc5v0_sys: could not add device link regulator.30: -ENOENT
+[    5.463851] zty kick_hub_wq!
+[    5.463890] hub 4-0:1.0: state 7 ports 1 chg 0000 evt 0000
+[    5.465329] vdd_cpu_big0_s0: 550 <--> 1050 mV at 800 mV, enabled
+[    5.469814] rk860-regulator 0-0043: Looking up vin-supply from device tree
+[    5.469819] vdd_cpu_big1_s0: supplied by vcc5v0_sys
+[    5.469827] vcc5v0_sys: could not add device link regulator.31: -ENOENT
+[    5.473915] vdd_cpu_big1_s0: 550 <--> 1050 mV at 800 mV, enabled
+[    5.478864] rk860-regulator 1-0042: Looking up vin-supply from device tree
+[    5.478870] vdd_npu_s0: supplied by vcc5v0_sys
+[    5.478881] vcc5v0_sys: could not add device link regulator.32: -ENOENT
+[    5.482954] vdd_npu_s0: 550 <--> 950 mV at 800 mV, enabled
+[    5.486079] zty fusb302 probe!
+[    5.486095] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    5.486470] hndz init port->try_role 0!
+[    5.488981] rtc-pcf8563 6-0051: low voltage detected, date/time is not reliable.
+[    5.489056] rtc-pcf8563 6-0051: registered as rtc0
+[    5.490238] rtc-pcf8563 6-0051: low voltage detected, date/time is not reliable.
+[    5.490244] rtc-pcf8563 6-0051: hctosys: unable to read the hardware clock
+[    5.492479] hndz ov5640 xlk 24000000!
+[    5.492524] hndz desc label pwdn!
+[    5.492528] hndz desc gdev id 1!
+[    5.492541] hndz desc label reset!
+[    5.492545] hndz desc gdev id 1!
+[    5.492548] hndz old ov5640!
+[    5.492556] ov5640 3-003c: Looking up DOVDD-supply from device tree
+[    5.492564] ov5640 3-003c: Looking up DOVDD-supply property in node /i2c@feab0000/ov5640@3c failed
+[    5.492575] ov5640 3-003c: supply DOVDD not found, using dummy regulator
+[    5.492634] ov5640 3-003c: Looking up AVDD-supply from device tree
+[    5.492641] ov5640 3-003c: Looking up AVDD-supply property in node /i2c@feab0000/ov5640@3c failed
+[    5.492649] ov5640 3-003c: supply AVDD not found, using dummy regulator
+[    5.492674] ov5640 3-003c: Looking up DVDD-supply from device tree
+[    5.492681] ov5640 3-003c: Looking up DVDD-supply property in node /i2c@feab0000/ov5640@3c failed
+[    5.492688] ov5640 3-003c: supply DVDD not found, using dummy regulator
+[    5.492754] hndz ov5640 reset start!
+[    5.513837] zty usb hcd resume root hub!
+[    5.513847] usb usb1-port1: zty hub is no superspeed!
+[    5.513856] usb usb1-port1: zty usb port status -16!
+[    5.513862] usb usb1-port1: not enabled, trying reset again...
+[    5.513891] zty kick_hub_wq!
+[    5.527393] usb usb2-port1: zty hub is no superspeed!
+[    5.527408] usb usb2-port1: zty usb port status 0!
+[    5.527449] usb usb2-port1: zty hub no superspeed!
+[    5.527461] usb usb2-port1: zty end reset status 0
+[    5.551520] hndz read chip_id 0x5640!
+[    5.552229] rkcifhw fdce0000.rkcif: Adding to iommu group 14
+[    5.552449] rkcifhw fdce0000.rkcif: No reserved memory region assign to CIF
+[    5.552533] rkcif rkcif-mipi-lvds2: Adding to iommu group 14
+[    5.552551] rkcif rkcif-mipi-lvds2: rkcif driver version: v00.01.0a
+[    5.552607] rkcif rkcif-mipi-lvds2: attach to cif hw node
+[    5.552613] rkcif rkcif-mipi-lvds2: rkcif wait line 0
+[    5.552618] : terminal subdev does not exist
+[    5.552623] : terminal subdev does not exist
+[    5.552627] : terminal subdev does not exist
+[    5.552632] : terminal subdev does not exist
+[    5.552637] : get_remote_sensor: video pad[0] is null
+[    5.552642] : rkcif_update_sensor_info: stream[0] get remote sensor_sd failed!
+[    5.552647] : get_remote_sensor: video pad[0] is null
+[    5.552651] : rkcif_update_sensor_info: stream[0] get remote sensor_sd failed!
+[    5.552656] : get_remote_sensor: video pad[0] is null
+[    5.552660] : rkcif_update_sensor_info: stream[0] get remote sensor_sd failed!
+[    5.552664] : get_remote_sensor: video pad[0] is null
+[    5.552669] : rkcif_update_sensor_info: stream[0] get remote sensor_sd failed!
+[    5.553432] rkcif rkcif-mipi-lvds2: No memory-region-thunderboot specified
+[    5.554221] rkcif rkcif-mipi-lvds2: Entity type for entity rockchip-mipi-csi2 was not initialized!
+[    5.554229] rockchip-mipi-csi2: Async registered subdev
+[    5.554243] rockchip-csi2-dphy csi2-dphy0: dphy0 matches ov5640 3-003c:bus type 5
+[    5.554248] rockchip-mipi-csi2: probe success, v4l2_dev:rkcif-mipi-lvds2!
+[    5.555330] usbcore: registered new interface driver uvcvideo
+[    5.555335] USB Video Class driver (1.1.1)
+[    5.556399] rockchip-thermal fec00000.tsadc: Missing rockchip,grf property
+[    5.556912] rockchip-thermal fec00000.tsadc: tsadc is probed successfully!
+[    5.557280] device-mapper: ioctl: 4.44.0-ioctl (2021-02-01) initialised: dm-devel@redhat.com
+[    5.557576] cpu cpu0: Looking up cpu-supply from device tree
+[    5.558051] cpu cpu0: bin=2
+[    5.558228] cpu cpu0: leakage=12
+[    5.558252] cpu cpu0: Looking up cpu-supply from device tree
+[    5.559674] cpu cpu0: pvtm=1480
+[    5.559759] cpu cpu0: pvtm-volt-sel=3
+[    5.559792] cpu cpu0: Looking up cpu-supply from device tree
+[    5.559910] cpu cpu0: Looking up mem-supply from device tree
+[    5.560071] cpu cpu4: Looking up cpu-supply from device tree
+[    5.561741] cpu cpu4: bin=2
+[    5.561914] cpu cpu4: leakage=9
+[    5.561935] cpu cpu4: Looking up cpu-supply from device tree
+[    5.568435] cpu cpu4: pvtm=1705
+[    5.572402] cpu cpu4: pvtm-volt-sel=4
+[    5.572435] cpu cpu4: Looking up cpu-supply from device tree
+[    5.572933] cpu cpu4: Looking up mem-supply from device tree
+[    5.573474] cpu cpu6: Looking up cpu-supply from device tree
+[    5.575129] cpu cpu6: bin=2
+[    5.575302] cpu cpu6: leakage=9
+[    5.575321] cpu cpu6: Looking up cpu-supply from device tree
+[    5.581789] cpu cpu6: pvtm=1713
+[    5.583806] usb 2-1: new high-speed USB device number 2 using ehci-platform
+[    5.584036] usb usb2-port1: zty hub_port reset 0, port1 1 warm 0!
+[    5.584047] zty no superseppd warm is 0!
+[    5.585748] cpu cpu6: pvtm-volt-sel=5
+[    5.585776] cpu cpu6: Looking up cpu-supply from device tree
+[    5.586278] cpu cpu6: Looking up mem-supply from device tree
+[    5.587255] cpu cpu0: avs=0
+[    5.587681] cpu cpu4: avs=0
+[    5.588098] cpu cpu6: avs=0
+[    5.588252] cpu cpu0: EM: OPP:816000 is inefficient
+[    5.588256] cpu cpu0: EM: OPP:600000 is inefficient
+[    5.588319] cpu cpu0: EM: created perf domain
+[    5.588359] cpu cpu0: l=10000 h=85000 hyst=5000 l_limit=0 h_limit=1608000000 h_table=0
+[    5.588870] cpu cpu4: EM: OPP:816000 is inefficient
+[    5.588874] cpu cpu4: EM: OPP:600000 is inefficient
+[    5.588946] cpu cpu4: EM: created perf domain
+[    5.588976] cpu cpu4: l=10000 h=85000 hyst=5000 l_limit=0 h_limit=2208000000 h_table=0
+[    5.593910] usb usb3-port1: zty hub is no superspeed!
+[    5.597321] cpu cpu6: EM: OPP:816000 is inefficient
+[    5.597325] cpu cpu6: EM: OPP:600000 is inefficient
+[    5.597406] cpu cpu6: EM: created perf domain
+[    5.597744] cpu cpu6: l=10000 h=85000 hyst=5000 l_limit=0 h_limit=2208000000 h_table=0
+[    5.612075] sdhci: Secure Digital Host Controller Interface driver
+[    5.612097] sdhci: Copyright(c) Pierre Ossman
+[    5.612113] Synopsys Designware Multimedia Card Interface Driver
+[    5.613974] sdhci-pltfm: SDHCI platform and OF driver helper
+[    5.615285] dwmmc_rockchip fe2c0000.mmc: IDMAC supports 32-bit address mode.
+[    5.615366] dwmmc_rockchip fe2c0000.mmc: Using internal DMA controller.
+[    5.615393] dwmmc_rockchip fe2c0000.mmc: Version ID is 270a
+[    5.615487] dwmmc_rockchip fe2c0000.mmc: DW MMC controller at irq 67,32 bit host data width,256 deep fifo
+[    5.615652] dwmmc_rockchip fe2c0000.mmc: Looking up vmmc-supply from device tree
+[    5.615682] dwmmc_rockchip fe2c0000.mmc: Looking up vmmc-supply property in node /mmc@fe2c0000 failed
+[    5.615737] dwmmc_rockchip fe2c0000.mmc: Looking up vqmmc-supply from device tree
+[    5.616423] mmc_host mmc1: card is non-removable.
+[    5.617508] leds-gpio: probe of leds failed with error -16
+[    5.617525] sdhci-dwcmshc fe2e0000.mmc: Looking up vmmc-supply from device tree
+[    5.617548] sdhci-dwcmshc fe2e0000.mmc: Looking up vmmc-supply property in node /mmc@fe2e0000 failed
+[    5.617601] sdhci-dwcmshc fe2e0000.mmc: Looking up vqmmc-supply from device tree
+[    5.617621] sdhci-dwcmshc fe2e0000.mmc: Looking up vqmmc-supply property in node /mmc@fe2e0000 failed
+[    5.617750] arm-scmi firmware:scmi: Failed. SCMI protocol 17 not active.
+[    5.617854] SMCCC: SOC_ID: ARCH_SOC_ID not implemented, skipping ....
+[    5.619825] cryptodev: driver 1.12 loaded.
+[    5.619922] hid: raw HID events driver (C) Jiri Kosina
+[    5.620501] usbcore: registered new interface driver usbhid
+[    5.620521] usbhid: USB HID core driver
+[    5.627894] rockchip-saradc fec10000.saradc: Looking up vref-supply from device tree
+[    5.629030] optee: probing for conduit method.
+[    5.629056] optee: revision 3.13 (4542e1ef)
+[    5.629508] optee: initialized driver
+[    5.630274] usbcore: registered new interface driver snd-usb-audio
+[    5.631208] mmc_host mmc1: Bus speed (slot 0) = 400000Hz (slot req 400000Hz, actual 400000HZ div = 0)
+[    5.632187] ES8323 7-0011: i2c recv Failed
+[    5.636236] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up audio-supply from device tree
+[    5.636273] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up audio-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.641041] IPVS: Registered protocols (TCP, UDP)
+[    5.641075] IPVS: Connection hash table configured (size=4096, memory=64Kbytes)
+[    5.641205] IPVS: ipvs loaded.
+[    5.641216] IPVS: [rr] scheduler registered.
+[    5.641521] Initializing XFRM netlink socket
+[    5.641924] NET: Registered protocol family 10
+[    5.642886] Segment Routing with IPv6
+[    5.642962] NET: Registered protocol family 17
+[    5.642983] NET: Registered protocol family 15
+[    5.643026] Bridge firewalling registered
+[    5.643033] can: controller area network core
+[    5.643070] NET: Registered protocol family 29
+[    5.643078] can: raw protocol
+[    5.643087] can: broadcast manager protocol
+[    5.643100] can: netlink gateway - max_hops=1
+[    5.643182] can: SAE J1939
+[    5.643193] can: isotp protocol
+[    5.643462] Bluetooth: RFCOMM socket layer initialized
+[    5.643481] Bluetooth: RFCOMM ver 1.11
+[    5.643500] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[    5.643512] Bluetooth: HIDP socket layer initialized
+[    5.643545] [BT_RFKILL]: Enter rfkill_rk_init
+[    5.643552] [WLAN_RFKILL]: Enter rfkill_wlan_init
+[    5.644060] Key type dns_resolver registered
+[    5.645407] Loading compiled-in X.509 certificates
+[    5.646532] mmc0: SDHCI controller on fe2e0000.mmc [fe2e0000.mmc] using ADMA
+[    5.646985] Btrfs loaded, crc32c=crc32c-generic
+[    5.647146] pstore: Using crash dump compression: deflate
+[    5.647378] rga3_core0 fdb60000.rga: Adding to iommu group 2
+[    5.647600] rga: rga3_core0, irq = 34, match scheduler
+[    5.648106] rga: rga3_core0 hardware loaded successfully, hw_version:3.0.76831.
+[    5.648167] rga: rga3_core0 probe successfully
+[    5.648517] rga3_core1 fdb70000.rga: Adding to iommu group 3
+[    5.648725] rga: rga3_core1, irq = 35, match scheduler
+[    5.649219] rga: rga3_core1 hardware loaded successfully, hw_version:3.0.76831.
+[    5.649283] rga: rga3_core1 probe successfully
+[    5.649689] rga: rga2, irq = 36, match scheduler
+[    5.650081] rga: rga2 hardware loaded successfully, hw_version:3.2.63318.
+[    5.650096] rga: rga2 probe successfully
+[    5.650322] rga_iommu: IOMMU binding successfully, default mapping core[0x1]
+[    5.650681] rga: Module initialized. v1.2.23
+
+[    5.650702] ********************************************************************
+[    5.650709] **     NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE           **
+[    5.650715] **                                                                **
+[    5.650722] **  WRITEABLE clk DebugFS SUPPORT HAS BEEN ENABLED IN THIS KERNEL **
+[    5.650727] **                                                                **
+[    5.650733] ** This means that this kernel is built to expose clk operations  **
+[    5.650739] ** such as parent or rate setting, enabling, disabling, etc.      **
+[    5.650745] ** to userspace, which may compromise security on your system.    **
+[    5.650751] **                                                                **
+[    5.650757] ** If you see this message and you are not debugging the          **
+[    5.650763] ** kernel, report this immediately to your vendor!                **
+[    5.650769] **                                                                **
+[    5.650775] **     NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE           **
+[    5.650780] ********************************************************************
+[    5.654038] usb usb2-port1: zty hub is no superspeed!
+[    5.654052] usb usb2-port1: zty usb port status 0!
+[    5.654086] usb usb2-port1: zty hub no superspeed!
+[    5.654096] usb usb2-port1: zty end reset status 0
+[    5.681783] reg-fixed-voltage pcie20-avdd0v85: Looking up vin-supply from device tree
+[    5.681833] pcie20_avdd0v85: supplied by vdd_0v85_s0
+[    5.681855] vdd_0v85_s0: could not add device link regulator.33: -ENOENT
+[    5.682019] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up gpu-supply from device tree
+[    5.682074] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up gpu-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.682092] pcie20_avdd0v85: 850 mV, enabled
+[    5.682280] mali fb000000.gpu: Kernel DDK version g15p0-01eac0
+[    5.682366] mali fb000000.gpu: Looking up mali-supply from device tree
+[    5.682388] reg-fixed-voltage pcie20-avdd0v85: pcie20_avdd0v85 supplying 850000uV
+[    5.682616] mali fb000000.gpu: Looking up mem-supply from device tree
+[    5.682776] reg-fixed-voltage pcie20-avdd1v8: Looking up vin-supply from device tree
+[    5.682794] mali fb000000.gpu: Looking up mali-supply from device tree
+[    5.682802] pcie20_avdd1v8: supplied by avcc_1v8_s0
+[    5.682823] avcc_1v8_s0: could not add device link regulator.34: -ENOENT
+[    5.682829] vdd_gpu_s0: could not add device link fb000000.gpu: -EEXIST
+[    5.682836] vdd_gpu_s0: Failed to create debugfs directory
+[    5.682848] mali fb000000.gpu: Looking up mem-supply from device tree
+[    5.682873] vdd_gpu_s0: could not add device link fb000000.gpu: -EEXIST
+[    5.682878] vdd_gpu_s0: Failed to create debugfs directory
+[    5.683011] mali fb000000.gpu: Looking up mali-supply from device tree
+[    5.683036] pcie20_avdd1v8: 1800 mV, enabled
+[    5.683041] vdd_gpu_s0: could not add device link fb000000.gpu: -EEXIST
+[    5.683046] vdd_gpu_s0: Failed to create debugfs directory
+[    5.683305] reg-fixed-voltage pcie20-avdd1v8: pcie20_avdd1v8 supplying 1800000uV
+[    5.683376] mali fb000000.gpu: bin=2
+[    5.683458] reg-fixed-voltage pcie30-avdd0v75: Looking up vin-supply from device tree
+[    5.683475] pcie30_avdd0v75: supplied by avdd_0v75_s0
+[    5.683492] avdd_0v75_s0: could not add device link regulator.35: -ENOENT
+[    5.683575] mali fb000000.gpu: leakage=16
+[    5.683618] mali fb000000.gpu: Looking up mali-supply from device tree
+[    5.683644] debugfs: Directory 'fb000000.gpu-mali' with parent 'vdd_gpu_s0' already present!
+[    5.683721] pcie30_avdd0v75: 750 mV, enabled
+[    5.684050] reg-fixed-voltage pcie30-avdd0v75: pcie30_avdd0v75 supplying 750000uV
+[    5.684132] vccio_sd_s0: ramp_delay not set
+[    5.684206] reg-fixed-voltage pcie30-avdd1v8: Looking up vin-supply from device tree
+[    5.684273] pcie30_avdd1v8: supplied by avcc_1v8_s0
+[    5.684291] avcc_1v8_s0: could not add device link regulator.36: -ENOENT
+[    5.684508] mmc0: Host Software Queue enabled
+[    5.684531] mmc0: new HS400 Enhanced strobe MMC card at address 0001
+[    5.684788] pcie30_avdd1v8: 1800 mV, enabled
+[    5.685018] reg-fixed-voltage pcie30-avdd1v8: pcie30_avdd1v8 supplying 1800000uV
+[    5.685173] mali fb000000.gpu: pvtm=899
+[    5.685240] mali fb000000.gpu: pvtm-volt-sel=4
+[    5.685268] reg-fixed-voltage vcc3v3-lcd0-n: Looking up vin-supply from device tree
+[    5.685287] vcc3v3_lcd0_n: supplied by vcc_1v8_s0
+[    5.685305] vcc_1v8_s0: could not add device link regulator.37: -ENOENT
+[    5.685671] mmcblk0: mmc0:0001 METORA 29.1 GiB 
+[    5.685935] mmcblk0boot0: mmc0:0001 METORA partition 1 4.00 MiB
+[    5.686172] mali fb000000.gpu: avs=0
+[    5.686187] mmcblk0boot1: mmc0:0001 METORA partition 2 4.00 MiB
+[    5.686409] vcc3v3_lcd0_n: at 1800 mV, enabled
+[    5.686639] reg-fixed-voltage vcc3v3-lcd0-n: vcc3v3_lcd0_n supplying 0uV
+[    5.687084] W : [File] : drivers/gpu/arm/bifrost/platform/rk/mali_kbase_config_rk.c; [Line] : 136; [Func] : kbase_platform_rk_init(); power-off-delay-ms not available.
+[    5.687613] mali fb000000.gpu: GPU hardware issue table may need updating:
+               r0p0 status 5 is unknown; treating as r0p0 status 0
+[    5.687653] mali fb000000.gpu: GPU identified as 0x7 arch 10.8.6 r0p0 status 0
+[    5.687671] rockchip-dmc dmc: Looking up center-supply from device tree
+[    5.687762] mali fb000000.gpu: No priority control manager is configured
+[    5.687865] mmcblk0rpmb: mmc0:0001 METORA partition 3 4.00 MiB, chardev (236:0)
+[    5.688038] mali fb000000.gpu: No memory group manager is configured
+[    5.688084] mali fb000000.gpu: Protected memory allocator not available
+[    5.688513] rockchip-dmc dmc: Looking up mem-supply from device tree
+[    5.688600] mali fb000000.gpu: Capping CSF_FIRMWARE_TIMEOUT to CSF_FIRMWARE_PING_TIMEOUT
+[    5.688817] rockchip-dmc dmc: Looking up center-supply from device tree
+[    5.688847] vdd_ddr_s0: could not add device link dmc: -EEXIST
+[    5.688853] vdd_ddr_s0: Failed to create debugfs directory
+[    5.688997] rockchip-dmc dmc: Looking up mem-supply from device tree
+[    5.689026] vdd_log_s0: could not add device link dmc: -EEXIST
+[    5.689031] vdd_log_s0: Failed to create debugfs directory
+[    5.689265] mali fb000000.gpu: Couldn't find power_model DT node matching 'arm,mali-simple-power-model'
+[    5.689275] mali fb000000.gpu: Error -22, no DT entry: mali-simple-power-model.static-coefficient = 1*[0]
+[    5.689382] mali fb000000.gpu: Error -22, no DT entry: mali-simple-power-model.dynamic-coefficient = 1*[0]
+[    5.689555] mali fb000000.gpu: Error -22, no DT entry: mali-simple-power-model.ts = 4*[0]
+[    5.689656] mali fb000000.gpu: Error -22, no DT entry: mali-simple-power-model.thermal-zone = ''
+[    5.689745] rockchip-dmc dmc: leakage=37
+[    5.690564] rockchip-dmc dmc: leakage-volt-sel=1
+[    5.691102] mali fb000000.gpu: Using configured power model mali-lodx-power-model, and fallback mali-simple-power-model
+[    5.691197] mali fb000000.gpu: l=10000 h=85000 hyst=5000 l_limit=0 h_limit=800000000 h_table=0
+[    5.691951] rockchip-dmc dmc: avs=0
+[    5.691977] rockchip-dmc dmc: current ATF version 0x100
+[    5.692039] mali fb000000.gpu: Probed as mali0
+[    5.692166] rockchip-dmc dmc: normal_rate = 1560000000
+[    5.692182] rockchip-dmc dmc: reboot_rate = 2112000000
+[    5.692186]  mmcblk0: p1 p2 p3 p4 p5 p6 p7 p8
+[    5.692202] rockchip-dmc dmc: suspend_rate = 528000000
+[    5.692214] rockchip-dmc dmc: video_4k_rate = 1560000000
+[    5.692226] rockchip-dmc dmc: video_4k_10b_rate = 1560000000
+[    5.692237] rockchip-dmc dmc: video_svep_rate = 1560000000
+[    5.692249] rockchip-dmc dmc: boost_rate = 2112000000
+[    5.692260] rockchip-dmc dmc: fixed_rate(isp|cif0|cif1|dualview) = 2112000000
+[    5.692272] rockchip-dmc dmc: performance_rate = 2112000000
+[    5.692284] rockchip-dmc dmc: hdmirx_rate = 2112000000
+[    5.692300] rockchip-dmc dmc: failed to get vop bandwidth to dmc rate
+[    5.692310] rockchip-dmc dmc: failed to get vop pn to msch rl
+[    5.692498] rockchip-dmc dmc: l=10000 h=2147483647 hyst=5000 l_limit=0 h_limit=0 h_table=0
+[    5.692569] rockchip-dmc dmc: could not find power_model node
+[    5.698142] mmc_host mmc1: Bus speed (slot 0) = 148500000Hz (slot req 150000000Hz, actual 148500000HZ div = 0)
+[    5.700457] zty kick_hub_wq!
+[    5.700483] hub 3-0:1.0: state 7 ports 1 chg 0002 evt 0000
+[    5.700535] usb usb3-port1: zty hub is no superspeed!
+[    5.700556] usb usb3-port1: zty hub_port reset 0, port1 1 warm 0!
+[    5.700564] zty no superseppd warm is 0!
+[    5.710988] zty kick_hub_wq!
+[    5.714815] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp0 assign plane mask: 0x5, primary plane phy id: 2
+[    5.714851] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp1 assign plane mask: 0xa, primary plane phy id: 3
+[    5.714882] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp2 assign plane mask: 0x140, primary plane phy id: 8
+[    5.714900] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp3 assign plane mask: 0x280, primary plane phy id: 9
+[    5.714913] rockchip-drm display-subsystem: failed to get hdmi0_phy_pll: -2
+[    5.714935] rockchip-drm display-subsystem: failed to get hdmi1_phy_pll: -2
+[    5.715397] [drm] failed to init overlay plane Cluster0-win1
+[    5.715479] [drm] failed to init overlay plane Cluster1-win1
+[    5.715534] [drm] failed to init overlay plane Cluster2-win1
+[    5.715590] [drm] failed to init overlay plane Cluster3-win1
+[    5.740666] zty usb new device!
+[    5.742196] rockchip-drm display-subsystem: bound fdd90000.vop (ops 0xffffffc0111c6360)
+[    5.742211] usb 2-1: New USB device found, idVendor=0b95, idProduct=772b, bcdDevice= 0.01
+[    5.742224] usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    5.742233] usb 2-1: Product: AX88772B
+[    5.742242] usb 2-1: Manufacturer: ASIX Elec. Corp.
+[    5.742250] usb 2-1: SerialNumber: 000001
+[    5.742293] dw-mipi-dsi2 fde20000.dsi: [drm:dw_mipi_dsi2_bind] *ERROR* Failed to find panel or bridge: -517
+[    5.751027] panel-simple-dsi fde20000.dsi.0: Looking up power-supply from device tree
+[    5.753436] input: adc-keys as /devices/platform/adc-keys/input/input1
+[    5.754353] zty fusb302 probe!
+[    5.754412] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    5.755599] hndz init port->try_role 0!
+[    5.762901] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp0 assign plane mask: 0x5, primary plane phy id: 2
+[    5.762922] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp1 assign plane mask: 0xa, primary plane phy id: 3
+[    5.762952] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp2 assign plane mask: 0x140, primary plane phy id: 8
+[    5.762968] rockchip-vop2 fdd90000.vop: [drm:vop2_bind] vp3 assign plane mask: 0x280, primary plane phy id: 9
+[    5.762982] rockchip-drm display-subsystem: failed to get hdmi0_phy_pll: -2
+[    5.762994] rockchip-drm display-subsystem: failed to get hdmi1_phy_pll: -2
+[    5.763432] [drm] failed to init overlay plane Cluster0-win1
+[    5.763491] [drm] failed to init overlay plane Cluster1-win1
+[    5.763546] [drm] failed to init overlay plane Cluster2-win1
+[    5.763603] [drm] failed to init overlay plane Cluster3-win1
+[    5.774938] vendor storage:20190527 ret = 0
+[    5.785032] rockchip-drm display-subsystem: bound fdd90000.vop (ops 0xffffffc0111c6360)
+[    5.785114] rockchip-drm display-subsystem: bound fde20000.dsi (ops 0xffffffc0111d0d98)
+[    5.800019] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb frame buffer device
+[    5.800782] [drm] Initialized rockchip 3.0.0 20140818 for display-subsystem on minor 0
+[    5.801774] zty fusb302 probe!
+[    5.801791] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    5.802638] hndz init port->try_role 0!
+[    5.803958] zty fusb302 probe!
+[    5.803973] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    5.804761] hndz init port->try_role 0!
+[    5.805649] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up sdio-supply from device tree
+[    5.805716] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up sdio-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.805828] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up pcie-supply from device tree
+[    5.805873] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up pcie-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.805948] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up npu-supply from device tree
+[    5.805991] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up npu-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.808033] rkcif rkcif-mipi-lvds2: clear unready subdev num: 2
+[    5.809062] rkcif-mipi-lvds2: Async subdev notifier completed
+[    5.810626] RKNPU fdab0000.npu: Adding to iommu group 0
+[    5.810891] RKNPU fdab0000.npu: RKNPU: rknpu iommu is enabled, using iommu mode
+[    5.811051] RKNPU fdab0000.npu: Looking up rknpu-supply from device tree
+[    5.811813] RKNPU fdab0000.npu: Looking up mem-supply from device tree
+[    5.812355] RKNPU fdab0000.npu: can't request region for resource [mem 0xfdab0000-0xfdabffff]
+[    5.812399] RKNPU fdab0000.npu: can't request region for resource [mem 0xfdac0000-0xfdacffff]
+[    5.812428] RKNPU fdab0000.npu: can't request region for resource [mem 0xfdad0000-0xfdadffff]
+[    5.812972] [drm] Initialized rknpu 0.8.2 20220829 for fdab0000.npu on minor 1
+[    5.813571] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up nputop-supply from device tree
+[    5.813608] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up nputop-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.813708] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up npu1-supply from device tree
+[    5.813744] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up npu1-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.813841] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up npu2-supply from device tree
+[    5.813877] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up npu2-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.814055] RKNPU fdab0000.npu: Looking up rknpu-supply from device tree
+[    5.814123] vdd_npu_s0: could not add device link fdab0000.npu: -EEXIST
+[    5.814130] vdd_npu_s0: Failed to create debugfs directory
+[    5.814676] RKNPU fdab0000.npu: Looking up mem-supply from device tree
+[    5.814711] vdd_npu_s0: could not add device link fdab0000.npu: -EEXIST
+[    5.814717] vdd_npu_s0: Failed to create debugfs directory
+[    5.815346] RKNPU fdab0000.npu: Looking up rknpu-supply from device tree
+[    5.815376] vdd_npu_s0: could not add device link fdab0000.npu: -EEXIST
+[    5.815380] vdd_npu_s0: Failed to create debugfs directory
+[    5.817054] RKNPU fdab0000.npu: bin=2
+[    5.817247] RKNPU fdab0000.npu: leakage=9
+[    5.817297] RKNPU fdab0000.npu: Looking up rknpu-supply from device tree
+[    5.817356] debugfs: Directory 'fdab0000.npu-rknpu' with parent 'vdd_npu_s0' already present!
+[    5.820556] usb usb3-port1: zty hub is no superspeed!
+[    5.820570] usb usb3-port1: zty usb port status 0!
+[    5.820604] usb usb3-port1: zty hub no superspeed!
+[    5.820615] usb usb3-port1: zty end reset status 0
+[    5.824099] RKNPU fdab0000.npu: pvtm=904
+[    5.828405] RKNPU fdab0000.npu: pvtm-volt-sel=4
+[    5.829469] RKNPU fdab0000.npu: avs=0
+[    5.829714] RKNPU fdab0000.npu: l=10000 h=85000 hyst=5000 l_limit=0 h_limit=800000000 h_table=0
+[    5.839152] RKNPU fdab0000.npu: failed to find power_model node
+[    5.839176] RKNPU fdab0000.npu: RKNPU: failed to initialize power model
+[    5.839191] RKNPU fdab0000.npu: RKNPU: failed to get dynamic-coefficient
+[    5.839199] dwmmc_rockchip fe2c0000.mmc: Successfully tuned phase to 250
+[    5.839231] mmc1: new ultra high speed SDR104 SDHC card at address 1388
+[    5.840080] mmcblk1: mmc1:1388 MK    29.5 GiB 
+[    5.841699] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[    5.841871]  mmcblk1: p1
+[    5.842508] zty fusb302 probe!
+[    5.842544] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    5.843744] hndz init port->try_role 0!
+[    5.844533] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[    5.845939] platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+[    5.845957] cfg80211: failed to load regulatory.db
+[    5.846418] zty fusb302 probe!
+[    5.846444] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    5.847056] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vo0-supply from device tree
+[    5.847103] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vo0-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.847281] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vo1-supply from device tree
+[    5.847322] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vo1-supply property in node /power-management@fd8d8000/power-controller failed
+[    5.847389] hndz init port->try_role 0!
+[    5.847626] rockchip-pm rockchip-suspend: not set pwm-regulator-config
+[    5.849144] I : [File] : drivers/gpu/arm/mali400/mali/linux/mali_kernel_linux.c; [Line] : 405; [Func] : mali_module_init(); svn_rev_string_from_arm of this mali_ko is '', rk_ko_ver is '5', built at '03:32:42', on 'Oct 18 2023'.
+[    5.849716] Mali: 
+[    5.849720] Mali device driver loaded
+[    5.849738] ALSA device list:
+[    5.849750]   No soundcards found.
+[    5.849775] zty fusb302 probe!
+[    5.849797] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    5.850201] hndz init port->try_role 0!
+[    5.880539] usb 3-1: new full-speed USB device number 2 using ohci-platform
+[    5.881213] usb usb3-port1: zty hub_port reset 0, port1 1 warm 0!
+[    5.881235] zty no superseppd warm is 0!
+[    5.900546] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up sdmmc-supply from device tree
+[    5.900592] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up sdmmc-supply property in node /power-management@fd8d8000/power-controller failed
+[    6.004166] usb usb3-port1: zty hub is no superspeed!
+[    6.004185] usb usb3-port1: zty usb port status 0!
+[    6.004225] usb usb3-port1: zty hub no superspeed!
+[    6.004238] usb usb3-port1: zty end reset status 0
+[    6.091390] zty usb new device!
+[    6.101257] usb 3-1: New USB device found, idVendor=046d, idProduct=c534, bcdDevice=29.01
+[    6.101303] usb 3-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    6.101336] usb 3-1: Product: USB Receiver
+[    6.101365] usb 3-1: Manufacturer: Logitech
+[    6.111681] input: Logitech USB Receiver as /devices/platform/fc840000.usb/usb3/3-1/3-1:1.0/0003:046D:C534.0001/input/input2
+[    6.160915] asix 2-1:1.0 eth2: register 'asix' at usb-fc880000.usb-1, ASIX AX88772B USB 2.0 Ethernet, 00:0e:c6:87:72:01
+[    6.163586] zty fusb302 probe!
+[    6.163616] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    6.164841] hndz init port->try_role 0!
+[    6.167983] hid-generic 0003:046D:C534.0001: input,hidraw0: USB HID v1.11 Keyboard [Logitech USB Receiver] on usb-fc840000.usb-1/input0
+[    6.169932] zty fusb302 probe!
+[    6.169960] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    6.171174] hndz init port->try_role 0!
+[    6.173680] input: Logitech USB Receiver Mouse as /devices/platform/fc840000.usb/usb3/3-1/3-1:1.1/0003:046D:C534.0002/input/input3
+[    6.231252] input: Logitech USB Receiver Consumer Control as /devices/platform/fc840000.usb/usb3/3-1/3-1:1.1/0003:046D:C534.0002/input/input4
+[    6.232291] input: Logitech USB Receiver System Control as /devices/platform/fc840000.usb/usb3/3-1/3-1:1.1/0003:046D:C534.0002/input/input5
+[    6.234288] hid-generic 0003:046D:C534.0002: input,hiddev96,hidraw1: USB HID v1.11 Mouse [Logitech USB Receiver] on usb-fc840000.usb-1/input1
+[    6.235147] hub 3-0:1.0: state 7 ports 1 chg 0000 evt 0002
+[    6.235278] usb usb3-port1: zty hub is no superspeed!
+[    6.239253] zty fusb302 probe!
+[    6.239321] typec_fusb302 6-0022: Looking up vbus-supply from device tree
+[    6.241441] hndz init port->try_role 0!
+[    6.248571] EXT4-fs (mmcblk0p6): mounted filesystem with ordered data mode. Opts: (null)
+[    6.248643] VFS: Mounted root (ext4 filesystem) on device 179:6.
+[    6.251244] devtmpfs: mounted
+[    6.257296] Freeing unused kernel memory: 6848K
+[    6.294358] Run /sbin/init as init process
+[    6.294400]   with arguments:
+[    6.294417]     /sbin/init
+[    6.294432]   with environment:
+[    6.294447]     HOME=/
+[    6.294458]     TERM=linux
+[    6.294472]     storagemedia=emmc
+[    6.347300] usb usb1-port1: zty hub is no superspeed!
+[    6.347324] usb usb1-port1: zty usb port status -107!
+[    6.347355] usb usb1-port1: zty hub no superspeed!
+[    6.347364] usb usb1-port1: zty end reset status -107
+[    6.347468] hub 1-0:1.0: state 7 ports 1 chg 0000 evt 0002
+[    6.347525] usb usb1-port1: zty hub is no superspeed!
+[    6.428259] systemd[1]: System time before build time, advancing clock.
+[    6.438513] systemd[1]: Failed to insert module 'autofs4': No such file or directory
+[    6.451048] systemd[1]: systemd 237 running in system mode. (+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN2 +IDN -PCRE2 default-hierarchy=hybrid)
+[    6.453175] systemd[1]: Detected architecture arm64.
+[    6.461418] systemd[1]: Set hostname to <hn3588>.
+[    6.694606] systemd[1]: Reached target Mounting snaps.
+[    6.699635] systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+[    6.707893] systemd[1]: Created slice System Slice.
+[    6.712441] systemd[1]: Listening on Journal Socket (/dev/log).
+[    6.718115] systemd[1]: Listening on udev Control Socket.
+[    6.730381] systemd[1]: Listening on udev Kernel Socket.
+[    6.735612] systemd[1]: Created slice system-serial\x2dgetty.slice.
+[    6.990912] systemd-journald[288]: Received request to flush runtime journal from PID 1
+[    7.128361] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[    7.161411] asix 2-1:1.0 enx000ec6877201: renamed from eth2
+[    7.231595] hndz ov5640 reset start!
+[    7.293795] hndz ov5640_restore_mode!
+[    7.474317] rockchip_canfd fea70000.can can0: rockchip_canfd_set_bittiming NBTP=0x0011062e, DBTP=0x003fffff, TDCR=0x00000000
+[    7.520331] zty configure phy as slave!
+[    7.525600] zty  0xa010 0x100!
+[    7.525940] rk_gmac-dwmac fe1c0000.ethernet eth0: PHY [stmmac-1:00] driver [Broadcom BCM89883] (irq=POLL)
+[    7.532796] dwmac4: Master AXI performs any burst length
+[    7.532821] rk_gmac-dwmac fe1c0000.ethernet eth0: No Safety Features support found
+[    7.532841] rk_gmac-dwmac fe1c0000.ethernet eth0: IEEE 1588-2008 Advanced Timestamp supported
+[    7.533039] rk_gmac-dwmac fe1c0000.ethernet eth0: registered PTP clock
+[    7.538086] rk_gmac-dwmac fe1c0000.ethernet eth0: configuring for phy/rgmii-rxid link mode
+[    7.539271] terry in : phy_rtl8211f_led_fixup
+[    7.539982] terry in : phy_rtl8211f_led_fixup
+[    7.627368] rk_gmac-dwmac fe1b0000.ethernet eth1: PHY [stmmac-0:01] driver [RTL8211F Gigabit Ethernet] (irq=POLL)
+[    7.632368] dwmac4: Master AXI performs any burst length
+[    7.632399] rk_gmac-dwmac fe1b0000.ethernet eth1: No Safety Features support found
+[    7.632426] rk_gmac-dwmac fe1b0000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
+[    7.632782] rk_gmac-dwmac fe1b0000.ethernet eth1: registered PTP clock
+[    7.633302] rk_gmac-dwmac fe1b0000.ethernet eth1: configuring for phy/rgmii-rxid link mode
+[    7.658604] rockchip_canfd fea70000.can can0: incorrect/missing data bit-timing
+[    7.670126] rockchip_canfd fea70000.can can0: incorrect/missing data bit-timing
+[    7.714259] hndz ov5640_restore_mode end!
+[    7.722168] hndz ov5640_set_mode_direct!
+[    7.724354] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[    7.765229] hndz ov5640 type V4L2_MBUS_CSI2_DPHY!
+[    7.775678] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[    7.784929] hndz ov5640 type V4L2_MBUS_CSI2_DPHY!
+[    7.917300] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[    8.007509] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[    8.039090] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[    8.094344] rockchip_canfd fea70000.can can0: rockchip_canfd_set_bittiming NBTP=0x0011062e, DBTP=0x003fffff, TDCR=0x00000000
+[    8.114472] rockchip_canfd fea70000.can can0: incorrect/missing data bit-timing
+[    8.118977] rockchip_canfd fea70000.can can0: incorrect/missing data bit-timing
+[    8.138027] Filesystem uses "xz" compression. This is not supported
+[    8.201179] 8723du: Unknown symbol iwe_stream_add_point (err -2)
+[    8.201219] 8723du: Unknown symbol iwe_stream_add_event (err -2)
+[    8.234789] rtk_btusb: Realtek Bluetooth USB driver ver 3.1
+[    8.234794] rtk_btcoex: rtk_btcoex_init: version: 1.2
+[    8.234796] rtk_btcoex: create workqueue
+[    8.234958] rtk_btcoex: alloc buffers 1792, 2432 for ev and l2
+[    8.235055] usbcore: registered new interface driver rtk_btusb
+[    8.369537] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[    8.533574] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[   10.715044] rk_gmac-dwmac fe1b0000.ethernet eth1: Link is Up - 100Mbps/Full - flow control rx/tx
+[   10.715157] IPv6: ADDRCONF(NETDEV_CHANGE): eth1: link becomes ready
+[   15.452282] ttyFIQ ttyFIQ0: tty_port_close_start: tty->count = 1 port count = 2
+[   18.360778] Freeing drm_logo memory: 736K
+[   18.579546] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[   23.331971] rockchip_canfd fea70000.can can0: rockchip_canfd_get_berr_counter RX_ERR_CNT=0x00000000, TX_ERR_CNT=0x00000000
+[   25.640097] EXT4-fs (mmcblk0p7): mounting ext2 file system using the ext4 subsystem
+[   25.642468] EXT4-fs (mmcblk0p8): mounting ext2 file system using the ext4 subsystem
+[   25.644979] EXT4-fs (mmcblk0p7): warning: mounting unchecked fs, running e2fsck is recommended
+[   25.646670] EXT4-fs (mmcblk0p8): warning: mounting unchecked fs, running e2fsck is recommended
+[   25.646763] EXT4-fs (mmcblk0p7): mounted filesystem without journal. Opts: (null)
+[   25.656940] EXT4-fs (mmcblk0p8): mounted filesystem without journal. Opts: (null)
+[   25.662938] EXT4-fs (mmcblk1p1): mounted filesystem with ordered data mode. Opts: (null)
+[  302.336013] hndz ov5640 reset start!
+[  302.394070] hndz ov5640_restore_mode!
+[  302.854576] hndz ov5640_restore_mode end!
+[  302.865980] hndz ov5640_set_mode_direct!
+[  302.923754] hndz ov5640 type V4L2_MBUS_CSI2_DPHY!
+[  302.945016] hndz v4ll_s_selection rkcif_s_selection+0x0/0x1a8!
+[  302.945062] hndz s selection!
+[  302.945086] hndz rkcif_s_selection(line:5909): sd:rockchip-mipi-csi2 pad:1, which:1, target:0
+[  302.945111] hndz set selection ret -515!
+[  302.948203] rkcif-mipi-lvds2: stream[0] start streaming
+[  302.948249] hndz &stream->crop[CROP_SRC_ACT] crop->width 640!
+[  302.948265] hndz crop->width 640  crop->left 0 input.width 640!
+[  302.948282] hndz crop->height 480 crop->top 0 input.height 480!
+[  302.948746] rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+[  302.957201] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream on, src_sd: 00000000cdd023a9, sd_name:rockchip-csi2-dphy0
+[  302.957221] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream ON
+[  302.957260] rockchip-csi2-dphy0: No pixel rate control in subdev
+[  302.957277] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[  302.975045] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream off, src_sd: 00000000cdd023a9, sd_name:rockchip-csi2-dphy0
+[  302.975076] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[  302.978775] hndz ov5640 type V4L2_MBUS_CSI2_DPHY!
+[  324.267480] rockchip-vop2 fdd90000.vop: [drm:vop2_crtc_atomic_disable] Crtc atomic disable vp2
+[  324.290908] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vop-supply from device tree
+[  324.291004] rockchip-pm-domain fd8d8000.power-management:power-controller: Looking up vop-supply property in node /power-management@fd8d8000/power-controller failed
+
+
+hndz ov5640 get fmt start!
+[   42.617827] hndz get selection start!
+[   42.618042] hndz v4ll_s_selection rkcif_s_selection+0x0/0x1a8!
+[   42.618054] hndz s selection!
+[   42.618067] hndz rkcif_s_selection(line:5909): sd:rockchip-mipi-csi2 pad:1, which:1, target:0
+[   42.618079] hndz set selection ret -515!
+[   42.619423] rkcif-mipi-lvds2: stream[0] start streaming
+[   42.619475] hndz get selection start!
+[   42.619489] hndz ov5640 get fmt start!
+[   42.619502] hndz &stream->crop[CROP_SRC_ACT] crop->width 640!
+[   42.619512] hndz crop->width 640  crop->left 0 input.width 640!
+[   42.619524] hndz crop->height 480 crop->top 0 input.height 480!
+[   42.619535] hndz ov5640 get fmt start!
+[   42.619543] hndz ov5640 get fmt start!
+[   42.619553] hndz ov5640 get fmt start!
+[   42.619561] hndz ov5640 get fmt start!
+[   42.619871] rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+[   42.623579] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream on, src_sd: 00000000c994030e, sd_name:rockchip-csi2-dphy0
+[   42.623595] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream ON
+[   42.623634] rockchip-csi2-dphy0: dphy0, data_rate_mbps 768
+[   42.623665] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[   42.623676] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[   42.623690] hndz ov5640_set_power_on start!
+[   42.683836] hndz read chipid 0x5640!
+[   43.140536] hndz set frame fmt!
+[   43.161693] rkcif-mipi-lvds2: ERROR: csi size err, intstat:0x1000001, lastline:0!!
+[   43.161762] mipi2-csi2 ERR1:0x10 (fs/fe mis,vc: 0) 
+[   43.162085] mipi2-csi2 ERR1:0x100 (f_seq,vc: 0) 
+[   47.604686] rkcif-mipi-lvds2: stream[0] start stopping, total mode 0x1, cur 0x1
+[   47.604786] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream off, src_sd: 00000000c994030e, sd_name:rockchip-csi2-dphy0
+[   47.604800] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream OFF
+[   47.605918] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream_stop stream stop, dphy0
+[   47.605934] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[   47.605962] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[   47.624787] rkcif-mipi-lvds2: stream[0] stopping finished, dma_en 0x0
+
+
+[   72.256885] hndz ov5640_set_power_on start!
+[   72.316292] hndz read chipid 0x5640!
+[   72.813281] hndz set frame fmt code 0x2006!
+[   72.813387] hndz no find code 0x2006!
+
+
+
+media-ctl -p -d /dev/media0 
+Media controller API version 5.10.110
+
+Media device information
+------------------------
+driver          rkcif
+model           rkcif-mipi-lvds2
+serial          
+bus info        
+hw revision     0x0
+driver version  5.10.110
+
+Device topology
+- entity 1: stream_cif_mipi_id0 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video0
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 [ENABLED]
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 5: stream_cif_mipi_id1 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video1
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 [ENABLED]
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 9: stream_cif_mipi_id2 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video2
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 [ENABLED]
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 13: stream_cif_mipi_id3 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video3
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 [ENABLED]
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 17: rkcif_scale_ch0 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video4
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 [ENABLED]
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 21: rkcif_scale_ch1 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video5
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 [ENABLED]
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 25: rkcif_scale_ch2 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video6
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 [ENABLED]
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 29: rkcif_scale_ch3 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video7
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 [ENABLED]
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 33: rkcif_tools_id0 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video8
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 [ENABLED]
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 37: rkcif_tools_id1 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video9
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 [ENABLED]
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 41: rkcif_tools_id2 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video10
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 [ENABLED]
+
+- entity 45: rockchip-mipi-csi2 (12 pads, 122 links)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev0
+	pad0: Sink
+		[fmt:UYVY8_2X8/640x480 field:none colorspace:srgb xfer:srgb ycbcr:601 quantization:full-range
+		 crop.bounds:(0,0)/640x480
+		 crop:(0,0)/640x480]
+		<- "rockchip-csi2-dphy0":1 [ENABLED]
+	pad1: Source
+		-> "stream_cif_mipi_id0":0 [ENABLED]
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad2: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 [ENABLED]
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad3: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 [ENABLED]
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad4: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 [ENABLED]
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad5: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 [ENABLED]
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad6: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 [ENABLED]
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad7: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 [ENABLED]
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad8: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 [ENABLED]
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad9: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 [ENABLED]
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad10: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 [ENABLED]
+		-> "rkcif_tools_id2":0 []
+	pad11: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 [ENABLED]
+
+- entity 58: rockchip-csi2-dphy0 (2 pads, 2 links)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev1
+	pad0: Sink
+		[fmt:UYVY8_2X8/640x480@1/30 field:none colorspace:srgb xfer:srgb ycbcr:601 quantization:full-range
+		 crop.bounds:(0,0)/640x480
+		 crop:(16,14)/2592x1944]
+		<- "m02_b_ov5640 3-003c":0 [ENABLED]
+	pad1: Source
+		-> "rockchip-mipi-csi2":0 [ENABLED]
+
+- entity 63: m02_b_ov5640 3-003c (1 pad, 1 link)
+             type V4L2 subdev subtype Sensor flags 0
+             device node name /dev/v4l-subdev2
+	pad0: Source
+		[fmt:UYVY8_2X8/640x480@1/30 field:none colorspace:srgb xfer:srgb ycbcr:601 quantization:full-range
+		 crop.bounds:(0,0)/640x480
+		 crop:(16,14)/2592x1944]
+		-> "rockchip-csi2-dphy0":0 [ENABLED]
+
+
+Media controller API version 5.10.110
+
+Media device information
+------------------------
+driver          rkcif
+model           rkcif-mipi-lvds2
+serial          
+bus info        
+hw revision     0x0
+driver version  5.10.110
+
+Device topology
+- entity 1: stream_cif_mipi_id0 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video0
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 [ENABLED]
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 5: stream_cif_mipi_id1 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video1
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 [ENABLED]
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 9: stream_cif_mipi_id2 (1 pad, 11 links)
+            type Node subtype V4L flags 0
+            device node name /dev/video2
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 [ENABLED]
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 13: stream_cif_mipi_id3 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video3
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 [ENABLED]
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 17: rkcif_scale_ch0 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video4
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 [ENABLED]
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 21: rkcif_scale_ch1 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video5
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 [ENABLED]
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 25: rkcif_scale_ch2 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video6
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 [ENABLED]
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 29: rkcif_scale_ch3 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video7
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 [ENABLED]
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 33: rkcif_tools_id0 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video8
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 [ENABLED]
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 37: rkcif_tools_id1 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video9
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 [ENABLED]
+		<- "rockchip-mipi-csi2":11 []
+
+- entity 41: rkcif_tools_id2 (1 pad, 11 links)
+             type Node subtype V4L flags 0
+             device node name /dev/video10
+	pad0: Sink
+		<- "rockchip-mipi-csi2":1 []
+		<- "rockchip-mipi-csi2":2 []
+		<- "rockchip-mipi-csi2":3 []
+		<- "rockchip-mipi-csi2":4 []
+		<- "rockchip-mipi-csi2":5 []
+		<- "rockchip-mipi-csi2":6 []
+		<- "rockchip-mipi-csi2":7 []
+		<- "rockchip-mipi-csi2":8 []
+		<- "rockchip-mipi-csi2":9 []
+		<- "rockchip-mipi-csi2":10 []
+		<- "rockchip-mipi-csi2":11 [ENABLED]
+
+- entity 45: rockchip-mipi-csi2 (12 pads, 122 links)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev0
+	pad0: Sink
+		[fmt:UYVY8_2X8/640x480 field:none colorspace:srgb xfer:srgb ycbcr:601 quantization:full-range
+		 crop.bounds:(0,0)/640x480
+		 crop:(0,0)/640x480]
+		<- "rockchip-csi2-dphy0":1 [ENABLED]
+	pad1: Source
+		-> "stream_cif_mipi_id0":0 [ENABLED]
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad2: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 [ENABLED]
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad3: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 [ENABLED]
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad4: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 [ENABLED]
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad5: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 [ENABLED]
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad6: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 [ENABLED]
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad7: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 [ENABLED]
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad8: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 [ENABLED]
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad9: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 [ENABLED]
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 []
+	pad10: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 [ENABLED]
+		-> "rkcif_tools_id2":0 []
+	pad11: Source
+		-> "stream_cif_mipi_id0":0 []
+		-> "stream_cif_mipi_id1":0 []
+		-> "stream_cif_mipi_id2":0 []
+		-> "stream_cif_mipi_id3":0 []
+		-> "rkcif_scale_ch0":0 []
+		-> "rkcif_scale_ch1":0 []
+		-> "rkcif_scale_ch2":0 []
+		-> "rkcif_scale_ch3":0 []
+		-> "rkcif_tools_id0":0 []
+		-> "rkcif_tools_id1":0 []
+		-> "rkcif_tools_id2":0 [ENABLED]
+
+- entity 58: rockchip-csi2-dphy0 (2 pads, 2 links)
+             type V4L2 subdev subtype Unknown flags 0
+             device node name /dev/v4l-subdev1
+	pad0: Sink
+		[fmt:UYVY8_2X8/640x480@1/30 field:none colorspace:srgb xfer:srgb ycbcr:601 quantization:full-range
+		 crop.bounds:(0,0)/640x480
+		 crop:(16,14)/2592x1944]
+		<- "m00_b_ov5640 3-003c":0 [ENABLED]
+	pad1: Source
+		-> "rockchip-mipi-csi2":0 [ENABLED]
+
+- entity 63: m00_b_ov5640 3-003c (1 pad, 1 link)
+             type V4L2 subdev subtype Sensor flags 0
+             device node name /dev/v4l-subdev2
+	pad0: Source
+		[fmt:UYVY8_2X8/640x480@1/30 field:none colorspace:srgb xfer:srgb ycbcr:601 quantization:full-range
+		 crop.bounds:(0,0)/640x480
+		 crop:(16,14)/2592x1944]
+		-> "rockchip-csi2-dphy0":0 [ENABLED]
+
+v4l2-ctl --verbose -d /dev/video0 --set-fmt-video=width=720,height=480,pixelformat='NV12' --stream-mmap=3 --set-selection=target=crop,flags=0,top=0,left=0,width=720,height=480 --stream-to=/tmp/out.yuv
+
+
+[   15.633751] hndz clock_curr 24000000!
+[   15.637694] hndz get pix 480!
+[   15.640873] hndz ioctl s power on 1 sensor on 0!
+[   15.648278] hndz Setting mclk to 24 MHz
+[   15.652161] hndz ov frame_rate 1 mode 255 orig mode 255!
+[   16.139993] hndz set ae target!
+[   16.148432] hndz get light freq 60!
+[   16.152065] hndz set banding filter!
+[   16.158012] hndz Multiplier 96!
+[   16.161963] hndz PreDiv 3!
+[   16.165481] hndz vco is 76800!
+[   16.168566] hndz  SysDiv 1 Pll_rdiv 2  Bit_div2x 4 sclk_rdiv 2 !
+[   16.174605] hndz sys clk is 9600!
+[   16.179516] hndz hts is 1896!
+[   16.184066] hndz vts is 1080!
+[   16.191274] hndz set virtual channel 42!
+[   16.499604] hndz ioctl enum framesizes end!
+[   16.508290] hndz set para type 1!
+[   16.511640] hndz ov frame_rate 1 mode 0 orig mode 0!
+[   16.516635] hndz  mode direct  frame_rate 1 mode 0!
+[   16.522334] hndz turn ae ag 0x3!
+[   16.526164] hndz stream off!
+[   16.560592] hndz stream start!
+[   16.565021] hndz turn ae ag 0x0!
+[   16.568848] hndz set ae target!
+[   16.576988] hndz get light freq 60!
+[   16.580504] hndz set banding filter!
+[   16.586434] hndz Multiplier 96!
+[   16.590384] hndz PreDiv 3!
+[   16.593898] hndz vco is 76800!
+[   16.597271] hndz  SysDiv 1 Pll_rdiv 2  Bit_div2x 4 sclk_rdiv 2 !
+[   16.603302] hndz sys clk is 9600!
+[   16.608176] hndz hts is 1896!
+[   16.612732] hndz vts is 1080!
+[   16.619913] hndz set virtual channel 42!
+[   16.925299] hndz clock_curr 24000000!
+[   16.929023] hndz get pix 480!
+[   20.841253] hndz ioctl s power on 0 sensor on 1!
+
+
+[   24.437018] hndz clock_curr 24000000!
+[   24.440984] hndz get pix 480!
+[   24.444136] CPU: 1 PID: 700 Comm: cameryuv Not tainted 3.14.28-00041-g651d9f9e-dirty #92
+[   24.452303] [<800149f8>] (unwind_backtrace) from [<80011714>] (show_stack+0x10/0x14)
+[   24.460112] [<80011714>] (show_stack) from [<8056969c>] (dump_stack+0x7c/0xbc)
+[   24.467376] [<8056969c>] (dump_stack) from [<803b7520>] (ioctl_g_fmt_cap+0x34/0x3c)
+[   24.475075] [<803b7520>] (ioctl_g_fmt_cap) from [<803b12f8>] (mxc_v4l_open+0x200/0x37c)
+[   24.483110] [<803b12f8>] (mxc_v4l_open) from [<80391dc8>] (v4l2_open+0x9c/0x100)
+[   24.490550] [<80391dc8>] (v4l2_open) from [<800d8aac>] (chrdev_open+0xa4/0x178)
+[   24.497893] [<800d8aac>] (chrdev_open) from [<800d333c>] (do_dentry_open.isra.17+0x110/0x294)
+[   24.506445] [<800d333c>] (do_dentry_open.isra.17) from [<800d3590>] (finish_open+0x20/0x38)
+[   24.514825] [<800d3590>] (finish_open) from [<800e1254>] (do_last.isra.58+0x6dc/0xc34)
+[   24.522778] [<800e1254>] (do_last.isra.58) from [<800e1860>] (path_openat+0xb4/0x5cc)
+[   24.530637] [<800e1860>] (path_openat) from [<800e2c80>] (do_filp_open+0x2c/0x88)
+[   24.538156] [<800e2c80>] (do_filp_open) from [<800d4500>] (do_sys_open+0x104/0x1c8)
+[   24.545852] [<800d4500>] (do_sys_open) from [<8000e4a0>] (ret_fast_syscall+0x0/0x30)
+[   24.553638] hndz ioctl s power on 1 sensor on 0!
+[   24.561240] hndz Setting mclk to 24 MHz
+[   24.565108] hndz ov frame_rate 1 mode 255 orig mode 255!
+[   25.052871] hndz set ae target!
+[   25.061161] hndz get light freq 50!
+[   25.064801] hndz set banding filter!
+[   25.070743] hndz Multiplier 56!
+[   25.074965] hndz PreDiv 3!
+[   25.078486] hndz vco is 44800!
+[   25.081572] hndz  SysDiv 1 Pll_rdiv 2  Bit_div2x 4 sclk_rdiv 2 !
+[   25.087603] hndz sys clk is 5600!
+[   25.092497] hndz hts is 1896!
+[   25.097047] hndz vts is 1080!
+[   25.104227] hndz set virtual channel 42!
+[   25.423728] hndz ioctl enum framesizes end!
+[   25.433244] hndz set para type 1!
+[   25.436745] hndz ov frame_rate 1 mode 0 orig mode 0!
+[   25.441866] hndz  mode direct  frame_rate 1 mode 0!
+[   25.447668] hndz turn ae ag 0x3!
+[   25.451535] hndz stream off!
+[   25.485941] hndz stream start!
+[   25.490440] hndz turn ae ag 0x0!
+[   25.494300] hndz set ae target!
+[   25.502467] hndz get light freq 50!
+[   25.506010] hndz set banding filter!
+[   25.511957] hndz Multiplier 56!
+[   25.515939] hndz PreDiv 3!
+[   25.519454] hndz vco is 44800!
+[   25.522539] hndz  SysDiv 1 Pll_rdiv 2  Bit_div2x 4 sclk_rdiv 2 !
+[   25.528854] hndz sys clk is 5600!
+[   25.533739] hndz hts is 1896!
+[   25.538285] hndz vts is 1080!
+[   25.545449] hndz set virtual channel 42!
+[   25.850244] hndz clock_curr 24000000!
+[   25.853937] hndz get pix 480!
+[   25.856944] CPU: 0 PID: 700 Comm: cameryuv Not tainted 3.14.28-00041-g651d9f9e-dirty #92
+[   25.865095] [<800149f8>] (unwind_backtrace) from [<80011714>] (show_stack+0x10/0x14)
+[   25.872887] [<80011714>] (show_stack) from [<8056969c>] (dump_stack+0x7c/0xbc)
+[   25.880442] [<8056969c>] (dump_stack) from [<803b7520>] (ioctl_g_fmt_cap+0x34/0x3c)
+[   25.888132] [<803b7520>] (ioctl_g_fmt_cap) from [<803b0fd8>] (mxc_v4l2_s_param+0x148/0x268)
+[   25.896524] [<803b0fd8>] (mxc_v4l2_s_param) from [<803b2b50>] (mxc_v4l_do_ioctl+0x744/0x1d7c)
+[   25.905082] [<803b2b50>] (mxc_v4l_do_ioctl) from [<803955ac>] (video_usercopy+0x174/0x478)
+[   25.913384] [<803955ac>] (video_usercopy) from [<80391f14>] (v4l2_ioctl+0xe8/0x160)
+[   25.921079] [<80391f14>] (v4l2_ioctl) from [<800e4da8>] (do_vfs_ioctl+0x3dc/0x59c)
+[   25.928689] [<800e4da8>] (do_vfs_ioctl) from [<800e4f9c>] (SyS_ioctl+0x34/0x5c)
+[   25.936323] [<800e4f9c>] (SyS_ioctl) from [<8000e4a0>] (ret_fast_syscall+0x0/0x30)
+[   31.524137] hndz ioctl s power on 0 sensor on 1!
+
+
+
+ mounting ext2 file system using the ext4 subsystem
+[   25.026485] EXT4-fs (mmcblk0p7): warning: mounting unchecked fs, running e2fsck is recommended
+[   25.027820] EXT4-fs (mmcblk0p7): mounted filesystem without journal. Opts: (null)
+[   25.041298] FAT-fs (mmcblk1p1): utf8 is not a recommended IO charset for FAT filesystems, filesystem will be case sensitive!
+[   25.041954] EXT4-fs (mmcblk0p8): mounting ext2 file system using the ext4 subsystem
+[   25.044373] EXT4-fs (mmcblk0p8): warning: mounting unchecked fs, running e2fsck is recommended
+[   25.045848] EXT4-fs (mmcblk0p8): mounted filesystem without journal. Opts: (null)
+[   25.054444] FAT-fs (mmcblk1p1): Volume was not properly unmounted. Some data may be corrupt. Please run fsck.
+[   89.482784] hndz ov5640_g_mbus_config!
+[   89.482836] hndz ov5640 ioctl cmd 0x808056da!
+[   89.482857] hndz ov5640_g_mbus_config!
+[   89.482869] hndz ov5640_g_frame_interval!
+[   89.482880] hndz ov5640 ioctl cmd 0xc00456e1!
+[   89.484031] hndz ov5640 get fmt start!
+[   89.484049] hndz ov5640 ioctl cmd 0xc01c56d4!
+[   89.484059] hndz ov5640 ioctl cmd 0x808856c4!
+[   89.484371] hndz v4ll_s_selection rkcif_s_selection+0x0/0x1a8!
+[   89.484383] hndz s selection!
+[   89.484394] hndz rkcif_s_selection(line:5909): sd:rockchip-mipi-csi2 pad:1, which:1, target:0
+[   89.484406] hndz set selection ret -515!
+[   89.485694] rkcif-mipi-lvds2: stream[0] start streaming
+[   89.485720] hndz ov5640_g_mbus_config!
+[   89.485730] hndz ov5640 ioctl cmd 0x808056da!
+[   89.485743] hndz ov5640_g_mbus_config!
+[   89.485752] hndz ov5640_g_frame_interval!
+[   89.485762] hndz ov5640 ioctl cmd 0xc00456e1!
+[   89.485770] hndz ov5640 ioctl cmd 0x808856c4!
+[   89.485778] hndz ov5640_g_frame_interval!
+[   89.485786] hndz ov5640 ioctl cmd 0x800456ce!
+[   89.485797] hndz ov5640 get fmt start!
+[   89.485806] hndz ov5640 ioctl cmd 0xc01c56d4!
+[   89.485815] hndz &stream->crop[CROP_SRC_ACT] crop->width 640!
+[   89.485825] hndz crop->width 640  crop->left 0 input.width 640!
+[   89.485833] hndz crop->height 480 crop->top 0 input.height 480!
+[   89.485841] hndz ov5640 get fmt start!
+[   89.485850] hndz ov5640 ioctl cmd 0xc01c56d4!
+[   89.485857] hndz ov5640 get fmt start!
+[   89.485864] hndz ov5640 ioctl cmd 0xc01c56d4!
+[   89.485871] hndz ov5640 get fmt start!
+[   89.485880] hndz ov5640 ioctl cmd 0xc01c56d4!
+[   89.485888] hndz ov5640 get fmt start!
+[   89.485895] hndz ov5640 ioctl cmd 0xc01c56d4!
+[   89.486186] rkcif-mipi-lvds2: Allocate dummy buffer, size: 0x00096000
+[   89.490325] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream on, src_sd: 0000000056fa2b83, sd_name:rockchip-csi2-dphy0
+[   89.490341] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream ON
+[   89.490362] hndz ov5640_g_mbus_config!
+[   89.490370] hndz ov5640 ioctl cmd 0x808056da!
+[   89.490382] hndz ov5640 ioctl cmd 0xc00456e1!
+[   89.490390] hndz ov5640_g_mbus_config!
+[   89.490397] hndz ov5640 ioctl cmd 0x808056da!
+[   89.490413] rockchip-csi2-dphy0: dphy0, data_rate_mbps 768
+[   89.490420] hndz ov5640_g_mbus_config!
+[   89.490427] hndz ov5640 ioctl cmd 0x808056da!
+[   89.490457] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[   89.490468] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[   89.490475] hndz ov5640_s_stream enable 1!
+[   89.490489] hndz ov5640_sensor_resume!
+[   89.490496] hndz set power 1!
+[   89.490502] hndz ov5640_set_power_on start!
+[   89.561409] hndz set slave id 0x3100!
+[   89.562665] hndz read chipid 0x5640!
+[   89.688715] hndz ov5640is  csi2 type 5
+[   89.989980] hndz ov5640_restore_mode!
+[   89.991509] hndz set mode dnmoe 0 orign mode 0 auto gain 1 exp 1!
+[   89.991539] hndz set autogain 0!
+[   89.993050] hndz set autoexposuer!
+[   89.994456] hndz ov5640is  csi2 type 5
+[   89.994471] hndz set mipi pclk link_freq 384000000 sysclk 768000000!
+[   89.994509] hndz calc sys clk rate 768000000!
+[   89.994534] hndz sysclk 32000000 sysdiv 1 val 32000000!
+[   89.994558] hndz sysclk 40000000 sysdiv 1 val 40000000!
+[   89.994581] hndz sysclk 48000000 sysdiv 1 val 48000000!
+[   89.994604] hndz sysclk 56000000 sysdiv 1 val 56000000!
+[   89.994627] hndz sysclk 64000000 sysdiv 1 val 64000000!
+[   89.994650] hndz sysclk 72000000 sysdiv 1 val 72000000!
+[   89.994672] hndz sysclk 80000000 sysdiv 1 val 80000000!
+[   89.994695] hndz sysclk 88000000 sysdiv 1 val 88000000!
+[   89.994867] hndz sysclk 96000000 sysdiv 1 val 96000000!
+[   89.994891] hndz sysclk 104000000 sysdiv 1 val 104000000!
+[   89.994914] hndz sysclk 112000000 sysdiv 1 val 112000000!
+[   89.994942] hndz sysclk 120000000 sysdiv 1 val 120000000!
+[   89.994965] hndz sysclk 128000000 sysdiv 1 val 128000000!
+[   89.995001] hndz sysclk 136000000 sysdiv 1 val 136000000!
+[   89.995024] hndz sysclk 144000000 sysdiv 1 val 144000000!
+[   89.995047] hndz sysclk 152000000 sysdiv 1 val 152000000!
+[   89.995082] hndz sysclk 160000000 sysdiv 1 val 160000000!
+[   89.995105] hndz sysclk 168000000 sysdiv 1 val 168000000!
+[   89.995130] hndz sysclk 176000000 sysdiv 1 val 176000000!
+[   89.995145] hndz sysclk 184000000 sysdiv 1 val 184000000!
+[   89.995167] hndz sysclk 192000000 sysdiv 1 val 192000000!
+[   89.995182] hndz sysclk 200000000 sysdiv 1 val 200000000!
+[   89.995205] hndz sysclk 208000000 sysdiv 1 val 208000000!
+[   89.995222] hndz sysclk 216000000 sysdiv 1 val 216000000!
+[   89.995240] hndz sysclk 224000000 sysdiv 1 val 224000000!
+[   89.995255] hndz sysclk 232000000 sysdiv 1 val 232000000!
+[   89.995278] hndz sysclk 240000000 sysdiv 1 val 240000000!
+[   89.995294] hndz sysclk 248000000 sysdiv 1 val 248000000!
+[   89.995313] hndz sysclk 256000000 sysdiv 1 val 256000000!
+[   89.995328] hndz sysclk 264000000 sysdiv 1 val 264000000!
+[   89.995350] hndz sysclk 272000000 sysdiv 1 val 272000000!
+[   89.995367] hndz sysclk 280000000 sysdiv 1 val 280000000!
+[   89.995385] hndz sysclk 288000000 sysdiv 1 val 288000000!
+[   89.995401] hndz sysclk 296000000 sysdiv 1 val 296000000!
+[   89.995422] hndz sysclk 304000000 sysdiv 1 val 304000000!
+[   89.995439] hndz sysclk 312000000 sysdiv 1 val 312000000!
+[   89.995458] hndz sysclk 320000000 sysdiv 1 val 320000000!
+[   89.995473] hndz sysclk 328000000 sysdiv 1 val 328000000!
+[   89.995495] hndz sysclk 336000000 sysdiv 1 val 336000000!
+[   89.995511] hndz sysclk 344000000 sysdiv 1 val 344000000!
+[   89.995530] hndz sysclk 352000000 sysdiv 1 val 352000000!
+[   89.995545] hndz sysclk 360000000 sysdiv 1 val 360000000!
+[   89.995567] hndz sysclk 368000000 sysdiv 1 val 368000000!
+[   89.995583] hndz sysclk 376000000 sysdiv 1 val 376000000!
+[   89.995602] hndz sysclk 384000000 sysdiv 1 val 384000000!
+[   89.995617] hndz sysclk 392000000 sysdiv 1 val 392000000!
+[   89.995639] hndz sysclk 400000000 sysdiv 1 val 400000000!
+[   89.995656] hndz sysclk 408000000 sysdiv 1 val 408000000!
+[   89.995674] hndz sysclk 416000000 sysdiv 1 val 416000000!
+[   89.995691] hndz sysclk 424000000 sysdiv 1 val 424000000!
+[   89.995709] hndz sysclk 432000000 sysdiv 1 val 432000000!
+[   89.995726] hndz sysclk 440000000 sysdiv 1 val 440000000!
+[   89.995744] hndz sysclk 448000000 sysdiv 1 val 448000000!
+[   89.995761] hndz sysclk 456000000 sysdiv 1 val 456000000!
+[   89.995779] hndz sysclk 464000000 sysdiv 1 val 464000000!
+[   89.995796] hndz sysclk 472000000 sysdiv 1 val 472000000!
+[   89.995814] hndz sysclk 480000000 sysdiv 1 val 480000000!
+[   89.995829] hndz sysclk 488000000 sysdiv 1 val 488000000!
+[   89.995851] hndz sysclk 496000000 sysdiv 1 val 496000000!
+[   89.995866] hndz sysclk 504000000 sysdiv 1 val 504000000!
+[   89.995888] hndz sysclk 512000000 sysdiv 1 val 512000000!
+[   89.995903] hndz sysclk 520000000 sysdiv 1 val 520000000!
+[   89.995925] hndz sysclk 528000000 sysdiv 1 val 528000000!
+[   89.995940] hndz sysclk 536000000 sysdiv 1 val 536000000!
+[   89.995962] hndz sysclk 544000000 sysdiv 1 val 544000000!
+[   89.995978] hndz sysclk 552000000 sysdiv 1 val 552000000!
+[   89.995996] hndz sysclk 560000000 sysdiv 1 val 560000000!
+[   89.996013] hndz sysclk 568000000 sysdiv 1 val 568000000!
+[   89.996032] hndz sysclk 576000000 sysdiv 1 val 576000000!
+[   89.996047] hndz sysclk 584000000 sysdiv 1 val 584000000!
+[   89.996069] hndz sysclk 592000000 sysdiv 1 val 592000000!
+[   89.996085] hndz sysclk 600000000 sysdiv 1 val 600000000!
+[   89.996104] hndz sysclk 608000000 sysdiv 1 val 608000000!
+[   89.996120] hndz sysclk 616000000 sysdiv 1 val 616000000!
+[   89.996139] hndz sysclk 624000000 sysdiv 1 val 624000000!
+[   89.996154] hndz sysclk 632000000 sysdiv 1 val 632000000!
+[   89.996176] hndz sysclk 640000000 sysdiv 1 val 640000000!
+[   89.996192] hndz sysclk 648000000 sysdiv 1 val 648000000!
+[   89.996211] hndz sysclk 656000000 sysdiv 1 val 656000000!
+[   89.996227] hndz sysclk 664000000 sysdiv 1 val 664000000!
+[   89.996246] hndz sysclk 672000000 sysdiv 1 val 672000000!
+[   89.996261] hndz sysclk 680000000 sysdiv 1 val 680000000!
+[   89.996283] hndz sysclk 688000000 sysdiv 1 val 688000000!
+[   89.996299] hndz sysclk 696000000 sysdiv 1 val 696000000!
+[   89.996318] hndz sysclk 704000000 sysdiv 1 val 704000000!
+[   89.996333] hndz sysclk 712000000 sysdiv 1 val 712000000!
+[   89.996354] hndz sysclk 720000000 sysdiv 1 val 720000000!
+[   89.996370] hndz sysclk 728000000 sysdiv 1 val 728000000!
+[   89.996391] hndz sysclk 736000000 sysdiv 1 val 736000000!
+[   89.996408] hndz sysclk 744000000 sysdiv 1 val 744000000!
+[   89.996426] hndz sysclk 752000000 sysdiv 1 val 752000000!
+[   89.996441] hndz sysclk 760000000 sysdiv 1 val 760000000!
+[   89.996463] hndz sysclk 768000000 sysdiv 1 val 768000000!
+[   89.996481] hndz cala sys clk best_sysdiv 1 OV5640_PLL_PREDIV 3 pll_mult 96 best 768000000!
+[   90.003168] hndz set mode direct mode id 3!
+[   90.017283] hndz set timings ensor->fmt.code 0x2006!
+[   90.017305] hndz get ov5640 timings!
+[   90.017320] hndz ov5640is  csi2 type 5
+[   90.028371] hndz set autogain 1!
+[   90.029647] hndz set autoexposuer!
+[   90.031836] hndz set binning 1!
+[   90.032999] hndz set ae target 52!
+[   90.037334] hndz get light freq 50!
+[   90.037356] hndz set banding filter!
+[   90.040678] hndz vco is 76800 xvclk 2400 multiplier 96 prediv 3!
+[   90.040702] hndz  SysDiv 1 Pll_rdiv 2  Bit_div2x 4 sclk_rdiv 2 !
+[   90.040717] hndz sys clk is 9600!
+[   90.041895] hndz get hts 1600!
+[   90.043070] hndz get vts 1000!
+[   90.046391] hndz set virtual channel 42!
+[   90.046864] hndz set frame fmt!
+[   90.046884] hndz ov5640is  csi2 type 5
+[   90.046891] hndz no find pixfmt!
+[   90.046914] hndz pixfmt 0x4001!
+[   90.051455] hndz set power mipi 1!
+[   90.053909] hndz ov5640_s_ctrl ctrl id 0x9e0901!
+[   90.053929] hndz get ov5640 timings!
+[   90.053944] hndz ov5640is  csi2 type 5
+[   90.053957] hndz ov5640_set_ctrl_vblank value 520!
+[   90.055018] hndz ov5640_s_ctrl ctrl id 0x98090c!
+[   90.055044] hndz ov5640_set_ctrl_white_balance value 1!
+[   90.056099] hndz ov5640_s_ctrl ctrl id 0x9a0901!
+[   90.056120] hndz ov5640_set_ctrl_exposure value 0!
+[   90.056134] hndz set autoexposuer!
+[   90.057184] hndz ov5640_s_ctrl ctrl id 0x980912!
+[   90.057205] hndz ov5640_set_ctrl_gain value 1!
+[   90.057219] hndz set autogain 1!
+[   90.058448] hndz ov5640_s_ctrl ctrl id 0x980902!
+[   90.058473] hndz ov5640_set_ctrl_saturation value 64!
+[   90.060437] hndz ov5640_s_ctrl ctrl id 0x980903!
+[   90.061568] hndz ov5640_set_ctrl_hue value 0!
+[   90.061597] hndz ov5640_s_ctrl ctrl id 0x980901!
+[   90.061620] hndz ov5640_set_ctrl_contrast value 0!
+[   90.062674] hndz ov5640_s_ctrl ctrl id 0x9f0903!
+[   90.062694] hndz set ctrl test pattern value 0!
+[   90.063170] hndz ov5640_s_ctrl ctrl id 0x980914!
+[   90.063190] hndz ov5640_set_ctrl_hflip value 0!
+[   90.064241] hndz ov5640_s_ctrl ctrl id 0x980915!
+[   90.064261] hndz ov5640_set_ctrl_vflip value 0!
+[   90.065314] hndz ov5640_s_ctrl ctrl id 0x980918!
+[   90.065334] hndz ov5640_set_ctrl_light_freq value 1!
+[   90.067414] hndz ov5640is  csi2 type 5
+[   90.067423] hndz set stream mipi on 1!
+[   90.070720] rkcif-mipi-lvds2: ERROR: csi size err, intstat:0x1000001, lastline:0!!
+[   90.070759] mipi2-csi2 ERR1:0x10 (fs/fe mis,vc: 0) 
+[   90.071077] mipi2-csi2 ERR1:0x100 (f_seq,vc: 0) 
+[   92.165501] rkcif-mipi-lvds2: stream[0] start stopping, total mode 0x1, cur 0x1
+[   92.165748] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream off, src_sd: 0000000056fa2b83, sd_name:rockchip-csi2-dphy0
+[   92.165760] rockchip-mipi-csi2 fdd30000.mipi2-csi2: stream OFF
+[   92.166805] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream_stop stream stop, dphy0
+[   92.166815] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[   92.166837] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[   92.166845] hndz ov5640_s_stream enable 0!
+[   92.166852] hndz ov5640is  csi2 type 5
+[   92.166855] hndz set stream mipi on 0!
+[   92.167737] hndz ov5640_sensor_suspend!
+[   92.167746] hndz set power 0!
+[   92.167753] hndz set power mipi 0!
+[   92.169016] hndz set power off!
+[   92.174128] rkcif-mipi-lvds2: stream[0] sto
+
+
