@@ -3805,17 +3805,19 @@ static int ov5640_s_stream(struct v4l2_subdev *sd, int enable)
 			return ret;
 		}
 	}
-
+	printk("hndz set streaming %d!\n", sensor->pending_mode_change);
 	mutex_lock(&sensor->lock);
 
 	if (sensor->streaming == !enable) {
 		if (enable && sensor->pending_mode_change) {
+			printk("hndz ovvvvset mode!\n");
 			ret = ov5640_set_mode(sensor);
 			if (ret)
 				goto out;
 		}
 
 		if (enable && sensor->pending_fmt_change) {
+			printk("hndz ssssframefmt!\n");
 			ret = ov5640_set_framefmt(sensor, &sensor->fmt);
 			if (ret)
 				goto out;
