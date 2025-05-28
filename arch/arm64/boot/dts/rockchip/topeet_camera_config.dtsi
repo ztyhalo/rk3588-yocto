@@ -527,7 +527,7 @@
                 };
         };
 };
-/*
+
 &rkcif_mipi_lvds2_sditf {
         status = "okay";
 
@@ -537,12 +537,12 @@
                 };
         };
 };
-*/
+
 
 &rkcif_mmu {
         status = "okay";
 };
-/*
+
 &rkisp0 {
         status = "okay";
 };
@@ -564,7 +564,7 @@
                 };
         };
 };
-*/
+
 
 #endif
 
