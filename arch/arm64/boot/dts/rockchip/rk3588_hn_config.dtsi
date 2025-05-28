@@ -74,7 +74,7 @@
 	assigned-clocks = <&cru CLK_CAN0>;
 	assigned-clock-rates = <200000000>;
 };
-
+/*
 &can1 {
 	status = "disable";
 	compatible = "rockchip,canfd-1.0"; //使用canfd
@@ -90,7 +90,9 @@
 	assigned-clocks = <&cru CLK_CAN2>;
 	assigned-clock-rates = <200000000>;
 };
+*/
 
+/*
 //485
 &uart0 {
 	status = "disable";
@@ -112,10 +114,10 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart8m0_xfer>;
 };
-
+*/
 &uart9 {
-	status = "disable";
-//	dma-names = "tx", "rx"; //使用dma传输模式
+	status = "okay";
+	dma-names = "tx", "rx"; //使用dma传输模式
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart9m1_xfer>;
 };
