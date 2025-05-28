@@ -903,7 +903,7 @@
 #endif
 
 &usbdp_phy0 {
-	status = "disable";
+	status = "okay";
 	orientation-switch;
         svid = <0xff01>;
         sbu1-dc-gpios = <&gpio4 RK_PA6 GPIO_ACTIVE_HIGH>;
@@ -925,11 +925,11 @@
 };
 
 &usbdp_phy0_dp {
-	status = "disable";
+	status = "okay";
 };
 
 &usbdp_phy0_u3 {
-	status = "disable";
+	status = "okay";
 };
 
 &usbdp_phy1 {
